@@ -25,7 +25,7 @@ export async function GET() {
   <channel>
     <title>LifeFit</title>
     <link>${siteUrl}</link>
-    <description>내 삶에 딱 맞는 맞춤형 정부지원금 & 복지 가이드</description>
+    <description>내 삶에 딱 맞는 맞춤형 정부지원금 &amp; 복지 가이드</description>
 ${rssItems}
   </channel>
 </rss>`;
