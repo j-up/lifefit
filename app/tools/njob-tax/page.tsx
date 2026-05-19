@@ -152,6 +152,20 @@ export default function NJobTaxPage() {
 
   return (
     <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "2026 N잡러 종합소득세 및 건보료 폭탄 계산기",
+            url: "https://lifefit.kr/tools/njob-tax",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "All",
+            description: "2026년 기준 직장인 부업 및 프리랜서 종합소득세 신고 후 건강보험료 인상액 및 피부양자 탈락 리스크 모의계산기",
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 네비게이션 */}
         <div className="flex items-center gap-4 mb-4">
@@ -558,7 +572,21 @@ export default function NJobTaxPage() {
               국세청 홈택스에서 확인하시기 바랍니다.
             </li>
           </ul>
-        </div>
+        {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
+        <article className="mt-8 p-5 bg-white rounded-2xl border border-[#e5e8eb] text-sm text-[#4e5968] leading-relaxed">
+          <h2 className="text-base font-bold text-[#191f28] mb-3">
+            2026년 기준 종합소득세 및 건강보험료 피부양자 자격 요건 안내
+          </h2>
+          <p className="mb-2">
+            본 계산기는 2026년 국민건강보험법 시행령 및 소득세법을 기반으로 제작된 <strong>N잡러 및 프리랜서 전용 실수령액 모의계산 애플리케이션</strong>입니다.
+          </p>
+          <p className="mb-2">
+            직장 가입자의 경우 연간 보수 외 소득(부수입 등)이 <strong>2,000만 원</strong>을 초과할 경우 소득월액보험료가 추가로 고지되며, 이는 직장 건보료와 별도로 납부해야 하는 '건보료 폭탄'의 원인이 될 수 있습니다.
+          </p>
+          <p>
+            피부양자 자격을 유지하기 위해서는 연 소득금액 합계액이 <strong>3,400만 원 이하</strong>여야 하나, 사업자등록증이 있는 경우 단 1원의 사업소득이라도 발생 시 자격이 즉각 박탈됩니다. (프리랜서 3.3% 원천징수 등 사업자 미등록 시 500만 원 이하 유지 필요) 반드시 5월 종합소득세 신고 전 본인의 예상 과세표준을 미리 모의계산하여 불이익을 방지하시기 바랍니다.
+          </p>
+        </article>
       </div>
     </main>
   );

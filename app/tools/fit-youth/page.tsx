@@ -126,8 +126,22 @@ export default function HomePage() {
   }, [answers]);
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-6">
-      <div className="mx-auto max-w-md">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "2026 청년 주거지원 대상자 판별기",
+            url: "https://lifefit.kr/tools/fit-youth",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "All",
+            description: "2026년 청년월세 특별지원 및 주거지원 혜택 대상 여부를 중위소득 및 재산 기준으로 빠르게 판별해 드립니다.",
+          }),
+        }}
+      />
+      <div className="w-full max-w-md">
         {/* 메인으로 가기 */}
         <Link
           href="/"
@@ -451,6 +465,22 @@ function ResultScreen({
       >
         다시 확인하기
       </button>
+
+      {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
+      <article className="mt-8 p-5 bg-white rounded-2xl border border-gray-200 text-sm text-gray-600 leading-relaxed text-left">
+        <h2 className="text-base font-bold text-gray-900 mb-3">
+          2026년 청년월세 특별지원 및 주거지원 소득/자산 요건 안내
+        </h2>
+        <p className="mb-2">
+          본 애플리케이션은 국토교통부의 <strong>2026년 청년월세 특별지원 기준</strong>을 토대로 제작된 모의계산 및 판별 도구입니다.
+        </p>
+        <p className="mb-2">
+          청년월세 특별지원은 만 19세~34세 독립 거주 무주택 청년 중, 청년가구 중위소득 60% 이하이면서 원가구 중위소득 100% 이하인 대상에게 <strong>최대 12개월간 매월 20만 원의 월세</strong>를 지원하는 제도입니다. (2026년 기준)
+        </p>
+        <p>
+          지원 대상에 선정되기 위해서는 소득 요건 외에도 총재산 가액 1억 2천2백만 원 이하(청년 독립가구 기준) 등 세부 자산 기준을 충족해야 합니다. 모의계산 결과는 참고용이며, 최종 대상 여부는 복지로(bokjiro.go.kr) 또는 마이홈 포털에서 확정 확인이 필요합니다.
+        </p>
+      </article>
     </div>
   );
 }

@@ -130,6 +130,20 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "2026 육아기 근로시간 단축 급여 계산기",
+            url: "https://lifefit.kr/tools/short-work",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "All",
+            description: "2026년 기준 육아기 근로시간 단축 급여액, 회사 지급액, 고용보험 지원금 및 최종 실수령액 모의계산기",
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 메인으로 가기 */}
         <Link
@@ -565,6 +579,21 @@ export default function Home() {
           실제 지급액과 차이가 있을 수 있으니 고용노동부 또는 관할 고용센터에
           확인하시기 바랍니다.
         </p>
+        {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
+        <article className="mt-8 p-5 bg-white rounded-2xl border border-[#e5e8eb] text-sm text-[#4e5968] leading-relaxed">
+          <h2 className="text-base font-bold text-[#191f28] mb-3">
+            2026년 고용노동부 고시 기준 육아기 근로시간 단축 급여 지급 기준 안내
+          </h2>
+          <p className="mb-2">
+            본 계산기는 고용보험법에 명시된 <strong>2026년 최신 육아기 근로시간 단축 급여 산정 방식</strong>을 기반으로 제작되었습니다.
+          </p>
+          <p className="mb-2">
+            자녀가 만 12세 이하(초등학교 6학년 이하)인 근로자는 주 15시간~35시간 사이로 단축 근무를 신청할 수 있습니다. 단축 후 최초 12개월 동안은 <strong>통상임금의 100% (상한액 200만 원)</strong>를 기준으로 고용보험에서 단축된 시간만큼 비례하여 급여를 지원합니다.
+          </p>
+          <p>
+            근로자는 회사로부터 단축된 근무 시간에 비례한 임금을 지급받으며, 고용보험의 지원금을 합산하여 실질적인 급여 감소를 최소화할 수 있습니다. 본 모의계산 결과는 예상치이므로 정확한 실수령액은 관할 고용센터를 통해 확인하시기 바랍니다.
+          </p>
+        </article>
       </div>
     </main>
   );
