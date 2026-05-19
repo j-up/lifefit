@@ -16,6 +16,19 @@ export async function generateStaticParams() {
   }));
 }
 
+function getOgImageUrl(imageUrl: string): string {
+  // Unsplash URL을 1200×630 OG 최적화 크기로 변환
+  if (imageUrl.includes("images.unsplash.com")) {
+    const url = new URL(imageUrl);
+    url.searchParams.set("w", "1200");
+    url.searchParams.set("h", "630");
+    url.searchParams.set("fit", "crop");
+    url.searchParams.set("q", "80");
+    return url.toString();
+  }
+  return imageUrl;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
@@ -26,6 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       robots: { index: false },
     };
   }
+
+  const ogImage = getOgImageUrl(post.image);
 
   return {
     title: post.title,
@@ -41,9 +56,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "LifeFit",
       images: [
         {
-          url: post.image,
-          width: 800,
-          height: 533,
+          url: ogImage,
+          width: 1200,
+          height: 630,
           alt: post.title,
         },
       ],
@@ -56,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: post.title,
       description: post.summary,
-      images: [post.image],
+      images: [ogImage],
     },
   };
 }
@@ -69,12 +84,12 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const jsonLd = {
+  const jsonLdArticle = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.summary,
-    image: post.image,
+    image: getOgImageUrl(post.image),
     datePublished: post.date,
     dateModified: post.date,
     author: {
@@ -96,12 +111,42 @@ export default async function PostPage({ params }: Props) {
     },
   };
 
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: "https://lifefit.kr",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "최신 정보 및 가이드",
+        item: "https://lifefit.kr/#guides",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://lifefit.kr/posts/${post.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      {/* JSON-LD Structured Data */}
+      {/* JSON-LD: Article */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
       />
 
       {/* Header */}
@@ -187,10 +232,6 @@ export default async function PostPage({ params }: Props) {
           </div>
         </article>
 
-        {/* AdSense Area */}
-        <div className="mt-8 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white text-sm text-gray-400">
-          AdSense 광고 영역
-        </div>
       </main>
 
       {/* Footer */}

@@ -20,23 +20,23 @@ export const postsPart2: Post[] = [
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
     category: "복지·정책",
     readTime: "6분",
-    content: `<p>정부 복지 정책을 알아보다 볩면 "기준 중위소득 50% 이하" "기준 중위소득 120% 이하" 같은 말을 자주 보셨을 겁니다. 이 숫자가 뭔지 모륵는 분들이 대부분인데요, 사실 이 숫자 하나만 알면 내가 어떤 지원을 받을 수 있는지 거의 다 알 수 있습니다. 오늘은 이 <strong>"기준 중위소득"</strong>이라는 게 대체 뭔지, 2026년에는 얼마인지, 어떻게 활용하는지 쉽게 설명해 드리겠습니다.</p>
+    content: `<p>정부 복지 정책을 알아보다 보면 "기준 중위소득 50% 이하" "기준 중위소득 120% 이하" 같은 말을 자주 보셨을 겁니다. 이 숫자가 뭔지 모르는 분들이 대부분인데요, 사실 이 숫자 하나만 알면 내가 어떤 지원을 받을 수 있는지 거의 다 알 수 있습니다. 오늘은 이 <strong>"기준 중위소득"</strong>이라는 게 대체 뭔지, 2026년에는 얼마인지, 어떻게 활용하는지 쉽게 설명해 드리겠습니다.</p>
 
 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="기준 중위소득 개념 설명" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2 class="text-2xl font-bold mt-8 mb-4">기준 중위소득이란 뭘까요?</h2>
 
-<p>기준 중위소득은 말 그대로 <strong>"모든 가구의 소득을 줄 세웠을 때 정확히 가욱데 있는 값"</strong>입니다. 평균이 아니라 중간값이라는 점이 중요해요. 예를 들어 5개 가구의 소득이 200만 원, 300만 원, 400만 원, 800만 원, 1,000만 원이라면, 평균은 540만 원이지만 중위값(정확히 가욱데)은 <strong>400만 원</strong>입니다.</p>
+<p>기준 중위소득은 말 그대로 <strong>"모든 가구의 소득을 줄 세웠을 때 정확히 가운데 있는 값"</strong>입니다. 평균이 아니라 중간값이라는 점이 중요해요. 예를 들어 5개 가구의 소득이 200만 원, 300만 원, 400만 원, 800만 원, 1,000만 원이라면, 평균은 540만 원이지만 중위값(정확히 가운데)은 <strong>400만 원</strong>입니다.</p>
 
 <p>왜 평균이 아니라 중간값을 쓸까요? 소득은 항상 소수의 초고소득자가 평균을 확 끌어올리기 때문이에요. 평균으로 하면 실제 생활이 어려운 분들도 지원 대상에서 빠질 수 있어서, 정부는 더 공정한 기준으로 중간값을 선택했습니다.</p>
 
 <h3 class="text-xl font-semibold mt-6 mb-3">누가 발표하나요?</h3>
 
-<p>기준 중위소득은 <strong>보걱복지부</strong>가 매년 발표합니다. 보통 전년도 하반기에 다음 해 기준을 발표하며, 전국 가구를 대상으로 한 가계금융복지조사 결과를 바탕으로 산정됩니다. 2026년 기준 중위소득은 <strong>2025년 12월에 발표</strong>되었으니, 이미 확정된 숫자입니다.</p>
+<p>기준 중위소득은 <strong>보건복지부</strong>가 매년 발표합니다. 보통 전년도 하반기에 다음 해 기준을 발표하며, 전국 가구를 대상으로 한 가계금융복지조사 결과를 바탕으로 산정됩니다. 2026년 기준 중위소득은 <strong>2025년 12월에 발표</strong>되었으니, 이미 확정된 숫자입니다.</p>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">2026년 기준 중위소득표 (가구원수별)</h2>
 
-<p>기준 중위소득은 가구원수(집에 사는 사람 수)에 따라 달라집니다. 혼자 사는 분과 네 식구가 사는 분이 같은 기준을 쓸 수는 없으니까요. 아래 표를 볩면 내 가구의 기준이 얼마인지 바로 알 수 있습니다.</p>
+<p>기준 중위소득은 가구원수(집에 사는 사람 수)에 따라 달라집니다. 혼자 사는 분과 네 식구가 사는 분이 같은 기준을 쓸 수는 없으니까요. 아래 표를 보면 내 가구의 기준이 얼마인지 바로 알 수 있습니다.</p>
 
 <table class="w-full text-sm my-6 border-collapse">
   <thead class="bg-gray-100">
@@ -105,7 +105,7 @@ export const postsPart2: Post[] = [
 
 <p>기준 중위소득은 거의 모든 복지 정책의 <strong>"입구"</strong> 역할을 합니다. 소득 기준에 해당하면 지원받을 자격이 생기는 거죠. 대표적인 정책들을 살펴볼까요?</p>
 
-<h3 class="text-xl font-semibold mt-6 mb-3">1. 청년월세 한부 지원</h3>
+<h3 class="text-xl font-semibold mt-6 mb-3">1. 청년월세 특별지원</h3>
 <p>만 19~34세 청년 중 기준 중위소득 <strong>120% 이하</strong>이면 매월 최대 20만 원의 월세를 지원받을 수 있습니다. 서울에 혼자 사는 29세 직장인 A씨의 경우, 월 소득이 약 250만 원이면 기준 중위소득(1인 208만 원)의 120%인 250만 원보다 낮으니 지원 대상이 됩니다.</p>
 
 <h3 class="text-xl font-semibold mt-6 mb-3">2. 국가장학금</h3>
@@ -145,7 +145,7 @@ export const postsPart2: Post[] = [
   <li>근로장려금 (80% 이하) → <strong>해당 불가</strong></li>
 </ul>
 
-<p>이처럼 자신의 소득이 기준 중위소득의 몇 %인지 계산해 볩면, 어떤 정책에 해당하는지 한눈에 파악할 수 있습니다.</p>
+<p>이처럼 자신의 소득이 기준 중위소득의 몇 %인지 계산해 보면, 어떤 정책에 해당하는지 한눈에 파악할 수 있습니다.</p>
 
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
   <p class="font-semibold text-amber-800">⚠️ 주의: 재산 기준도 함께 확인하세요</p>
@@ -206,7 +206,7 @@ export const postsPart2: Post[] = [
     image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
     category: "금융·청년",
     readTime: "8분",
-    content: `<p>청년이라면 누구나 한 번쯤 들어 봤을 "청년도약계좌"와 "청년 주택드림 청약통장". 이름만 볩면 둘 다 청년을 위한 듯한데, 실제로는 목적도, 혜택도, 대상도 완전히 다릅니다. 하나는 <strong>자산 형성</strong>을, 다른 하나는 <strong>내 집 마련</strong>을 목표로 합니다. 오늘은 이 두 상품을 깊이 비교하고, 여러분 상황에 딱 맞는 선택 가이드를 드리겠습니다.</p>
+    content: `<p>청년이라면 누구나 한 번쯤 들어 봤을 "청년도약계좌"와 "청년 주택드림 청약통장". 이름만 보면 둘 다 청년을 위한 듯한데, 실제로는 목적도, 혜택도, 대상도 완전히 다릅니다. 하나는 <strong>자산 형성</strong>을, 다른 하나는 <strong>내 집 마련</strong>을 목표로 합니다. 오늘은 이 두 상품을 깊이 비교하고, 여러분 상황에 딱 맞는 선택 가이드를 드리겠습니다.</p>
 
 <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80" alt="청년 금융 상품 비교" class="w-full rounded-xl my-6 object-cover h-64">
 
@@ -365,7 +365,7 @@ export const postsPart2: Post[] = [
   </tbody>
 </table>
 
-<p>순수 금액만 볩면 청년도약계좌가 앞서지만, 청년 주택드림 청약통장은 <strong>청약 가점과 대출 연계</strong>라는 무형의 가치가 큽니다.</p>
+<p>순수 금액만 보면 청년도약계좌가 앞서지만, 청년 주택드림 청약통장은 <strong>청약 가점과 대출 연계</strong>라는 무형의 가치가 큽니다.</p>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">어떤 상품을 선택해야 할까요?</h2>
 
@@ -857,7 +857,7 @@ export const postsPart2: Post[] = [
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
     category: "청년·일자리",
     readTime: "7분",
-    content: `<p>노트북 하나로 세계 어디서나 일하는 <strong>디지털 노마드</strong>, 유튜브와 인스타그램에서 콘텐츠를 만드는 <strong>크리에이터</strong>, 프로젝트 단위로 일하는 <strong>프리랜서</strong> — 이런 일들을 하는 청년들이 급증하고 있습니다. 하지만 정부 지원 정책을 볩면 대부분 "정규직 직장인"을 전제로 하고 있어서, 프리랜서나 자영업자는 "나는 해당 안 되겠지" 하고 그냥 지나치는 경우가 많습니다.</p>
+    content: `<p>노트북 하나로 세계 어디서나 일하는 <strong>디지털 노마드</strong>, 유튜브와 인스타그램에서 콘텐츠를 만드는 <strong>크리에이터</strong>, 프로젝트 단위로 일하는 <strong>프리랜서</strong> — 이런 일들을 하는 청년들이 급증하고 있습니다. 하지만 정부 지원 정책을 보면 대부분 "정규직 직장인"을 전제로 하고 있어서, 프리랜서나 자영업자는 "나는 해당 안 되겠지" 하고 그냥 지나치는 경우가 많습니다.</p>
 
 <p><strong>하지만 이제는 다릅니다.</strong> 2024년부터 프리랜서와 자영업자를 위한 지원 정책이 크게 확대되었습니다. 오늘은 디지털 노마드, 프리랜서, 1인 자영업 청년들도 받을 수 있는 지원 혜택을 총정리해 드리겠습니다.</p>
 
@@ -907,7 +907,7 @@ export const postsPart2: Post[] = [
 
 <p>프리랜서는 소득 증빙이 어려워서 주거 지원에서 자주 배제되었습니다. 하지만 최근에는 <strong>대안적 소득 증빙</strong>을 허용하는 경우가 늘었습니다.</p>
 
-<h3 class="text-xl font-semibold mt-6 mb-3">청년월세 한부 지원</h3>
+<h3 class="text-xl font-semibold mt-6 mb-3">청년월세 특별지원</h3>
 <p>만 19~34세 무주택 청년 중 소득 기준(기준 중위소득 120% 이하)에 해당하면 월세의 일부를 지원받습니다. 프리랜서도 <strong>소득금액증명원</strong>이나 <strong>부가가치세 표준증명</strong>, <strong>프리랜서 소득신고 확인서</strong>를 제출하면 소득 증빙이 가능합니다.</p>
 
 <ul class="list-disc pl-5 space-y-2 my-4">
@@ -964,7 +964,7 @@ export const postsPart2: Post[] = [
 
 <h2 class="text-2xl font-bold mt-8 mb-4">공유오피스와 코워킹 스페이스 지원</h2>
 
-<p>집에서만 일하다 볩면 생산성이 떨어지고 외로움도 느끼죠. 정부와 지자체는 청년 창업자들을 위해 <strong>저렴한 코워킹 스페이스</strong>를 운영하고 있습니다.</p>
+<p>집에서만 일하다 보면 생산성이 떨어지고 외로움도 느끼죠. 정부와 지자체는 청년 창업자들을 위해 <strong>저렴한 코워킹 스페이스</strong>를 운영하고 있습니다.</p>
 
 <h3 class="text-xl font-semibold mt-6 mb-3">마을기업 공유오피스</h3>
 <p>전국 곳곳에 있는 <strong>청년창업지원센터</strong>와 <strong>마을기업 공유오피스</strong>는 월 10~30만 원 수준의 저렴한 임대료에 데스크, 회의실, Wi-Fi, 프린터 등을 제공합니다. 일부는 무료로 3~6개월간 입주할 수 있는 프로그램도 있습니다.</p>
@@ -995,7 +995,7 @@ export const postsPart2: Post[] = [
 </ul>
 
 <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
-  <p class="font-semibold text-blue-800">💡 팭: 홈택스에서 간편하게 신고하세요</p>
+  <p class="font-semibold text-blue-800">💡 팁: 홈택스에서 간편하게 신고하세요</p>
   <p class="text-blue-800 mt-1">프리랜서도 홈택스(www.hometax.go.kr)에서 간편장부를 작성하면 세금 신고가 쉬워집니다. 카드 사용 내역, 현금영수증, 세금계산서 등이 자동으로 연동되므로 따로 장부를 쓸 필요가 없습니다. 5월 종합소득세 신고 기간에 꼭 활용하세요.</p>
 </div>
 
@@ -1010,7 +1010,7 @@ export const postsPart2: Post[] = [
   <li>☐ 고용보험 특고 가입 신청 (워크넷)</li>
   <li>☐ 건강보험료 경감 신청 (건강보험공단)</li>
   <li>☐ 국민연금 보험료 지원 신청 (저소득 해당 시)</li>
-  <li>☐ 청년월세 한부 지원 신청 (무주택 청년)</li>
+  <li>☐ 청년월세 특별지원 신청 (무주택 청년)</li>
   <li>☐ 소득금액증명원, 용역계약서 평소 보관</li>
   <li>☐ 홈택스 간편장부 설정 및 현금영수증 적극 발급</li>
   <li>☐ 코워킹 스페이스 입주 프로그램 확인 (창업넷)</li>
