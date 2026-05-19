@@ -402,7 +402,7 @@ export const postsPart3: Post[] = [
     slug: "youth-challenge-support",
     date: "2026-04-20",
     summary: "구직에 어려움을 겪는 청년들에게 맞춤형 프로그램을 제공하고 수당을 지원하는 사업입니다.",
-    image: "https://images.unsplash.com/photo-1521791136064-79845b86dc94?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
     category: "청년·일자리",
     readTime: "6분",
     content: `
@@ -410,7 +410,7 @@ export const postsPart3: Post[] = [
         구직 활동을 하다 보면 서류 탈락, 면접 실패, 경력 부족 등 다양한 어려움에 부딪힙니다. 이런 과정이 반복되면 점점 자신감을 잃고 "나는 안 되나 봐"라는 생각에 빠지기 쉽습니다. 심지어 구직을 아예 포기하는 <strong>구직 단념 청년</strong>도 늘고 있습니다. 정부는 이런 청년들을 위해 <strong>청년도전지원사업</strong>을 마련했습니다. 이 프로그램은 단순히 돈을 주는 것이 아니라, 청년이 다시 일어설 수 있도록 <strong>심리적 지원, 직업 훈련, 구직 매칭</strong>을 함께 제공합니다.
       </p>
 
-      <img src="https://images.unsplash.com/photo-1521791136064-79845b86dc94?auto=format&fit=crop&w=800&q=80" alt="청년들이 함께 일하는 모습" class="w-full rounded-xl my-6 object-cover h-64">
+      <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" alt="청년들이 함께 일하는 모습" class="w-full rounded-xl my-6 object-cover h-64">
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">1. 청년도전지원사업이란? — 다시 시작할 용기를 드립니다</h2>
       <p class="text-gray-700 leading-relaxed my-4">
