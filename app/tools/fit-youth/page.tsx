@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Share2 } from "lucide-react";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
@@ -60,6 +60,36 @@ export default function HomePage() {
     asset: null,
     subscription: null,
   });
+  const [isSharedResult, setIsSharedResult] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const age = params.get("age");
+      const residence = params.get("residence");
+      const income = params.get("income");
+      const asset = params.get("asset");
+      const subscription = params.get("subscription");
+
+      if (
+        age !== null &&
+        residence !== null &&
+        income !== null &&
+        asset !== null &&
+        subscription !== null
+      ) {
+        setAnswers({
+          age: age === "1",
+          residence: residence === "1",
+          income: income === "1",
+          asset: asset === "1",
+          subscription: subscription === "1",
+        });
+        setStep(6);
+        setIsSharedResult(true);
+      }
+    }
+  }, []);
 
   const handleAnswer = (value: boolean) => {
     const currentKey = STEPS[step - 1].key;
@@ -82,6 +112,10 @@ export default function HomePage() {
       subscription: null,
     });
     setStep(0);
+    setIsSharedResult(false);
+    if (typeof window !== "undefined") {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
   };
 
   const progress = useMemo(() => {
@@ -182,6 +216,7 @@ export default function HomePage() {
               subscriptionReady={result.subscriptionReady}
               answers={answers}
               onReset={handleReset}
+              isSharedResult={isSharedResult}
             />
           )}
         </div>
@@ -285,6 +320,7 @@ function ResultScreen({
   subscriptionReady,
   answers,
   onReset,
+  isSharedResult,
 }: {
   rentSupportScore: number;
   rentSupportLabel: string;
@@ -292,12 +328,13 @@ function ResultScreen({
   subscriptionReady: boolean;
   answers: Answers;
   onReset: () => void;
+  isSharedResult: boolean;
 }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleShare = async () => {
     const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${rentSupportLabel}\n✅ 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
-    const shareUrl = "https://lifefit.kr/tools/fit-youth";
+    const shareUrl = `https://lifefit.kr/tools/fit-youth?age=${answers.age ? 1 : 0}&residence=${answers.residence ? 1 : 0}&income=${answers.income ? 1 : 0}&asset=${answers.asset ? 1 : 0}&subscription=${answers.subscription ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
 
     if (navigator.share) {
@@ -323,8 +360,11 @@ function ResultScreen({
 
   return (
     <div className="animate-fade-in">
-
-
+      {isSharedResult && (
+        <div className="mb-4 w-full rounded-xl bg-blue-50 p-3 text-xs font-semibold text-blue-800 border border-blue-100 flex items-center justify-center gap-1.5">
+          <span>💌</span> 친구가 보내온 맞춤 주거지원 결과지입니다!
+        </div>
+      )}
       <div className="mb-6 text-center">
         <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 text-4xl">
           {rentSupportScore >= 95 ? "🎉" : rentSupportScore >= 60 ? "🔍" : "📋"}
@@ -493,7 +533,7 @@ function ResultScreen({
           onClick={onReset}
           className="flex-1 rounded-xl border-2 border-gray-200 bg-white py-4 text-base font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50 active:scale-[0.98]"
         >
-          다시 확인하기
+          {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
         </button>
         <button
           onClick={handleShare}

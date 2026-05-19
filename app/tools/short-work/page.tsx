@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import Link from "next/link";
 import {
   ChevronRight,
@@ -71,6 +71,26 @@ export default function Home() {
   const [reducedHours, setReducedHours] = useState<number>(30);
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [isSharedResult, setIsSharedResult] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const sal = params.get("sal");
+      const orig = params.get("orig");
+      const red = params.get("red");
+      const first = params.get("first");
+
+      if (sal !== null && orig !== null && red !== null && first !== null) {
+        setSalaryStr(sal);
+        setOriginalHours(parseInt(orig, 10));
+        setReducedHours(parseInt(red, 10));
+        setIsFirst12Months(first === "1");
+        setStep(5);
+        setIsSharedResult(true);
+      }
+    }
+  }, []);
 
   const salary = salaryStr === "" ? 0 : parseInt(salaryStr, 10) * 10_000;
 
@@ -125,7 +145,7 @@ export default function Home() {
   const handleShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
-    const shareUrl = "https://lifefit.kr/tools/short-work";
+    const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
     if (navigator.share) {
@@ -427,6 +447,11 @@ export default function Home() {
 
           {step === 5 && results && (
             <div className="space-y-6">
+              {isSharedResult && (
+                <div className="w-full rounded-xl bg-blue-50 p-3 text-xs font-semibold text-blue-800 border border-blue-100 flex items-center justify-center gap-1.5">
+                  <span>💌</span> 친구가 보내온 맞춤 단축근무 결과지입니다!
+                </div>
+              )}
 
 
               {/* Total Net */}
@@ -591,11 +616,15 @@ export default function Home() {
                     setOriginalHours(40);
                     setReducedHours(30);
                     setIsFirst12Months(null);
+                    setIsSharedResult(false);
+                    if (typeof window !== "undefined") {
+                      window.history.replaceState({}, "", window.location.pathname);
+                    }
                   }}
                   className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
                 >
                   <Calculator size={16} className="mr-1" />
-                  다시 계산하기
+                  {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                 </button>
                 <button
                   onClick={handleShare}

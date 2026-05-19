@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   Briefcase,
@@ -39,6 +39,26 @@ export default function NJobTaxPage() {
   const [sideIncomeStr, setSideIncomeStr] = useState<string>("");
   const [incomeType, setIncomeType] = useState<IncomeType>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [isSharedResult, setIsSharedResult] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const job = params.get("job");
+      const sal = params.get("sal");
+      const side = params.get("side");
+      const type = params.get("type");
+
+      if (job !== null && sal !== null && side !== null && type !== null) {
+        setHasJob(job === "1");
+        setSalaryStr(sal);
+        setSideIncomeStr(side);
+        setIncomeType(type as IncomeType);
+        setStep(5);
+        setIsSharedResult(true);
+      }
+    }
+  }, []);
 
   const salary = salaryStr === "" ? 0 : parseInt(salaryStr, 10) * 10_000;
   const sideIncome =
@@ -155,7 +175,7 @@ export default function NJobTaxPage() {
   const handleShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 N잡러 건보료 폭탄 계산기 💸\n🚨 건보료 리스크: ${results.riskMessage.split(':')[0]}\n💰 예상 추가 종소세: 약 ${formatCurrency(results.totalTax)}원`;
-    const shareUrl = "https://lifefit.kr/tools/njob-tax";
+    const shareUrl = `https://lifefit.kr/tools/njob-tax?job=${hasJob ? 1 : 0}&sal=${salaryStr}&side=${sideIncomeStr}&type=${incomeType || ""}`;
     const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
 
     if (navigator.share) {
@@ -443,6 +463,11 @@ export default function NJobTaxPage() {
 
           {step === 5 && results && (
             <div className="animate-fade-in space-y-6">
+              {isSharedResult && (
+                <div className="w-full rounded-xl bg-blue-50 p-3 text-xs font-semibold text-blue-800 border border-blue-100 flex items-center justify-center gap-1.5">
+                  <span>💌</span> 친구가 보내온 맞춤 N잡러 결과지입니다!
+                </div>
+              )}
               <div className="text-center pb-2">
                 <h2 className="text-2xl font-bold text-[#191f28]">분석 결과</h2>
                 <p className="text-sm text-[#8b95a1] mt-1">
@@ -571,17 +596,21 @@ export default function NJobTaxPage() {
             )}
             {step === 5 && (
               <div className="flex w-full gap-2">
-                <button
+                 <button
                   onClick={() => {
                     setStep(1);
                     setHasJob(null);
                     setSalaryStr("");
                     setSideIncomeStr("");
                     setIncomeType(null);
+                    setIsSharedResult(false);
+                    if (typeof window !== "undefined") {
+                      window.history.replaceState({}, "", window.location.pathname);
+                    }
                   }}
                   className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
                 >
-                  다시 계산하기
+                  {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                 </button>
                 <button
                   onClick={handleShare}
