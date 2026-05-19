@@ -39,6 +39,9 @@ export default function Home() {
             <Link href="/tools/njob-tax" className="hover:text-blue-600">
               N잡 세금 계산기
             </Link>
+            <Link href="/tools/car-bond" className="hover:text-blue-600">
+              차 채권 환급금
+            </Link>
           </nav>
         </div>
       </header>
@@ -60,7 +63,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-3">
+        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border border-blue-50 bg-blue-50/50 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
