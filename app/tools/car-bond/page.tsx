@@ -263,6 +263,20 @@ export default function CarBondPage() {
 
   return (
     <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "2026 자동차 미환급 채권 환급금 계산기",
+            url: "https://lifefit.kr/tools/car-bond",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "All",
+            description: "차량 구매 시 의무 매입한 지역개발채권·도시철도채권의 예상 환급금을 지역·배기량·구매 시기별로 모의계산하는 웹 애플리케이션",
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 메인으로 가기 */}
         <Link
