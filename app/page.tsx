@@ -11,9 +11,6 @@ export default function Home() {
             LifeFit
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium text-gray-600">
-            <Link href="/tools/njob-tax" className="hover:text-blue-600">
-              N잡 세금 계산기
-            </Link>
             <Link href="/tools/short-work" className="hover:text-blue-600">
               육아수당 계산기
             </Link>
@@ -41,7 +38,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-12 grid gap-6 sm:grid-cols-2">
           <div className="rounded-2xl border border-blue-50 bg-blue-50/50 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
@@ -50,7 +47,7 @@ export default function Home() {
               육아기 근로시간 단축 급여 계산기
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산해보세요.
+              단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산필보세요.
             </p>
             <Link
               href="/tools/short-work"
@@ -67,7 +64,7 @@ export default function Home() {
               청년 주거지원 대상자 판별기
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              내가 청년 주거지원 정책의 대상자인지 1분 만에 확인해보세요.
+              내가 청년 주거지원 정책의 대상자인지 1분 만에 확인필보세요.
             </p>
             <Link
               href="/tools/fit-youth"
@@ -76,50 +73,76 @@ export default function Home() {
               바로가기 →
             </Link>
           </div>
-          <div className="rounded-2xl border border-red-50 bg-red-50/50 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-red-600">
-              NEW! 강력 추천
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              N잡러 건보료 폭탄 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              종합소득세 신고 후 건강보험료 폭탄 및 피부양자 박탈 리스크를 미리 확인하세요.
-            </p>
-            <Link
-              href="/tools/njob-tax"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
         </div>
 
         {/* Blog Posts Grid */}
         <div>
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
-            최신 정보 및 가이드
-          </h2>
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">
+                최신 정보 및 가이드
+              </h2>
+              <p className="mt-1 text-sm text-gray-500">
+                누구나 쉽게 이해할 수 있는 복지·금융 가이드
+              </p>
+            </div>
+            <span className="text-sm text-gray-400">
+              총 {posts.length}개의 콘텐츠
+            </span>
+          </div>
+
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <article
                 key={post.id}
-                className="flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all hover:shadow-lg hover:-translate-y-1"
               >
-                <div className="flex flex-1 flex-col p-6">
-                  <span className="text-xs text-gray-400">{post.date}</span>
-                  <h3 className="mt-2 text-lg font-bold text-gray-900 hover:text-blue-600">
+                {/* Thumbnail */}
+                <Link href={`/posts/${post.slug}`} className="relative block h-48 overflow-hidden bg-gray-100">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-700 backdrop-blur-sm">
+                    {post.category}
+                  </span>
+                </Link>
+
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <span>{post.date}</span>
+                    <span>·</span>
+                    <span>{post.readTime} 소요</span>
+                  </div>
+
+                  <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
                     <Link href={`/posts/${post.slug}`}>{post.title}</Link>
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-500">
+
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-500">
                     {post.summary}
                   </p>
+
                   <div className="mt-auto pt-4">
                     <Link
                       href={`/posts/${post.slug}`}
-                      className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+                      className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
                     >
                       자세히 보기
+                      <svg
+                        className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
                     </Link>
                   </div>
                 </div>

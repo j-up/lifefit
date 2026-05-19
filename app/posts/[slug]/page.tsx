@@ -42,32 +42,72 @@ export default async function PostPage({ params }: Props) {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <article className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm sm:p-12">
-          <header className="mb-8">
-            <span className="text-sm text-gray-400">{post.date}</span>
-            <h1 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
+      <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
+        <article className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+          {/* Featured Image */}
+          <div className="relative h-56 sm:h-72">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-800 backdrop-blur-sm">
+              {post.category}
+            </span>
+          </div>
+
+          <div className="p-6 sm:p-10">
+            {/* Meta */}
+            <div className="flex items-center gap-3 text-sm text-gray-400">
+              <span>{post.date}</span>
+              <span className="h-1 w-1 rounded-full bg-gray-300" />
+              <span>{post.readTime} 소요</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="mt-3 text-2xl font-bold text-gray-900 sm:text-3xl">
               {post.title}
             </h1>
-            <p className="mt-4 text-lg text-gray-500">{post.summary}</p>
-          </header>
+            <p className="mt-3 text-base text-gray-500 sm:text-lg">
+              {post.summary}
+            </p>
 
-          <div
-            className="prose prose-blue max-w-none text-gray-600"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+            {/* Body */}
+            <div
+              className="prose prose-blue mt-8 max-w-none text-gray-600"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
 
-          <div className="mt-12 border-t border-gray-100 pt-8">
-            <Link
-              href="/"
-              className="text-sm font-semibold text-blue-600 hover:text-blue-700"
-            >
-              ← 목록으로 돌아가기
-            </Link>
+            {/* Back link */}
+            <div className="mt-12 border-t border-gray-100 pt-8">
+              <Link
+                href="/"
+                className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
+              >
+                <svg
+                  className="mr-1 h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                목록으로 돌아가기
+              </Link>
+            </div>
           </div>
         </article>
 
-
+        {/* AdSense Area */}
+        <div className="mt-8 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white text-sm text-gray-400">
+          AdSense 광고 영역
+        </div>
       </main>
 
       {/* Footer */}

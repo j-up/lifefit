@@ -120,7 +120,7 @@ export default function NJobTaxPage() {
       totalTax,
       extraHealthFee,
       isDeprived,
-      riskLevel,
+      riskLevel: riskLevel as "safe" | "warning" | "danger",
       riskMessage,
     };
   }, [step, hasJob, salary, sideIncome, incomeType]);
