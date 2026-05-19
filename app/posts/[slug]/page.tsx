@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { posts } from "@/app/data/posts";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${post.title} | LifeFit`,
+    title: post.title,
     description: post.summary,
     keywords: `${post.category}, 2026 정책, 정부 지원, 복지 정보, LifeFit`,
     alternates: {
@@ -125,10 +126,13 @@ export default async function PostPage({ params }: Props) {
         <article className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           {/* Featured Image */}
           <div className="relative h-56 sm:h-72">
-            <img
+            <Image
               src={post.image}
               alt={post.title}
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-800 backdrop-blur-sm">

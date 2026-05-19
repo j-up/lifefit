@@ -1,9 +1,28 @@
 import Link from "next/link";
+import Image from "next/image";
 import { posts } from "@/app/data/posts";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
+      {/* JSON-LD: BreadcrumbList for homepage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+            ],
+          }),
+        }}
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
@@ -119,10 +138,13 @@ export default function Home() {
               >
                 {/* Thumbnail */}
                 <Link href={`/posts/${post.slug}`} className="relative block h-48 overflow-hidden bg-gray-100">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
+                    width={400}
+                    height={267}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-700 backdrop-blur-sm">
                     {post.category}
@@ -175,7 +197,47 @@ export default function Home() {
       {/* Footer */}
       <footer className="mt-24 border-t border-gray-100 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-          <p className="text-center text-sm text-gray-400">
+          <div className="mb-8 grid gap-6 sm:grid-cols-3 text-sm">
+            <div>
+              <h3 className="mb-3 font-bold text-gray-900">도구</h3>
+              <ul className="space-y-2 text-gray-500">
+                <li>
+                  <Link href="/tools/short-work" className="hover:text-blue-600 transition-colors">
+                    육아기 단축근무 급여 계산기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tools/fit-youth" className="hover:text-blue-600 transition-colors">
+                    청년 주거지원 대상자 판별기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tools/njob-tax" className="hover:text-blue-600 transition-colors">
+                    N잡러 건보료 폭탄 계산기
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-3 font-bold text-gray-900">인기 가이드</h3>
+              <ul className="space-y-2 text-gray-500">
+                {posts.slice(0, 3).map((post) => (
+                  <li key={post.id}>
+                    <Link href={`/posts/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1">
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-3 font-bold text-gray-900">LifeFit</h3>
+              <p className="text-gray-500 leading-relaxed">
+                내 삶에 딱 맞는 정부 지원금과 복지 혜택을 가장 쉽고 빠르게 찾아주는 서비스입니다.
+              </p>
+            </div>
+          </div>
+          <p className="text-center text-sm text-gray-400 border-t border-gray-100 pt-6">
             © 2026 LifeFit. All rights reserved.
           </p>
         </div>
