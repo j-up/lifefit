@@ -17,6 +17,9 @@ export default function Home() {
             <Link href="/tools/fit-youth" className="hover:text-blue-600">
               월세지원 계산기
             </Link>
+            <Link href="/tools/njob-tax" className="hover:text-blue-600">
+              N잡 세금 계산기
+            </Link>
           </nav>
         </div>
       </header>
@@ -38,7 +41,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2">
+        <div className="mb-12 grid gap-6 sm:grid-cols-3">
           <div className="rounded-2xl border border-blue-50 bg-blue-50/50 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
@@ -69,6 +72,23 @@ export default function Home() {
             <Link
               href="/tools/fit-youth"
               className="mt-4 inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700"
+            >
+              바로가기 →
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-teal-50 bg-teal-50/50 p-6 transition-all hover:shadow-sm">
+            <span className="text-xs font-semibold uppercase text-teal-600">
+              추천 도구
+            </span>
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              N잡러 세금·건보료 폭탄 계산기
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              종합소득세 신고 후 건강보험료 인상과 피부양자 탈락 리스크를 확인하세요.
+            </p>
+            <Link
+              href="/tools/njob-tax"
+              className="mt-4 inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700"
             >
               바로가기 →
             </Link>
