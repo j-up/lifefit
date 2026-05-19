@@ -519,11 +519,6 @@ export default function CarBondPage() {
                 </div>
               )}
 
-              {/* 광고 플레이스홀더 상단 */}
-              <div className="w-full h-[90px] bg-[#f2f4f6] rounded-xl border border-dashed border-[#d1d6db] flex items-center justify-center text-xs text-[#b0b8c1]">
-                AdSense 광고 영역
-              </div>
-
               {/* 만기/시효 경고 */}
               {results.isExpired && (
                 <div className="rounded-2xl bg-[#fff0f0] p-4 text-sm text-[#b91c1c] leading-relaxed border border-[#fecaca]">
@@ -672,10 +667,6 @@ export default function CarBondPage() {
                 </div>
               </div>
 
-              {/* 광고 플레이스홀더 하단 */}
-              <div className="w-full h-[90px] bg-[#f2f4f6] rounded-xl border border-dashed border-[#d1d6db] flex items-center justify-center text-xs text-[#b0b8c1]">
-                AdSense 광고 영역
-              </div>
 
               {/* 지자체별 금고 은행 링크 */}
               <div className="space-y-3">
