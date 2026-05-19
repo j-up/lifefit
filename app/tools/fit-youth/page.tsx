@@ -128,6 +128,13 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-6">
       <div className="mx-auto max-w-md">
+        {/* 메인으로 가기 */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors mb-4"
+        >
+          ← 메인으로 돌아가기
+        </Link>
         {/* 진행률 표시 */}
         <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
           <div

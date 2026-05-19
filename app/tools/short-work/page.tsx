@@ -131,6 +131,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
       <div className="w-full max-w-[420px]">
+        {/* 메인으로 가기 */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors mb-4"
+        >
+          ← 메인으로 돌아가기
+        </Link>
         {/* Header */}
         <div className="mb-6 text-center">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#3182f6] text-white mb-3 shadow-lg shadow-blue-200">

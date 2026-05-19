@@ -85,7 +85,21 @@ export default function BanksPage() {
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-6">
       <div className="mx-auto max-w-md">
-
+        {/* 메인으로 가기 */}
+        <div className="flex items-center gap-4 mb-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors"
+          >
+            ← 메인으로
+          </Link>
+          <Link
+            href="/tools/fit-youth"
+            className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors"
+          >
+            ← 계산기로
+          </Link>
+        </div>
 
         <div className="mb-6">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">

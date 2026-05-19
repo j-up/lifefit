@@ -156,13 +156,21 @@ export default function ParkingPage() {
       <div className="w-full max-w-[480px]">
         {/* Header */}
         <div className="mb-6">
-          <Link
-            href="/tools/short-work"
-            className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors mb-3"
-          >
-            <ArrowLeft size={16} />
-            계산기로 돌아가기
-          </Link>
+          <div className="flex items-center gap-4 mb-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors"
+            >
+              ← 메인으로
+            </Link>
+            <Link
+              href="/tools/short-work"
+              className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors"
+            >
+              <ArrowLeft size={16} />
+              계산기로
+            </Link>
+          </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#00c471] text-white mb-3 shadow-lg shadow-green-200">
               <PiggyBank size={24} />
