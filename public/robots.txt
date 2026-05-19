@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lifefit.kr/sitemap.xml
