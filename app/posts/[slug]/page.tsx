@@ -66,10 +66,7 @@ export default function PostPage({ params }: Props) {
           </div>
         </article>
 
-        {/* AdSense Area */}
-        <div className="mt-8 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white text-sm text-gray-400">
-          AdSense 광고 영역
-        </div>
+
       </main>
 
       {/* Footer */}

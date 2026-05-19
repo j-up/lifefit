@@ -408,10 +408,7 @@ export default function ParkingPage() {
           </div>
         )}
 
-        {/* AdSense Placeholder */}
-        <div className="w-full h-[90px] bg-[#f2f4f6] rounded-2xl flex items-center justify-center border border-dashed border-[#d1d6db] mb-6">
-          <p className="text-xs text-[#8b95a1]">광고 영역 (AdSense)</p>
-        </div>
+
 
         {/* Disclaimer */}
         <div className="rounded-2xl bg-[#fff8db] p-4 text-xs text-[#8b6a00] leading-relaxed">

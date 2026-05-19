@@ -85,10 +85,7 @@ export default function BanksPage() {
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-6">
       <div className="mx-auto max-w-md">
-        {/* 상단 광고 영역 */}
-        <div className="mb-6 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-          AdSense 상단 배너 영역
-        </div>
+
 
         <div className="mb-6">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -140,10 +137,7 @@ export default function BanksPage() {
           ))}
         </div>
 
-        {/* 하단 광고 영역 */}
-        <div className="mt-6 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-          AdSense 하단 배너 영역
-        </div>
+
 
         {/* 나이 배너 CTA */}
         <div className="mt-6 rounded-xl bg-blue-600 p-5 text-white">

@@ -377,10 +377,7 @@ export default function Home() {
 
           {step === 5 && results && (
             <div className="space-y-6">
-              {/* AdSense Top Placeholder */}
-              <div className="w-full h-[90px] bg-[#f2f4f6] rounded-2xl flex items-center justify-center border border-dashed border-[#d1d6db]">
-                <p className="text-xs text-[#8b95a1]">광고 영역 (AdSense)</p>
-              </div>
+
 
               {/* Total Net */}
               <div className="text-center py-4">
@@ -497,10 +494,7 @@ export default function Home() {
                 </ul>
               </div>
 
-              {/* AdSense Bottom Placeholder */}
-              <div className="w-full h-[90px] bg-[#f2f4f6] rounded-2xl flex items-center justify-center border border-dashed border-[#d1d6db]">
-                <p className="text-xs text-[#8b95a1]">광고 영역 (AdSense)</p>
-              </div>
+
 
               {/* CTA */}
               <Link

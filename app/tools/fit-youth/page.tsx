@@ -273,11 +273,7 @@ function ResultScreen({
 }) {
   return (
     <div className="animate-fade-in">
-      {/* 광고/제휴 마케팅 영역: 상단 AdSense 플레이스홀더 시작 */}
-      <div className="mb-6 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-        AdSense 상단 배너 영역
-      </div>
-      {/* 광고/제휴 마케팅 영역: 상단 AdSense 플레이스홀더 끝 */}
+
 
       <div className="mb-6 text-center">
         <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 text-4xl">
@@ -432,11 +428,7 @@ function ResultScreen({
         </ul>
       </div>
 
-      {/* 광고/제휴 마케팅 영역: 하단 AdSense 플레이스홀더 시작 */}
-      <div className="mb-6 flex h-24 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-        AdSense 하단 배너 영역
-      </div>
-      {/* 광고/제휴 마케팅 영역: 하단 AdSense 플레이스홀더 끝 */}
+
 
       {/* 제휴 마케팅 CTA 버튼 — 내부 랜딩 페이지로 연결 */}
       <Link
