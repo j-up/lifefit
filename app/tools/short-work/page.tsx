@@ -124,11 +124,12 @@ export default function Home() {
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.total)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)\n\n👉 나도 1분 만에 계산해보기:\nhttps://lifefit.kr/tools/short-work`;
+      await navigator.clipboard.writeText(resultText);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
-      alert("링크 복사에 실패했습니다.");
+      alert("복사에 실패했습니다.");
     }
   };
 

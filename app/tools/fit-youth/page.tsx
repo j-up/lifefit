@@ -297,11 +297,12 @@ function ResultScreen({
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${results.rentSupportLabel}\n✅ 청년 주택드림 청약: ${results.dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}\n\n👉 나도 1분 만에 대상자인지 확인하기:\nhttps://lifefit.kr/tools/fit-youth`;
+      await navigator.clipboard.writeText(resultText);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
-      alert("링크 복사에 실패했습니다.");
+      alert("복사에 실패했습니다.");
     }
   };
 
