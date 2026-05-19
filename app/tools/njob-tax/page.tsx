@@ -480,36 +480,24 @@ export default function NJobTaxPage() {
                 </div>
               </div>
 
-              {/* CPA 제휴 마케팅 영역 (CTA 버튼) */}
+              {/* 외부 서비스 링크 영역 (CTA 버튼) */}
               <div className="space-y-3 pt-4">
-                <Link
-                  href="#"
+                <a
+                  href="https://www.hometax.go.kr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-between w-full p-4 rounded-2xl bg-[#191f28] text-white hover:bg-[#333d4b] transition-colors shadow-lg"
                 >
                   <div className="text-left">
                     <p className="text-xs text-[#b0b8c1] mb-1">
-                      세금 줄이고 건보료 폭탄 피하기
-                    </p>
-                    <p className="font-bold text-[15px]">
-                      전문 세무사 무료 상담 받기
-                    </p>
-                  </div>
-                  <ChevronRight size={20} className="text-[#8b95a1]" />
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center justify-between w-full p-4 rounded-2xl bg-white border-2 border-[#3182f6] text-[#3182f6] hover:bg-[#e8f3ff] transition-colors"
-                >
-                  <div className="text-left">
-                    <p className="text-xs text-[#8b95a1] mb-1">
                       놓친 세금이 있는지 확인
                     </p>
                     <p className="font-bold text-[15px]">
-                      종합소득세 환급액 간편 조회
+                      국세청 홈택스 간편 조회 가기
                     </p>
                   </div>
-                  <ChevronRight size={20} />
-                </Link>
+                  <ChevronRight size={20} className="text-[#8b95a1]" />
+                </a>
               </div>
             </div>
           )}
