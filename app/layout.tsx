@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "LifeFit - 생활을 더 건강하고 풍요롭게",
   description: "육아기 단축근무, 청년 주거지원 등 각종 복지 혜택과 정부 정책 정보를 한눈에 확인하세요.",
+  openGraph: {
+    title: "LifeFit (라이프핏) - 청년·육아 복지 지원금 가이드 및 계산기",
+    description: "2026년 청년 월세 지원부터 육아기 단축근무 급여 계산까지! 복잡한 정부 정책을 LifeFit에서 가장 쉽고 빠르게 확인하세요.",
+    url: "https://lifefit.kr",
+    siteName: "LifeFit",
+    locale: "ko_KR",
+    type: "website",
+  },
   verification: {
     google: "8ORgAQ1y7T1TywdMGnJt933zXw8x_-9l6Q5_8x1qR48",
   },
