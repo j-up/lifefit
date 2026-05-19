@@ -153,13 +153,28 @@ export default function NJobTaxPage() {
   };
 
   const handleShare = async () => {
-    try {
-      const resultText = `[LifeFit] 2026 N잡러 건보료 폭탄 계산기 💸\n🚨 건보료 리스크: ${results ? results.riskMessage.split(':')[0] : '확인 필요'}\n💰 예상 추가 종소세: 약 ${results ? formatCurrency(results.totalTax) : 0}원\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\nhttps://lifefit.kr/tools/njob-tax`;
-      await navigator.clipboard.writeText(resultText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      alert("복사에 실패했습니다.");
+    const resultText = `[LifeFit] 2026 N잡러 건보료 폭탄 계산기 💸\n🚨 건보료 리스크: ${results ? results.riskMessage.split(':')[0] : '확인 필요'}\n💰 예상 추가 종소세: 약 ${results ? formatCurrency(results.totalTax) : 0}원`;
+    const shareUrl = "https://lifefit.kr/tools/njob-tax";
+    const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit N잡러 건보료 폭탄 계산기",
+          text: resultText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        // 사용자 취소 시 에러 무시
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(fullText);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (err) {
+        alert("복사에 실패했습니다.");
+      }
     }
   };
 

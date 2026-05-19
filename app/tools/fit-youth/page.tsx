@@ -296,13 +296,28 @@ function ResultScreen({
   const [isCopied, setIsCopied] = useState(false);
 
   const handleShare = async () => {
-    try {
-      const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${results.rentSupportLabel}\n✅ 청년 주택드림 청약: ${results.dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}\n\n👉 나도 1분 만에 대상자인지 확인하기:\nhttps://lifefit.kr/tools/fit-youth`;
-      await navigator.clipboard.writeText(resultText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      alert("복사에 실패했습니다.");
+    const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${results.rentSupportLabel}\n✅ 청년 주택드림 청약: ${results.dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
+    const shareUrl = "https://lifefit.kr/tools/fit-youth";
+    const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit 청년 주거지원 판별기",
+          text: resultText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        // 사용자 취소 시 에러 무시
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(fullText);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (err) {
+        alert("복사에 실패했습니다.");
+      }
     }
   };
 
