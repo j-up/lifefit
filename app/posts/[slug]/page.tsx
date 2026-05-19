@@ -91,14 +91,14 @@ export default async function PostPage({ params }: Props) {
       case "복지·육아":
         return {
           href: "/tools/short-work",
-          label: "내 실제 단축근무 월급 계산필보기",
+          label: "내 실제 단축근무 월급 계산해보기",
           desc: "고용보험 지원금과 회사 급여를 합산한 예상 실수령액을 1분 만에 확인하세요.",
           theme: "blue" as const,
         };
       case "세금·복지":
         return {
           href: "/tools/njob-tax",
-          label: "N잡러 건릅료·세금 폭탄 리스크 확인",
+          label: "N잡러 건강보험료·세금 폭탄 리스크 확인",
           desc: "종합소득세 신고 후 내 건강보험료 인상액과 피부양자 탈락 위험을 모의계산하세요.",
           theme: "teal" as const,
         };

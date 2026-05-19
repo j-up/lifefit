@@ -69,7 +69,7 @@ export default function Home() {
               육아기 근로시간 단축 급여 계산기
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산필보세요.
+              단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산해보세요.
             </p>
             <Link
               href="/tools/short-work"
@@ -86,7 +86,7 @@ export default function Home() {
               청년 주거지원 대상자 판별기
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              내가 청년 주거지원 정책의 대상자인지 1분 만에 확인필보세요.
+              내가 청년 주거지원 정책의 대상자인지 1분 만에 확인해보세요.
             </p>
             <Link
               href="/tools/fit-youth"
