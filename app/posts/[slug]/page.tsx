@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { posts } from "@/app/data/posts";
 
 interface Props {
@@ -14,6 +15,51 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
+
+  if (!post) {
+    return {
+      title: "페이지를 찾을 수 없습니다 | LifeFit",
+      robots: { index: false },
+    };
+  }
+
+  return {
+    title: `${post.title} | LifeFit`,
+    description: post.summary,
+    keywords: `${post.category}, 2026 정책, 정부 지원, 복지 정보, LifeFit`,
+    alternates: {
+      canonical: `https://lifefit.kr/posts/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: `https://lifefit.kr/posts/${post.slug}`,
+      siteName: "LifeFit",
+      images: [
+        {
+          url: post.image,
+          width: 800,
+          height: 533,
+          alt: post.title,
+        },
+      ],
+      locale: "ko_KR",
+      type: "article",
+      publishedTime: post.date,
+      authors: ["LifeFit"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: [post.image],
+    },
+  };
+}
+
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
@@ -22,8 +68,41 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.summary,
+    image: post.image,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: "LifeFit",
+      url: "https://lifefit.kr",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LifeFit",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://lifefit.kr/favicon.ico",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://lifefit.kr/posts/${post.slug}`,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
@@ -60,7 +139,7 @@ export default async function PostPage({ params }: Props) {
           <div className="p-6 sm:p-10">
             {/* Meta */}
             <div className="flex items-center gap-3 text-sm text-gray-400">
-              <span>{post.date}</span>
+              <time dateTime={post.date}>{post.date}</time>
               <span className="h-1 w-1 rounded-full bg-gray-300" />
               <span>{post.readTime} 소요</span>
             </div>

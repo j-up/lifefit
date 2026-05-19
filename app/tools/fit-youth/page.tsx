@@ -126,16 +126,6 @@ export default function HomePage() {
     };
   }, [answers]);
 
-  const handleShare = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      alert("링크 복사에 실패했습니다.");
-    }
-  };
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8">
       <script
@@ -303,6 +293,18 @@ function ResultScreen({
   answers: Answers;
   onReset: () => void;
 }) {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
+    }
+  };
+
   return (
     <div className="animate-fade-in">
 

@@ -609,6 +609,7 @@ export default function NJobTaxPage() {
           </p>
         </article>
       </div>
+      </div>
     </main>
   );
 }
