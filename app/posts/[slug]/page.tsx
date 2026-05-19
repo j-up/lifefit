@@ -3,9 +3,9 @@ import Link from "next/link";
 import { posts } from "@/app/data/posts";
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -14,8 +14,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function PostPage({ params }: Props) {
-  const post = posts.find((p) => p.slug === params.slug);
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
