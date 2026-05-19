@@ -42,6 +42,9 @@ export default function Home() {
             <Link href="/tools/car-bond" className="hover:text-blue-600">
               차 채권 환급금
             </Link>
+            <Link href="/tools/car-bond" className="hover:text-blue-600">
+              차 채권 환급금
+            </Link>
           </nav>
         </div>
       </header>
@@ -200,7 +203,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="mt-24 border-t border-gray-100 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-          <div className="mb-8 grid gap-6 sm:grid-cols-3 text-sm">
+          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 text-sm">
             <div>
               <h3 className="mb-3 font-bold text-gray-900">도구</h3>
               <ul className="space-y-2 text-gray-500">
