@@ -123,7 +123,8 @@ export default function Home() {
   }, [step]);
 
   const handleShare = async () => {
-    const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.total)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
+    if (!results) return;
+    const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
     const shareUrl = "https://lifefit.kr/tools/short-work";
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 

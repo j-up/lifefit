@@ -296,7 +296,7 @@ function ResultScreen({
   const [isCopied, setIsCopied] = useState(false);
 
   const handleShare = async () => {
-    const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${results.rentSupportLabel}\n✅ 청년 주택드림 청약: ${results.dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
+    const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${rentSupportLabel}\n✅ 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
     const shareUrl = "https://lifefit.kr/tools/fit-youth";
     const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
 
