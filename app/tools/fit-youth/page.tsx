@@ -304,7 +304,7 @@ function ResultScreen({
       try {
         await navigator.share({
           title: "LifeFit 청년 주거지원 판별기",
-          text: resultText,
+          text: `\n${resultText}`,
           url: shareUrl,
         });
       } catch (err) {

@@ -162,7 +162,7 @@ export default function NJobTaxPage() {
       try {
         await navigator.share({
           title: "LifeFit N잡러 건보료 폭탄 계산기",
-          text: resultText,
+          text: `\n${resultText}`,
           url: shareUrl,
         });
       } catch (err) {

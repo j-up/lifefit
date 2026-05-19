@@ -132,7 +132,7 @@ export default function Home() {
       try {
         await navigator.share({
           title: "LifeFit 육아기 단축근무 급여 계산기",
-          text: resultText,
+          text: `\n${resultText}`,
           url: shareUrl,
         });
       } catch (err) {
