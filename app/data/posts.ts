@@ -5,6 +5,9 @@ export interface Post {
   date: string;
   summary: string;
   content: string;
+  image: string;
+  category: string;
+  readTime: string;
 }
 
 export const posts: Post[] = [

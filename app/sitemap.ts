@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: "https://lifefit.kr/tools/njob-tax",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: "https://lifefit.kr/tools/short-work",
       lastModified: new Date(),
       changeFrequency: "monthly",

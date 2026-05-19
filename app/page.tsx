@@ -11,6 +11,9 @@ export default function Home() {
             LifeFit
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium text-gray-600">
+            <Link href="/tools/njob-tax" className="hover:text-blue-600">
+              N잡 세금 계산기
+            </Link>
             <Link href="/tools/short-work" className="hover:text-blue-600">
               육아수당 계산기
             </Link>
@@ -38,7 +41,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2">
+        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-2xl border border-blue-50 bg-blue-50/50 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
@@ -69,6 +72,23 @@ export default function Home() {
             <Link
               href="/tools/fit-youth"
               className="mt-4 inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700"
+            >
+              바로가기 →
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-red-50 bg-red-50/50 p-6 transition-all hover:shadow-sm">
+            <span className="text-xs font-semibold uppercase text-red-600">
+              NEW! 강력 추천
+            </span>
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              N잡러 건보료 폭탄 계산기
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              종합소득세 신고 후 건강보험료 폭탄 및 피부양자 박탈 리스크를 미리 확인하세요.
+            </p>
+            <Link
+              href="/tools/njob-tax"
+              className="mt-4 inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700"
             >
               바로가기 →
             </Link>
