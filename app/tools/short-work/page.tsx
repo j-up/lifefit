@@ -14,6 +14,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Circle,
+  Share2,
 } from "lucide-react";
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -69,6 +70,7 @@ export default function Home() {
   const [originalHours, setOriginalHours] = useState<number>(40);
   const [reducedHours, setReducedHours] = useState<number>(30);
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const salary = salaryStr === "" ? 0 : parseInt(salaryStr, 10) * 10_000;
 
@@ -119,6 +121,16 @@ export default function Home() {
   const prevStep = useCallback(() => {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
+    }
+  };
 
   const stepTitles = [
     "세전 월급 입력",
@@ -554,19 +566,28 @@ export default function Home() {
               </button>
             )}
             {step === 5 && (
-              <button
-                onClick={() => {
-                  setStep(1);
-                  setSalaryStr("");
-                  setOriginalHours(40);
-                  setReducedHours(30);
-                  setIsFirst12Months(null);
-                }}
-                className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1 shadow-md shadow-blue-200 hover:bg-[#1e6fdb] transition-colors"
-              >
-                <Calculator size={16} />
-                다시 계산하기
-              </button>
+              <div className="flex w-full gap-2">
+                <button
+                  onClick={() => {
+                    setStep(1);
+                    setSalaryStr("");
+                    setOriginalHours(40);
+                    setReducedHours(30);
+                    setIsFirst12Months(null);
+                  }}
+                  className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
+                >
+                  <Calculator size={16} className="mr-1" />
+                  다시 계산하기
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-blue-200 hover:bg-[#1e6fdb] transition-colors"
+                >
+                  <Share2 size={16} />
+                  {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
+                </button>
+              </div>
             )}
           </div>
         </div>

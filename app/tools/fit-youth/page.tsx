@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { Share2 } from "lucide-react";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -124,6 +125,16 @@ export default function HomePage() {
       subscriptionReady: subscription === true,
     };
   }, [answers]);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
+    }
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8">
@@ -459,12 +470,21 @@ function ResultScreen({
         청년 우대형 통장 개설 가능한 은행 알아보기 →
       </Link>
 
-      <button
-        onClick={onReset}
-        className="w-full rounded-xl border-2 border-gray-200 bg-white py-4 text-base font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50 active:scale-[0.98]"
-      >
-        다시 확인하기
-      </button>
+      <div className="flex w-full gap-2 mb-2">
+        <button
+          onClick={onReset}
+          className="flex-1 rounded-xl border-2 border-gray-200 bg-white py-4 text-base font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50 active:scale-[0.98]"
+        >
+          다시 확인하기
+        </button>
+        <button
+          onClick={handleShare}
+          className="flex-1 flex items-center justify-center gap-2 rounded-xl border-2 border-blue-600 bg-blue-600 py-4 text-base font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 active:scale-[0.98]"
+        >
+          <Share2 size={18} />
+          {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
+        </button>
+      </div>
 
       {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
       <article className="mt-8 p-5 bg-white rounded-2xl border border-gray-200 text-sm text-gray-600 leading-relaxed text-left">

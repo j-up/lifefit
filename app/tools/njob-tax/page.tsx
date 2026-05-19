@@ -13,6 +13,7 @@ import {
   Info,
   ChevronRight,
   ChevronLeft,
+  Share2,
 } from "lucide-react";
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -37,6 +38,7 @@ export default function NJobTaxPage() {
   const [salaryStr, setSalaryStr] = useState<string>("");
   const [sideIncomeStr, setSideIncomeStr] = useState<string>("");
   const [incomeType, setIncomeType] = useState<IncomeType>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const salary = salaryStr === "" ? 0 : parseInt(salaryStr, 10) * 10_000;
   const sideIncome =
@@ -147,6 +149,16 @@ export default function NJobTaxPage() {
       setStep(1);
     } else if (step > 1) {
       setStep((s) => (s - 1) as Step);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
     }
   };
 
@@ -541,18 +553,27 @@ export default function NJobTaxPage() {
               </button>
             )}
             {step === 5 && (
-              <button
-                onClick={() => {
-                  setStep(1);
-                  setHasJob(null);
-                  setSalaryStr("");
-                  setSideIncomeStr("");
-                  setIncomeType(null);
-                }}
-                className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
-              >
-                다시 계산하기
-              </button>
+              <div className="flex w-full gap-2">
+                <button
+                  onClick={() => {
+                    setStep(1);
+                    setHasJob(null);
+                    setSalaryStr("");
+                    setSideIncomeStr("");
+                    setIncomeType(null);
+                  }}
+                  className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
+                >
+                  다시 계산하기
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#1e6fdb] transition-colors"
+                >
+                  <Share2 size={18} />
+                  {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
+                </button>
+              </div>
             )}
           </div>
         </div>
