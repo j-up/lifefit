@@ -26,6 +26,7 @@ interface LogEntry {
 export const dynamic = "force-dynamic";
 
 export default function AdminPage() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [adminSecret, setAdminSecret] = useState("");
   const [category, setCategory] = useState("주거·복지");
   const [rawPressRelease, setRawPressRelease] = useState(
@@ -115,6 +116,61 @@ export default function AdminPage() {
     }
   };
 
+  // 인증 전 화면 (Password Gate)
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4 selection:bg-blue-600 selection:text-white relative overflow-hidden">
+        {/* Dynamic Grid Background Effect */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none opacity-60" />
+        
+        <div className="w-full max-w-[400px] relative">
+          <div className="text-center mb-8">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-500 mb-4 shadow-2xl shadow-blue-500/20">
+              <Lock size={32} />
+            </div>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight italic flex items-center justify-center gap-2">
+              <Sparkles className="h-6 w-6 text-blue-400" />
+              LifeFit Admin
+            </h1>
+            <p className="text-slate-400 text-sm mt-2 font-medium">관리자 전용 콘솔 접속을 위해 비밀키를 입력하세요.</p>
+          </div>
+
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur-xl shadow-2xl space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] ml-1">
+                Security Passkey
+              </label>
+              <input
+                type="password"
+                value={adminSecret}
+                onChange={(e) => setAdminSecret(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && setIsAuthorized(true)}
+                placeholder="ADMIN_SECRET 입력"
+                className="w-full rounded-2xl border border-slate-800 bg-slate-950/80 px-5 py-4 text-sm text-white placeholder-slate-700 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner"
+                autoFocus
+              />
+            </div>
+
+            <button
+              onClick={() => setIsAuthorized(true)}
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-4 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-500 active:scale-[0.98] transition-all transform"
+            >
+              <TerminalIcon size={18} />
+              콘솔 접속하기
+            </button>
+
+            <Link
+              href="/"
+              className="block text-center text-xs text-slate-500 hover:text-slate-400 transition-colors pt-2"
+            >
+              ← 메인 페이지로 돌아가기
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-100 selection:bg-blue-600 selection:text-white">
       {/* Dynamic Grid Background Effect */}
@@ -166,14 +222,13 @@ export default function AdminPage() {
                   <input
                     type="password"
                     required
+                    readOnly
                     value={adminSecret}
-                    onChange={(e) => setAdminSecret(e.target.value)}
-                    placeholder="임시값: lifefit_admin_secret_key_2026_super_secure"
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950/80 px-4 py-2.5 text-sm placeholder-slate-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-100"
+                    className="w-full rounded-lg border border-slate-800 bg-slate-950/40 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed opacity-70"
                   />
                 </div>
                 <p className="text-[11px] text-slate-500">
-                  * 로컬 테스트 시에는 <code className="bg-slate-950 px-1 py-0.5 rounded text-blue-400 font-mono">.env.local</code>에 설정한 값을 입력해주세요.
+                  * 접속 시 사용한 비밀키가 고정되어 있습니다. (보안 유지)
                 </p>
               </div>
 

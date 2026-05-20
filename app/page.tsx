@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { posts as staticPosts } from "@/app/data/posts";
+import SubscribeCard from "@/app/components/SubscribeCard";
 
 async function getDbPosts() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -345,6 +346,11 @@ export default async function Home() {
               </article>
             ))}
           </div>
+        </div>
+
+        {/* 하단 구독 알림 카드 */}
+        <div className="mt-20">
+          <SubscribeCard />
         </div>
       </main>
 

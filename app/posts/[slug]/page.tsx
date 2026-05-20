@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Calculator } from "lucide-react";
 import type { Metadata } from "next";
 import { posts as staticPosts, Post } from "@/app/data/posts";
+import SubscribeCard from "@/app/components/SubscribeCard";
 
 interface Props {
   params: Promise<{
@@ -349,6 +350,16 @@ export default async function PostPage({ params }: Props) {
             </div>
           </div>
         </article>
+
+        {/* 하단 구독 알림 카드 - 리텐션 향상 */}
+        <SubscribeCard 
+          defaultCategory={
+            post.category.includes("주거") ? "housing" : 
+            post.category.includes("세금") ? "tax" : 
+            post.category.includes("육아") || post.category.includes("복지") ? "welfare" : 
+            post.category.includes("자산") ? "saving" : "housing"
+          } 
+        />
 
       </main>
 
