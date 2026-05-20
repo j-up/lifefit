@@ -42,9 +42,6 @@ export default function Home() {
             <Link href="/tools/car-bond" className="hover:text-blue-600">
               차 채권 환급금
             </Link>
-            <Link href="/tools/car-bond" className="hover:text-blue-600">
-              차 채권 환급금
-            </Link>
           </nav>
         </div>
       </header>
@@ -67,7 +64,7 @@ export default function Home() {
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
         <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-blue-50 bg-blue-50/50 p-6 transition-all hover:shadow-sm">
+          <div className="rounded-2xl border border-blue-200 bg-blue-100 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
             </span>
@@ -84,7 +81,7 @@ export default function Home() {
               바로가기 →
             </Link>
           </div>
-          <div className="rounded-2xl border border-purple-50 bg-purple-50/50 p-6 transition-all hover:shadow-sm">
+          <div className="rounded-2xl border border-purple-200 bg-purple-100 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-purple-600">
               추천 도구
             </span>
@@ -101,7 +98,7 @@ export default function Home() {
               바로가기 →
             </Link>
           </div>
-          <div className="rounded-2xl border border-teal-50 bg-teal-50/50 p-6 transition-all hover:shadow-sm">
+          <div className="rounded-2xl border border-teal-200 bg-teal-100 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-teal-600">
               추천 도구
             </span>
@@ -114,6 +111,23 @@ export default function Home() {
             <Link
               href="/tools/njob-tax"
               className="mt-4 inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700"
+            >
+              바로가기 →
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-green-200 bg-green-100 p-6 transition-all hover:shadow-sm">
+            <span className="text-xs font-semibold uppercase text-green-600">
+              추천 도구
+            </span>
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              자동차 미환급 채권 환급금 계산기
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              차량 구매 시 의무 매입한 채권, 지금 바로 환급받을 수 있는 금액을 확인하세요.
+            </p>
+            <Link
+              href="/tools/car-bond"
+              className="mt-4 inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700"
             >
               바로가기 →
             </Link>
