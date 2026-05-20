@@ -29,21 +29,41 @@ export default function Home() {
           <Link href="/" className="text-xl font-bold text-blue-600">
             LifeFit
           </Link>
-          <nav className="flex items-center gap-2 overflow-x-auto text-xs font-medium text-gray-600 sm:gap-4 sm:text-sm">
-            <Link href="/tools/savings-plan" className="whitespace-nowrap hover:text-blue-600">
-              선납이연 계산기
+          <nav className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1 sm:gap-3">
+            <Link
+              href="/tools/savings-plan"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
+            >
+              <span className="text-base">💰</span>
+              선납이연
             </Link>
-            <Link href="/tools/tax-calculator" className="whitespace-nowrap hover:text-blue-600">
-              이자 세금 계산기
+            <Link
+              href="/tools/tax-calculator"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-100 sm:text-sm"
+            >
+              <span className="text-base">📊</span>
+              이자세금
             </Link>
-            <Link href="/tools/short-work" className="whitespace-nowrap hover:text-blue-600">
-              육아수당 계산기
+            <Link
+              href="/tools/short-work"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-orange-50 px-3 py-1.5 text-xs font-bold text-orange-600 transition-colors hover:bg-orange-100 sm:text-sm"
+            >
+              <span className="text-base">👶</span>
+              육아수당
             </Link>
-            <Link href="/tools/fit-youth" className="whitespace-nowrap hover:text-blue-600">
-              월세지원 계산기
+            <Link
+              href="/tools/fit-youth"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1.5 text-xs font-bold text-purple-600 transition-colors hover:bg-purple-100 sm:text-sm"
+            >
+              <span className="text-base">🏠</span>
+              월세지원
             </Link>
-            <Link href="/tools/njob-tax" className="whitespace-nowrap hover:text-blue-600">
-              N잡 세금 계산기
+            <Link
+              href="/tools/njob-tax"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-600 transition-colors hover:bg-teal-100 sm:text-sm"
+            >
+              <span className="text-base">💸</span>
+              N잡세금
             </Link>
           </nav>
         </div>
