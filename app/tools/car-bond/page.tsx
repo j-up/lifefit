@@ -248,48 +248,7 @@ export default function CarBondPage() {
     const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산필보기:\n${shareUrl}`;
 
-    // 1. 카카오 JS SDK
-    const kakao = (window as any).Kakao;
-    if (kakao) {
-      if (!kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao dynamic initialization failed:", e);
-        }
-      }
-
-      if (kakao.isInitialized()) {
-        try {
-          kakao.Share.sendDefault({
-            objectType: "feed",
-            content: {
-              title: "LifeFit 자동차 미환급 채권 계산기 🚗",
-              description: `내 예상 환급금은 약 ${formatCurrency(results.total)}원! 잠자고 있는 환급금을 확인필보세요.`,
-              imageUrl: "https://lifefit.kr/og-car-bond.png",
-              link: {
-                mobileWebUrl: shareUrl,
-                webUrl: shareUrl,
-              },
-            },
-            buttons: [
-              {
-                title: "예상 환급금 확인하기",
-                link: {
-                  mobileWebUrl: shareUrl,
-                  webUrl: shareUrl,
-                },
-              },
-            ],
-          });
-          return;
-        } catch (err) {
-          console.error("Kakao share error", err);
-        }
-      }
-    }
-
-    // 2. Web Share API (모바일 네이티브 공유 시트 → 카카오톡 선택 가능)
+    // 1. Web Share API (모바일 네이티브 공유 시트 → 카카오톡 등 선택)
     if (navigator.share) {
       try {
         await navigator.share({
@@ -305,19 +264,7 @@ export default function CarBondPage() {
       }
     }
 
-    // 3. 모바일: 카카오톡 앱 직접 열기 (스킴)
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      const kakaoText = encodeURIComponent(fullText);
-      if (/Android/i.test(navigator.userAgent)) {
-        window.location.href = `intent://send?text=${kakaoText}#Intent;scheme=kakaotalk;package=com.kakao.talk;end;`;
-      } else {
-        window.location.href = `kakaotalk://send?text=${kakaoText}`;
-      }
-      return;
-    }
-
-    // 4. PC: 클립보드 복사
+    // 2. 클립보드 복사 (PC 및 fallback)
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)필보세요!");
