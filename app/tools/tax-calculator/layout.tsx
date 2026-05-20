@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "2026 이자 세금 비교 계산기 | 예적금 실수령액 확인",
     description:
       "2026년 상호금융 세율 인상분 반영! 내 예적금 이자 세금을 지금 바로 비교해보세요.",
-    images: ["https://lifefit.kr/og-default.png"],
+    images: ["https://lifefit.kr/og-tax-calculator.png"],
   },
 };
 
@@ -87,7 +87,5 @@ export default function TaxCalculatorLayout({
       />
       {children}
     </>
-  );
-}
   );
 }

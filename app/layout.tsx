@@ -56,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LifeFit (라이프핏) - 2026 청년·육아 복지 지원금 가이드 및 계산기",
+    title: "LifeFit - 2026 청년·육아·금융 복지 계산기",
     description:
-      "2026년 청년 월세 지원부터 육아기 단축근무 급여 계산까지! 복잡한 정부 정책을 LifeFit에서 가장 쉽고 빠르게 확인하세요.",
+      "2026년 최신 정부 정책과 복지 혜택을 1분 만에 계산하고 확인하세요.",
     images: ["/og-default.png"],
   },
   verification: {
