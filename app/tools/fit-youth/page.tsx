@@ -51,43 +51,6 @@ const STEPS: StepInfo[] = [
   },
 ];
 
-function AdSenseBanner({
-  slot = "5604101234",
-  className = "",
-}: {
-  slot?: string;
-  className?: string;
-}) {
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-      }
-    } catch (err) {
-      console.error("AdSense placement error:", err);
-    }
-  }, []);
-
-  return (
-    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
-      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
-      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-7832182931355116"
-          data-ad-slot={slot}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
-          <Coins size={24} className="text-[#b0b8c1] mb-1" />
-          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function HomePage() {
   const [step, setStep] = useState<number>(0); // 0: intro, 1~5: questions, 6: result
@@ -537,9 +500,6 @@ function ResultScreen({
         </p>
       </div>
 
-      {/* 상단 애드센스 배너 (CTR 향상) */}
-      <AdSenseBanner slot="7832182931355116" className="my-2" />
-
       {/* 요약 테이블 */}
       <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50 p-4">
         <h3 className="mb-3 text-sm font-bold text-gray-700">내 답변 요약</h3>
@@ -634,9 +594,6 @@ function ResultScreen({
       >
         청년 우대형 통장 개설 가능한 은행 알아보기 →
       </Link>
-
-      {/* 하단 애드센스 배너 (CTR 극대화) */}
-      <AdSenseBanner slot="7832182931355116" className="my-2" />
 
       {/* 3버튼 공유 레이아웃 */}
       <div className="w-full mt-4 pt-6 border-t border-gray-100 space-y-4 text-center">

@@ -104,7 +104,7 @@ const CAR_TYPE_DATA: Record<CarType, { label: string; desc: string }> = {
 };
 
 const YEAR_DATA: Record<Year, { label: string; yearNum: number; maturityStatus: string }> = {
-  before2018: { label: "2018년 이전", yearNum: 2017, maturityStatus: "만기 후 5년 이상 경과" },
+  before2018: { label: "2018년 이전", yearNum: 2017, maturityStatus: "청구시효 확인 필요" },
   2019: { label: "2019년", yearNum: 2019, maturityStatus: "만기 도래·환급 가능" },
   2020: { label: "2020년", yearNum: 2020, maturityStatus: "만기 도래·환급 가능" },
   2021: { label: "2021년", yearNum: 2021, maturityStatus: "즉시 환급 가능" },
@@ -138,7 +138,8 @@ function calculateBond(
   const interest = principal * (Math.pow(1 + INTEREST_RATE, years) - 1);
   const total = principal + interest;
 
-  const isExpired = year === "before2018";
+  const currentYear = new Date().getFullYear();
+  const isExpired = yearNum + 10 <= currentYear;
   const maturityStatus = YEAR_DATA[year].maturityStatus;
 
   return {
@@ -152,43 +153,6 @@ function calculateBond(
   };
 }
 
-function AdSenseBanner({
-  slot = "5604101234",
-  className = "",
-}: {
-  slot?: string;
-  className?: string;
-}) {
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-      }
-    } catch (err) {
-      console.error("AdSense placement error:", err);
-    }
-  }, []);
-
-  return (
-    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
-      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
-      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-7832182931355116"
-          data-ad-slot={slot}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
-          <Coins size={24} className="text-[#b0b8c1] mb-1" />
-          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function CarBondPage() {
   const [step, setStep] = useState<Step>(1);
@@ -514,7 +478,9 @@ export default function CarBondPage() {
           {step === 3 && (
             <div className="space-y-3">
               {allYears.map((y) => {
-                const isExpired = y === "before2018";
+                const currentYear = new Date().getFullYear();
+                const isExpired = YEAR_DATA[y].yearNum + 10 <= currentYear;
+                const isUrgent = y === "before2018";
                 return (
                   <button
                     key={y}
@@ -523,6 +489,8 @@ export default function CarBondPage() {
                       year === y
                         ? isExpired
                           ? "border-[#f04452] bg-[#fff0f0]"
+                          : isUrgent
+                          ? "border-[#f59e0b] bg-[#fff7ed]"
                           : "border-[#00c471] bg-[#e8f9f0]"
                         : "border-[#e5e8eb] bg-white hover:border-[#b0b8c1]"
                     }`}
@@ -534,6 +502,8 @@ export default function CarBondPage() {
                           year === y
                             ? isExpired
                               ? "text-[#f04452]"
+                              : isUrgent
+                              ? "text-[#f59e0b]"
                               : "text-[#00c471]"
                             : "text-[#8b95a1]"
                         }
@@ -544,6 +514,8 @@ export default function CarBondPage() {
                             year === y
                               ? isExpired
                                 ? "text-[#f04452]"
+                                : isUrgent
+                                ? "text-[#d97706]"
                                 : "text-[#00c471]"
                               : "text-[#191f28]"
                           }`}
@@ -552,7 +524,11 @@ export default function CarBondPage() {
                         </p>
                         <p
                           className={`text-xs ${
-                            isExpired ? "text-[#f04452]" : "text-[#8b95a1]"
+                            isExpired
+                              ? "text-[#f04452]"
+                              : isUrgent
+                              ? "text-[#d97706]"
+                              : "text-[#8b95a1]"
                           }`}
                         >
                           {YEAR_DATA[y].maturityStatus}
@@ -562,7 +538,9 @@ export default function CarBondPage() {
                     {year === y ? (
                       <CheckCircle2
                         size={22}
-                        className={isExpired ? "text-[#f04452]" : "text-[#00c471]"}
+                        className={
+                          isExpired ? "text-[#f04452]" : isUrgent ? "text-[#f59e0b]" : "text-[#00c471]"
+                        }
                       />
                     ) : (
                       <Circle size={22} className="text-[#e5e8eb]" />
@@ -573,8 +551,7 @@ export default function CarBondPage() {
               <div className="rounded-xl bg-[#fff8db] p-3 text-xs text-[#8b6a00] leading-relaxed flex items-start gap-2">
                 <Info size={16} className="shrink-0 mt-0.5" />
                 <p>
-                  2021년 이전 구매자는 지금 즉시 환급 가능합니다. 2022년 이후
-                  구매자는 만기 예정입니다.
+                  2018년 이전 구매자는 청구시효를 확인하세요. 2019년~2021년 구매자는 지금 환급 가능하며, 2022년 이후 구매자는 만기 예정입니다.
                 </p>
               </div>
             </div>
@@ -636,12 +613,25 @@ export default function CarBondPage() {
                 <div className="rounded-2xl bg-[#fff0f0] p-4 text-sm text-[#b91c1c] leading-relaxed border border-[#fecaca]">
                   <div className="flex items-start gap-2 mb-1">
                     <AlertTriangle size={18} className="shrink-0 mt-0.5" />
-                    <p className="font-bold">주의: 청구 시효 만료 가능성</p>
+                    <p className="font-bold">주의: 청구 시효 만료</p>
                   </div>
                   <p className="pl-6 text-xs leading-relaxed">
-                    2018년 이전 구매자의 경우, 만기 후 5년 청구시효가 지나
-                    국고로 소멸되었을 가능성이 있습니다. 해당 지자체 금고
-                    은행에 반드시 직접 확인해 보세요.
+                    구매 후 10년(만기 5년 + 청구시효 5년)이 경과하여 환급금이
+                    국고로 소멸되었을 수 있습니다. 해당 지자체 금고 은행에
+                    직접 확인해 보세요.
+                  </p>
+                </div>
+              )}
+              {!results.isExpired && year === "before2018" && (
+                <div className="rounded-2xl bg-[#fff7ed] p-4 text-sm text-[#c2410c] leading-relaxed border border-[#fed7aa]">
+                  <div className="flex items-start gap-2 mb-1">
+                    <AlertTriangle size={18} className="shrink-0 mt-0.5 text-[#f59e0b]" />
+                    <p className="font-bold">주의: 청구 시효 확인 필요</p>
+                  </div>
+                  <p className="pl-6 text-xs leading-relaxed">
+                    2018년 이전 구매자의 경우, 구매 연도에 따라 만기 후 5년 청구시효가
+                    임박하거나 지났을 수 있습니다. 해당 지자체 금고 은행에
+                    반드시 직접 확인해 보세요.
                   </p>
                 </div>
               )}
@@ -780,9 +770,6 @@ export default function CarBondPage() {
               </div>
 
 
-              {/* 상단 애드센스 배너 (CTR 향상) */}
-              <AdSenseBanner slot="7832182931355116" className="my-2" />
-
               {/* 지자체별 금고 은행 및 정부24 실제 환급 신청 카드 */}
               <div className="rounded-2xl border border-green-100 bg-[#f8fdfa] p-5 shadow-sm space-y-4">
                 <div className="flex items-center gap-2 pb-1 border-b border-green-50">
@@ -865,9 +852,6 @@ export default function CarBondPage() {
                   )}
                 </div>
               </div>
-
-              {/* 하단 애드센스 배너 (CTR 극대화) */}
-              <AdSenseBanner slot="7832182931355116" className="my-2" />
 
               {/* Info Box */}
               <div className="rounded-2xl bg-[#fff8db] p-4 text-xs text-[#8b6a00] leading-relaxed">
