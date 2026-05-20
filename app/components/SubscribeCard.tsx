@@ -49,9 +49,10 @@ export default function SubscribeCard({
     e.preventDefault();
     setErrorMessage("");
 
-    // 1. 단순 프론트엔드 검증
-    if (!email.trim() || !email.includes("@")) {
-      setErrorMessage("올바른 이메일 형식을 입력해 주세요.");
+    // 1. 프론트엔드 유효성 검증 (Regex 활용)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email.trim() || !emailRegex.test(email.trim())) {
+      setErrorMessage("올바른 이메일 주소(예: user@example.com)를 입력해 주세요.");
       return;
     }
 

@@ -5,10 +5,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { email, categories, referrer } = body;
 
-    // 1. 유효성 검증
-    if (!email || typeof email !== "string" || !email.includes("@")) {
+    // 1. 유효성 검증 (서버 사이드)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
       return NextResponse.json(
-        { error: "올바른 이메일 주소를 입력해 주세요." },
+        { error: "올바른 이메일 주소 형식이 아닙니다." },
         { status: 400 }
       );
     }
