@@ -576,12 +576,7 @@ export default function CarBondPage() {
                   </button>
                 );
               })}
-              <div className="rounded-xl bg-[#fff8db] p-3 text-xs text-[#8b6a00] leading-relaxed flex items-start gap-2">
-                <Info size={16} className="shrink-0 mt-0.5" />
-                <p>
-                  2018년 이전 구매자는 청구시효를 확인하세요. 2019년~2021년 구매자는 지금 환급 가능하며, 2022년 이후 구매자는 만기 예정입니다.
-                </p>
-              </div>
+
             </div>
           )}
 
