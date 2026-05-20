@@ -387,29 +387,13 @@ function ResultScreen({
   // Load Kakao SDK on component mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const initKakao = () => {
-        const kakao = (window as any).Kakao;
-        if (kakao && !kakao.isInitialized()) {
-          try {
-            kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-          } catch (e) {
-            console.error("Kakao initialization failed:", e);
-          }
+      const kakao = (window as any).Kakao;
+      if (kakao && !kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao initialization failed on mount:", e);
         }
-      };
-
-      if (!document.getElementById("kakao-sdk")) {
-        const script = document.createElement("script");
-        script.id = "kakao-sdk";
-        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
-        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
-        script.crossOrigin = "anonymous";
-        script.onload = () => {
-          initKakao();
-        };
-        document.body.appendChild(script);
-      } else {
-        initKakao();
       }
     }
   }, []);
@@ -419,52 +403,48 @@ function ResultScreen({
   const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
 
   const handleKakaoShare = async () => {
-    // 1. Try Native Share Sheet if available (Mobile default)
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "LifeFit 청년 주거지원 판별기",
-          text: resultText,
-          url: shareUrl,
-        });
-        return;
-      } catch (err) {
-        // user cancelled or failed, fall through to Kakao SDK or clipboard
-      }
-    }
-
-    // 2. Try Kakao JS SDK
+    // 1. Try Kakao JS SDK (with dynamic initialization on click)
     const kakao = (window as any).Kakao;
-    if (kakao && kakao.isInitialized()) {
-      try {
-        kakao.Share.sendDefault({
-          objectType: "feed",
-          content: {
-            title: "LifeFit 청년 주거지원 판별기 🏠",
-            description: `청년월세 특별지원: ${rentSupportLabel} / 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}. 내가 대상인지 1분만에 확인해보세요!`,
-            imageUrl: "https://lifefit.kr/og-fit-youth.png",
-            link: {
-              mobileWebUrl: shareUrl,
-              webUrl: shareUrl,
-            },
-          },
-          buttons: [
-            {
-              title: "대상 여부 확인하기",
+    if (kakao) {
+      if (!kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao dynamic initialization failed:", e);
+        }
+      }
+
+      if (kakao.isInitialized()) {
+        try {
+          kakao.Share.sendDefault({
+            objectType: "feed",
+            content: {
+              title: "LifeFit 청년 주거지원 판별기 🏠",
+              description: `청년월세 특별지원: ${rentSupportLabel} / 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}. 내가 대상인지 1분만에 확인해보세요!`,
+              imageUrl: "https://lifefit.kr/og-fit-youth.png",
               link: {
                 mobileWebUrl: shareUrl,
                 webUrl: shareUrl,
               },
             },
-          ],
-        });
-        return;
-      } catch (err) {
-        console.error("Kakao share error", err);
+            buttons: [
+              {
+                title: "대상 여부 확인하기",
+                link: {
+                  mobileWebUrl: shareUrl,
+                  webUrl: shareUrl,
+                },
+              },
+            ],
+          });
+          return;
+        } catch (err) {
+          console.error("Kakao share error", err);
+        }
       }
     }
 
-    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    // 2. Fallback: Copy to Clipboard & Show Premium Toast
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");

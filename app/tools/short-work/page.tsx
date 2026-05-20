@@ -130,29 +130,13 @@ export default function Home() {
   // Load Kakao SDK on component mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const initKakao = () => {
-        const kakao = (window as any).Kakao;
-        if (kakao && !kakao.isInitialized()) {
-          try {
-            kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-          } catch (e) {
-            console.error("Kakao initialization failed:", e);
-          }
+      const kakao = (window as any).Kakao;
+      if (kakao && !kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao initialization failed on mount:", e);
         }
-      };
-
-      if (!document.getElementById("kakao-sdk")) {
-        const script = document.createElement("script");
-        script.id = "kakao-sdk";
-        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
-        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
-        script.crossOrigin = "anonymous";
-        script.onload = () => {
-          initKakao();
-        };
-        document.body.appendChild(script);
-      } else {
-        initKakao();
       }
     }
   }, []);
@@ -232,52 +216,48 @@ export default function Home() {
     const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
-    // 1. Try Native Share Sheet if available (Mobile default)
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "LifeFit 육아기 단축근무 급여 계산기",
-          text: resultText,
-          url: shareUrl,
-        });
-        return;
-      } catch (err) {
-        // user cancelled or failed, fall through to Kakao SDK or clipboard
-      }
-    }
-
-    // 2. Try Kakao JS SDK
+    // 1. Try Kakao JS SDK (with dynamic initialization on click)
     const kakao = (window as any).Kakao;
-    if (kakao && kakao.isInitialized()) {
-      try {
-        kakao.Share.sendDefault({
-          objectType: "feed",
-          content: {
-            title: "LifeFit 육아기 단축근무 급여 계산기 👶",
-            description: `내 예상 실수령액은 월 약 ${formatCurrency(results.totalNet)}원! 회사 월급과 고용보험 지원금 모의계산을 1분만에 확인해보세요!`,
-            imageUrl: "https://lifefit.kr/og-short-work.png",
-            link: {
-              mobileWebUrl: shareUrl,
-              webUrl: shareUrl,
-            },
-          },
-          buttons: [
-            {
-              title: "내 예상 수령액 확인하기",
+    if (kakao) {
+      if (!kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao dynamic initialization failed:", e);
+        }
+      }
+
+      if (kakao.isInitialized()) {
+        try {
+          kakao.Share.sendDefault({
+            objectType: "feed",
+            content: {
+              title: "LifeFit 육아기 단축근무 급여 계산기 👶",
+              description: `내 예상 실수령액은 월 약 ${formatCurrency(results.totalNet)}원! 회사 월급과 고용보험 지원금 모의계산을 1분만에 확인해보세요!`,
+              imageUrl: "https://lifefit.kr/og-short-work.png",
               link: {
                 mobileWebUrl: shareUrl,
                 webUrl: shareUrl,
               },
             },
-          ],
-        });
-        return;
-      } catch (err) {
-        console.error("Kakao share error", err);
+            buttons: [
+              {
+                title: "내 예상 수령액 확인하기",
+                link: {
+                  mobileWebUrl: shareUrl,
+                  webUrl: shareUrl,
+                },
+              },
+            ],
+          });
+          return;
+        } catch (err) {
+          console.error("Kakao share error", err);
+        }
       }
     }
 
-    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    // 2. Fallback: Copy to Clipboard & Show Premium Toast
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");

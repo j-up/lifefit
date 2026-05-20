@@ -98,29 +98,13 @@ export default function NJobTaxPage() {
   // Load Kakao SDK on component mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const initKakao = () => {
-        const kakao = (window as any).Kakao;
-        if (kakao && !kakao.isInitialized()) {
-          try {
-            kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-          } catch (e) {
-            console.error("Kakao initialization failed:", e);
-          }
+      const kakao = (window as any).Kakao;
+      if (kakao && !kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao initialization failed on mount:", e);
         }
-      };
-
-      if (!document.getElementById("kakao-sdk")) {
-        const script = document.createElement("script");
-        script.id = "kakao-sdk";
-        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
-        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
-        script.crossOrigin = "anonymous";
-        script.onload = () => {
-          initKakao();
-        };
-        document.body.appendChild(script);
-      } else {
-        initKakao();
       }
     }
   }, []);
@@ -262,52 +246,48 @@ export default function NJobTaxPage() {
     const shareUrl = `https://lifefit.kr/tools/njob-tax?job=${hasJob ? 1 : 0}&sal=${salaryStr}&side=${sideIncomeStr}&type=${incomeType || ""}`;
     const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
 
-    // 1. Try Native Share Sheet if available (Mobile default)
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "LifeFit N잡러 건보료 폭탄 계산기",
-          text: resultText,
-          url: shareUrl,
-        });
-        return;
-      } catch (err) {
-        // user cancelled or failed, fall through to Kakao SDK or clipboard
-      }
-    }
-
-    // 2. Try Kakao JS SDK
+    // 1. Try Kakao JS SDK (with dynamic initialization on click)
     const kakao = (window as any).Kakao;
-    if (kakao && kakao.isInitialized()) {
-      try {
-        kakao.Share.sendDefault({
-          objectType: "feed",
-          content: {
-            title: "LifeFit N잡러 건보료 폭탄 계산기 💸",
-            description: `건보료 리스크: ${results.riskMessage.split(':')[0]} / 예상 추가 세금: 약 ${formatCurrency(results.totalTax)}원. 내 리스크를 1분만에 확인해보세요!`,
-            imageUrl: "https://lifefit.kr/og-njob-tax.png",
-            link: {
-              mobileWebUrl: shareUrl,
-              webUrl: shareUrl,
-            },
-          },
-          buttons: [
-            {
-              title: "위험도 확인하기",
+    if (kakao) {
+      if (!kakao.isInitialized()) {
+        try {
+          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+        } catch (e) {
+          console.error("Kakao dynamic initialization failed:", e);
+        }
+      }
+
+      if (kakao.isInitialized()) {
+        try {
+          kakao.Share.sendDefault({
+            objectType: "feed",
+            content: {
+              title: "LifeFit N잡러 건보료 폭탄 계산기 💸",
+              description: `건보료 리스크: ${results.riskMessage.split(':')[0]} / 예상 추가 세금: 약 ${formatCurrency(results.totalTax)}원. 내 리스크를 1분만에 확인해보세요!`,
+              imageUrl: "https://lifefit.kr/og-njob-tax.png",
               link: {
                 mobileWebUrl: shareUrl,
                 webUrl: shareUrl,
               },
             },
-          ],
-        });
-        return;
-      } catch (err) {
-        console.error("Kakao share error", err);
+            buttons: [
+              {
+                title: "위험도 확인하기",
+                link: {
+                  mobileWebUrl: shareUrl,
+                  webUrl: shareUrl,
+                },
+              },
+            ],
+          });
+          return;
+        } catch (err) {
+          console.error("Kakao share error", err);
+        }
       }
     }
 
-    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    // 2. Fallback: Copy to Clipboard & Show Premium Toast
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");

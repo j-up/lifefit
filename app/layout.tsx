@@ -95,6 +95,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        <Script
+          id="kakao-sdk"
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+          integrity="sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {/* JSON-LD: Organization + WebSite + SearchAction */}
         <script
           type="application/ld+json"
