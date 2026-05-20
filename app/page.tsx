@@ -29,17 +29,17 @@ export default function Home() {
           <Link href="/" className="text-xl font-bold text-blue-600">
             LifeFit
           </Link>
-          <nav className="flex items-center gap-4 text-sm font-medium text-gray-600">
-            <Link href="/tools/short-work" className="hover:text-blue-600">
+          <nav className="flex items-center gap-2 overflow-x-auto text-xs font-medium text-gray-600 sm:gap-4 sm:text-sm">
+            <Link href="/tools/short-work" className="whitespace-nowrap hover:text-blue-600">
               육아수당 계산기
             </Link>
-            <Link href="/tools/fit-youth" className="hover:text-blue-600">
+            <Link href="/tools/fit-youth" className="whitespace-nowrap hover:text-blue-600">
               월세지원 계산기
             </Link>
-            <Link href="/tools/njob-tax" className="hover:text-blue-600">
+            <Link href="/tools/njob-tax" className="whitespace-nowrap hover:text-blue-600">
               N잡 세금 계산기
             </Link>
-            <Link href="/tools/car-bond" className="hover:text-blue-600">
+            <Link href="/tools/car-bond" className="whitespace-nowrap hover:text-blue-600">
               차 채권 환급금
             </Link>
           </nav>

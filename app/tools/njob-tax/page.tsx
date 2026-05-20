@@ -57,20 +57,6 @@ export default function NJobTaxPage() {
     }
   }, [showToast]);
 
-  // Load Kakao SDK on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const kakao = (window as any).Kakao;
-      if (kakao && !kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao initialization failed on mount:", e);
-        }
-      }
-    }
-  }, []);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -202,75 +188,32 @@ export default function NJobTaxPage() {
     }
   };
 
-  const handleKakaoShare = async () => {
+  const handleShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 N잡러 건보료 폭탄 계산기 💸\n🚨 건보료 리스크: ${results.riskMessage.split(':')[0]}\n💰 예상 추가 종소세: 약 ${formatCurrency(results.totalTax)}원`;
     const shareUrl = `https://lifefit.kr/tools/njob-tax?job=${hasJob ? 1 : 0}&sal=${salaryStr}&side=${sideIncomeStr}&type=${incomeType || ""}`;
     const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
 
-    // 1. Try Kakao JS SDK (with dynamic initialization on click)
-    const kakao = (window as any).Kakao;
-    if (kakao) {
-      if (!kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao dynamic initialization failed:", e);
-        }
-      }
-
-      if (kakao.isInitialized()) {
-        try {
-          kakao.Share.sendDefault({
-            objectType: "feed",
-            content: {
-              title: "LifeFit N잡러 건보료 폭탄 계산기 💸",
-              description: `건보료 리스크: ${results.riskMessage.split(':')[0]} / 예상 추가 세금: 약 ${formatCurrency(results.totalTax)}원. 내 리스크를 1분만에 확인해보세요!`,
-              imageUrl: "https://lifefit.kr/og-njob-tax.png",
-              link: {
-                mobileWebUrl: shareUrl,
-                webUrl: shareUrl,
-              },
-            },
-            buttons: [
-              {
-                title: "위험도 확인하기",
-                link: {
-                  mobileWebUrl: shareUrl,
-                  webUrl: shareUrl,
-                },
-              },
-            ],
-          });
-          return;
-        } catch (err) {
-          console.error("Kakao share error", err);
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit N잡러 건보료 폭탄 계산기 💸",
+          text: resultText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          console.error("Web Share API error:", err);
         }
       }
     }
 
-    // 2. Fallback: Copy to Clipboard & Show Premium Toast
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
     } catch {
       showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
-    }
-  };
-
-  const handleCopyLink = async () => {
-    if (!results) return;
-    const resultText = `[LifeFit] 2026 N잡러 건보료 폭탄 계산기 💸\n🚨 건보료 리스크: ${results.riskMessage.split(':')[0]}\n💰 예상 추가 종소세: 약 ${formatCurrency(results.totalTax)}원`;
-    const shareUrl = `https://lifefit.kr/tools/njob-tax?job=${hasJob ? 1 : 0}&sal=${salaryStr}&side=${sideIncomeStr}&type=${incomeType || ""}`;
-    const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
-
-    try {
-      await navigator.clipboard.writeText(fullText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
-    } catch {
-      showToastNotification("링크 복사에 실패했습니다.");
     }
   };
 
@@ -682,16 +625,6 @@ export default function NJobTaxPage() {
                 </div>
                 
                 <div className="flex flex-col gap-2.5">
-                  {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
-                  <button
-                    onClick={handleKakaoShare}
-                    type="button"
-                    className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
-                  >
-                    <span className="text-lg">💬</span>
-                    카카오톡으로 친구에게 알려주기
-                  </button>
-                  
                   <div className="flex gap-2">
                     {/* 다시 계산하기 버튼 */}
                     <button
@@ -712,9 +645,9 @@ export default function NJobTaxPage() {
                       {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                     </button>
                     
-                    {/* 링크 복사 버튼 */}
+                    {/* 공유하기 버튼 */}
                     <button
-                      onClick={handleCopyLink}
+                      onClick={handleShare}
                       className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
                         isCopied
                           ? "bg-[#e8f9f0] text-[#00c471]"
@@ -722,7 +655,7 @@ export default function NJobTaxPage() {
                       }`}
                     >
                       {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
-                      {isCopied ? "복사 완료!" : "링크 주소 복사"}
+                      {isCopied ? "복사 완료!" : "공유하기"}
                     </button>
                   </div>
                 </div>

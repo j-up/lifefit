@@ -242,7 +242,7 @@ export default function CarBondPage() {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
 
-  const handleKakaoShare = async () => {
+  const handleShare = async () => {
     if (!results || !region || !carType || !year) return;
     const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
     const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
@@ -273,21 +273,6 @@ export default function CarBondPage() {
     }
   };
 
-  const handleCopyLink = async () => {
-    if (!results || !region || !carType || !year) return;
-    const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
-    const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
-    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
-
-    try {
-      await navigator.clipboard.writeText(fullText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
-    } catch {
-      showToastNotification("링크 복사에 실패했습니다.");
-    }
-  };
 
   const stepTitles = [
     "차량 등록 지역",
@@ -880,15 +865,6 @@ export default function CarBondPage() {
                 </div>
                 
                 <div className="flex flex-col gap-2.5">
-                  {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
-                  <button
-                    onClick={handleKakaoShare}
-                    type="button"
-                    className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
-                  >
-                    <span className="text-lg">💬</span>
-                    카카오톡으로 친구에게 알려주기
-                  </button>
                   
                   <div className="flex gap-2">
                     {/* 다시 계산하기 버튼 */}
@@ -911,9 +887,9 @@ export default function CarBondPage() {
                       {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                     </button>
                     
-                    {/* 링크 복사 버튼 */}
+                    {/* 공유하기 버튼 */}
                     <button
-                      onClick={handleCopyLink}
+                      onClick={handleShare}
                       className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
                         isCopied
                           ? "bg-[#e8f9f0] text-[#00c471]"
@@ -921,7 +897,7 @@ export default function CarBondPage() {
                       }`}
                     >
                       {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
-                      {isCopied ? "복사 완료!" : "링크 주소 복사"}
+                      {isCopied ? "복사 완료!" : "공유하기"}
                     </button>
                   </div>
                 </div>

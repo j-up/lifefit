@@ -72,7 +72,6 @@ export default function Home() {
   const [originalHours, setOriginalHours] = useState<number>(40);
   const [reducedHours, setReducedHours] = useState<number>(30);
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
-  const [isCopied, setIsCopied] = useState(false);
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -89,19 +88,6 @@ export default function Home() {
     }
   }, [showToast]);
 
-  // Load Kakao SDK on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const kakao = (window as any).Kakao;
-      if (kakao && !kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao initialization failed on mount:", e);
-        }
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -172,54 +158,27 @@ export default function Home() {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
 
-  const handleKakaoShare = async () => {
+  const handleShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
     const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
-    // 1. Try Kakao JS SDK (with dynamic initialization on click)
-    const kakao = (window as any).Kakao;
-    if (kakao) {
-      if (!kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao dynamic initialization failed:", e);
-        }
-      }
-
-      if (kakao.isInitialized()) {
-        try {
-          kakao.Share.sendDefault({
-            objectType: "feed",
-            content: {
-              title: "LifeFit 육아기 단축근무 급여 계산기 👶",
-              description: `내 예상 실수령액은 월 약 ${formatCurrency(results.totalNet)}원! 회사 월급과 고용보험 지원금 모의계산을 1분만에 확인해보세요!`,
-              imageUrl: "https://lifefit.kr/og-short-work.png",
-              link: {
-                mobileWebUrl: shareUrl,
-                webUrl: shareUrl,
-              },
-            },
-            buttons: [
-              {
-                title: "내 예상 수령액 확인하기",
-                link: {
-                  mobileWebUrl: shareUrl,
-                  webUrl: shareUrl,
-                },
-              },
-            ],
-          });
-          return;
-        } catch (err) {
-          console.error("Kakao share error", err);
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit 육아기 단축근무 급여 계산기 👶",
+          text: resultText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          console.error("Web Share API error:", err);
         }
       }
     }
 
-    // 2. Fallback: Copy to Clipboard & Show Premium Toast
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
@@ -228,21 +187,6 @@ export default function Home() {
     }
   };
 
-  const handleCopyLink = async () => {
-    if (!results) return;
-    const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
-    const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
-    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
-
-    try {
-      await navigator.clipboard.writeText(fullText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
-    } catch {
-      showToastNotification("링크 복사에 실패했습니다.");
-    }
-  };
 
   const stepTitles = [
     "세전 월급 입력",
@@ -695,16 +639,6 @@ export default function Home() {
                 </div>
                 
                 <div className="flex flex-col gap-2.5">
-                  {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
-                  <button
-                    onClick={handleKakaoShare}
-                    type="button"
-                    className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
-                  >
-                    <span className="text-lg">💬</span>
-                    카카오톡으로 친구에게 알려주기
-                  </button>
-                  
                   <div className="flex gap-2">
                     {/* 다시 계산하기 버튼 */}
                     <button
@@ -724,18 +658,14 @@ export default function Home() {
                       <Calculator size={16} />
                       {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                     </button>
-                    
-                    {/* 링크 복사 버튼 */}
+
+                    {/* 공유하기 버튼 */}
                     <button
-                      onClick={handleCopyLink}
-                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
-                        isCopied
-                          ? "bg-[#e8f9f0] text-[#00c471]"
-                          : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
-                      }`}
+                      onClick={handleShare}
+                      className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#1e6fdb] transition-all active:scale-[0.98] shadow-md shadow-blue-100"
                     >
-                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
-                      {isCopied ? "복사 완료!" : "링크 주소 복사"}
+                      <Share2 size={16} />
+                      공유하기
                     </button>
                   </div>
                 </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
-import { Share2, Coins, Info, CheckCircle2, Calculator, Landmark } from "lucide-react";
+import { Share2, Coins, Info, Calculator, Landmark } from "lucide-react";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -331,7 +331,6 @@ function ResultScreen({
   onReset: () => void;
   isSharedResult: boolean;
 }) {
-  const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -347,83 +346,34 @@ function ResultScreen({
     }
   }, [showToast]);
 
-  // Load Kakao SDK on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const kakao = (window as any).Kakao;
-      if (kakao && !kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao initialization failed on mount:", e);
-        }
-      }
-    }
-  }, []);
 
   const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${rentSupportLabel}\n✅ 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
   const shareUrl = `https://lifefit.kr/tools/fit-youth?age=${answers.age ? 1 : 0}&residence=${answers.residence ? 1 : 0}&income=${answers.income ? 1 : 0}&asset=${answers.asset ? 1 : 0}&subscription=${answers.subscription ? 1 : 0}`;
   const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
 
-  const handleKakaoShare = async () => {
-    // 1. Try Kakao JS SDK (with dynamic initialization on click)
-    const kakao = (window as any).Kakao;
-    if (kakao) {
-      if (!kakao.isInitialized()) {
-        try {
-          kakao.init("d5745b5e1623229be8701723aa5f3bb4");
-        } catch (e) {
-          console.error("Kakao dynamic initialization failed:", e);
-        }
-      }
-
-      if (kakao.isInitialized()) {
-        try {
-          kakao.Share.sendDefault({
-            objectType: "feed",
-            content: {
-              title: "LifeFit 청년 주거지원 판별기 🏠",
-              description: `청년월세 특별지원: ${rentSupportLabel} / 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}. 내가 대상인지 1분만에 확인해보세요!`,
-              imageUrl: "https://lifefit.kr/og-fit-youth.png",
-              link: {
-                mobileWebUrl: shareUrl,
-                webUrl: shareUrl,
-              },
-            },
-            buttons: [
-              {
-                title: "대상 여부 확인하기",
-                link: {
-                  mobileWebUrl: shareUrl,
-                  webUrl: shareUrl,
-                },
-              },
-            ],
-          });
-          return;
-        } catch (err) {
-          console.error("Kakao share error", err);
+  const handleShare = async () => {
+    // 1. Web Share API
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit 청년 주거지원 판별기 🏠",
+          text: resultText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          console.error("Web Share API error:", err);
         }
       }
     }
 
-    // 2. Fallback: Copy to Clipboard & Show Premium Toast
+    // 2. 클립보드 복사
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)핼보세요!");
     } catch {
       showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
-    }
-  };
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(fullText);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
-    } catch {
-      showToastNotification("링크 복사에 실패했습니다.");
     }
   };
 
@@ -607,16 +557,6 @@ function ResultScreen({
         </div>
 
         <div className="flex flex-col gap-2.5">
-          {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
-          <button
-            onClick={handleKakaoShare}
-            type="button"
-            className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
-          >
-            <span className="text-lg">💬</span>
-            카카오톡으로 친구에게 알려주기
-          </button>
-          
           <div className="flex gap-2">
             {/* 다시 계산하기 버튼 */}
             <button
@@ -624,20 +564,16 @@ function ResultScreen({
               className="flex-1 h-12 rounded-2xl bg-gray-100 text-gray-700 font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-all active:scale-[0.98]"
             >
               <Calculator size={16} />
-              {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
+              {isSharedResult ? "나도 판별핼보기" : "다시 확인하기"}
             </button>
-            
-            {/* 링크 복사 버튼 */}
+
+            {/* 공유하기 버튼 */}
             <button
-              onClick={handleCopyLink}
-              className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
-                isCopied
-                  ? "bg-[#e8f9f0] text-[#00c471] border border-green-200"
-                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-100"
-              }`}
+              onClick={handleShare}
+              className="flex-1 h-12 rounded-2xl bg-blue-600 text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-blue-700 transition-all active:scale-[0.98] shadow-md shadow-blue-100"
             >
-              {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
-              {isCopied ? "복사 완료!" : "링크 주소 복사"}
+              <Share2 size={16} />
+              공유하기
             </button>
           </div>
         </div>
