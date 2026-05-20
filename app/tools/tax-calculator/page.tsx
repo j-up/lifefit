@@ -27,6 +27,7 @@ export default function TaxCalculatorPage() {
   const [rateStr, setRateStr] = useState<string>("");
   const [salaryStr, setSalaryStr] = useState<string>("");
   const [institution, setInstitution] = useState<InstitutionType>(null);
+  const [isSharedResult, setIsSharedResult] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -42,6 +43,25 @@ export default function TaxCalculatorPage() {
       return () => clearTimeout(timer);
     }
   }, [showToast]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const amt = params.get("amt");
+      const r = params.get("rate");
+      const sal = params.get("sal");
+      const inst = params.get("inst");
+
+      if (amt !== null && r !== null && sal !== null && inst !== null) {
+        setAmountStr(amt);
+        setRateStr(r);
+        setSalaryStr(sal);
+        setInstitution(inst as InstitutionType);
+        setStep(5);
+        setIsSharedResult(true);
+      }
+    }
+  }, []);
 
   const amount = amountStr === "" ? 0 : parseInt(amountStr, 10) * 10_000;
   const rate = rateStr === "" ? 0 : parseFloat(rateStr);
@@ -74,7 +94,7 @@ export default function TaxCalculatorPage() {
       mutualNet,
       taxFreeNet,
       isHighIncome,
-      mutualTaxRate: mutualTaxRate * 100,
+      mutualTaxRate: Number((mutualTaxRate * 100).toFixed(1)),
     };
   }, [step, amount, rate, salary]);
 
@@ -100,7 +120,7 @@ export default function TaxCalculatorPage() {
   const handleShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 이자 세금 비교 결과 💸\n💰 예치금: ${formatCurrency(amount)}원\n📈 예상 이자(세전): ${formatCurrency(results.grossInterest)}원\n✨ 실수령액(저율과세): ${formatCurrency(results.mutualNet)}원`;
-    const shareUrl = `https://lifefit.kr/tools/tax-calculator`;
+    const shareUrl = `https://lifefit.kr/tools/tax-calculator?amt=${amountStr}&rate=${rateStr}&sal=${salaryStr}&inst=${institution || ""}`;
     const fullText = `${resultText}\n\n👉 내 예적금 이자 세금 1분 만에 비교하기:\n${shareUrl}`;
 
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -122,7 +142,7 @@ export default function TaxCalculatorPage() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
       showToastNotification("복사에 실패했습니다.");
     }
@@ -357,6 +377,11 @@ export default function TaxCalculatorPage() {
 
           {step === 5 && results && (
             <div className="animate-fade-in space-y-6">
+              {isSharedResult && (
+                <div className="w-full rounded-xl bg-blue-50 p-3 text-xs font-semibold text-blue-800 border border-blue-100 flex items-center justify-center gap-1.5">
+                  <span>💌</span> 친구가 보내온 맞춤 이자 결과지입니다!
+                </div>
+              )}
               <div className="text-center pb-2">
                 <h2 className="text-2xl font-bold text-[#191f28]">비교 결과</h2>
                 <p className="text-sm text-[#8b95a1] mt-1">
@@ -488,10 +513,14 @@ export default function TaxCalculatorPage() {
                       setRateStr("");
                       setSalaryStr("");
                       setInstitution(null);
+                      setIsSharedResult(false);
+                      if (typeof window !== "undefined") {
+                        window.history.replaceState({}, "", window.location.pathname);
+                      }
                     }}
                     className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
                   >
-                    다시 계산
+                    {isSharedResult ? "나도 계산해보기" : "다시 계산"}
                   </button>
                   <button
                     onClick={handleShare}
