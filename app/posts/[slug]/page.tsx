@@ -5,6 +5,7 @@ import { Calculator } from "lucide-react";
 import type { Metadata } from "next";
 import { posts } from "@/app/data/posts";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
+import SubscribeCard from "@/app/components/SubscribeCard";
 
 interface Props {
   params: Promise<{
@@ -110,6 +111,18 @@ export default async function PostPage({ params }: Props) {
           desc: "2026년 청년월세 특별지원 대상자 여부를 빠르고 정확하게 판별해 드립니다.",
           theme: "purple" as const,
         };
+    }
+  })();
+
+  const defaultCategory = (() => {
+    switch (post.category) {
+      case "육아·복지":
+      case "복지·육아":
+        return "welfare" as const;
+      case "세금·복지":
+        return "tax" as const;
+      default:
+        return "housing" as const;
     }
   })();
 
@@ -284,6 +297,9 @@ export default async function PostPage({ params }: Props) {
                 </div>
               </Link>
             </div>
+
+            {/* 알림 구독 신청 - 리텐션 극대화 */}
+            <SubscribeCard defaultCategory={defaultCategory} />
 
             {/* Back link */}
             <div className="mt-12 border-t border-gray-100 pt-8">

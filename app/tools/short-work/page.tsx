@@ -20,6 +20,7 @@ import {
   History,
 } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
+import SubscribeCard from "@/app/components/SubscribeCard";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -684,12 +685,8 @@ export default function Home() {
               {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
               <AdSenseSlot adFormat="auto" />
 
-              {/* 북마크 유도 팁 - 리텐션 극대화 */}
-              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
-                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
-                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 단축근무 수령액 확인 시 즉시 다시 확인할 수 있습니다.
-                </p>
-              </div>
+              {/* 알림 구독 신청 - 리텐션 극대화 */}
+              <SubscribeCard defaultCategory="welfare" />
 
             </div>
           )}
