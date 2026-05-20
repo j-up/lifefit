@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "적금 선납이연 계산기 | LifeFit",
     description: "가장 유리한 적금 입금 계획을 세우고 이자를 극대화하세요.",
-    images: [{ url: "https://lifefit.kr/og-default.png" }],
+    images: [{ url: "https://lifefit.kr/og-savings-plan.png" }],
   },
 };
 
