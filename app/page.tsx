@@ -30,6 +30,12 @@ export default function Home() {
             LifeFit
           </Link>
           <nav className="flex items-center gap-2 overflow-x-auto text-xs font-medium text-gray-600 sm:gap-4 sm:text-sm">
+            <Link href="/tools/savings-plan" className="whitespace-nowrap hover:text-blue-600">
+              선납이연 계산기
+            </Link>
+            <Link href="/tools/tax-calculator" className="whitespace-nowrap hover:text-blue-600">
+              이자 세금 계산기
+            </Link>
             <Link href="/tools/short-work" className="whitespace-nowrap hover:text-blue-600">
               육아수당 계산기
             </Link>
@@ -38,9 +44,6 @@ export default function Home() {
             </Link>
             <Link href="/tools/njob-tax" className="whitespace-nowrap hover:text-blue-600">
               N잡 세금 계산기
-            </Link>
-            <Link href="/tools/car-bond" className="whitespace-nowrap hover:text-blue-600">
-              차 채권 환급금
             </Link>
           </nav>
         </div>
@@ -63,7 +66,41 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded-2xl border border-orange-200 bg-orange-50 p-6 transition-all hover:shadow-sm">
+            <span className="text-xs font-semibold uppercase text-orange-600">
+              신규 도구 💰
+            </span>
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              적금 선납이연 플랜 계산기
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              6-1-5, 1-11 등 적금 이자를 극대화하는 선납이연 납입일자를 확인하세요.
+            </p>
+            <Link
+              href="/tools/savings-plan"
+              className="mt-4 inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700"
+            >
+              바로가기 →
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 transition-all hover:shadow-sm">
+            <span className="text-xs font-semibold uppercase text-indigo-600">
+              신규 도구 📊
+            </span>
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              2026 이자 세금 비교 계산기
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              일반, 저율과세, 비과세 중 내 연봉에 맞는 가장 유리한 저축을 찾으세요.
+            </p>
+            <Link
+              href="/tools/tax-calculator"
+              className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-700"
+            >
+              바로가기 →
+            </Link>
+          </div>
           <div className="rounded-2xl border border-blue-200 bg-blue-100 p-6 transition-all hover:shadow-sm">
             <span className="text-xs font-semibold uppercase text-blue-600">
               추천 도구
@@ -221,6 +258,16 @@ export default function Home() {
             <div>
               <h3 className="mb-3 font-bold text-gray-900">도구</h3>
               <ul className="space-y-2 text-gray-500">
+                <li>
+                  <Link href="/tools/savings-plan" className="hover:text-blue-600 transition-colors">
+                    적금 선납이연 플랜 계산기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tools/tax-calculator" className="hover:text-blue-600 transition-colors">
+                    2026 이자 세금 비교 계산기
+                  </Link>
+                </li>
                 <li>
                   <Link href="/tools/short-work" className="hover:text-blue-600 transition-colors">
                     육아기 단축근무 급여 계산기
