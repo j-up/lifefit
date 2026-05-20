@@ -18,24 +18,12 @@ export default function NotFound() {
       <p className="mb-8 text-base text-gray-500">
         요청하신 페이지가 존재하지 않거나 이동되었습니다.
       </p>
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="flex flex-col gap-3">
         <Link
           href="/"
-          className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700"
+          className="rounded-xl bg-blue-600 px-8 py-3.5 text-base font-bold text-white shadow-lg shadow-blue-100 transition-all hover:bg-blue-700 active:scale-[0.98]"
         >
-          메인 페이지로 이동
-        </Link>
-        <Link
-          href="/tools/short-work"
-          className="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-        >
-          육아수당 계산기
-        </Link>
-        <Link
-          href="/tools/fit-youth"
-          className="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-        >
-          청년 주거지원 판별기
+          메인 페이지로 이동하기
         </Link>
       </div>
     </div>
