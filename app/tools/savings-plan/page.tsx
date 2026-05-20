@@ -45,6 +45,7 @@ export default function SavingsPlanPage() {
   const [startDateStr, setStartDateStr] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
+  const [isSharedResult, setIsSharedResult] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -61,6 +62,25 @@ export default function SavingsPlanPage() {
     }
   }, [showToast]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const amt = params.get("amt");
+      const p = params.get("period");
+      const r = params.get("rate");
+      const s = params.get("start");
+
+      if (amt !== null && p !== null && r !== null && s !== null) {
+        setAmountStr(amt);
+        setPeriod(parseInt(p, 10) as 12 | 24);
+        setRateStr(r);
+        setStartDateStr(s);
+        setStep(5);
+        setIsSharedResult(true);
+      }
+    }
+  }, []);
+
   const amount = amountStr === "" ? 0 : parseInt(amountStr, 10) * 10000;
   const rate = rateStr === "" ? 0 : parseFloat(rateStr);
   const startDate = useMemo(() => new Date(startDateStr), [startDateStr]);
@@ -73,9 +93,7 @@ export default function SavingsPlanPage() {
     const maturityDate = new Date(scheduledDates[n - 1]);
     maturityDate.setMonth(maturityDate.getMonth() + 1);
 
-    // 일반 적금 이자 계산 (월복리/단리 중 보통 적금은 단리이나 입금 회차별 기간으로 계산)
-    // 이자 = 원금 * 이율 * (남은일수 / 365)
-    // 여기서는 간편하게 월별로 계산 (n + n-1 + ... + 1) / 12
+    // 일반 적금 이자 계산
     let totalNormalInterest = 0;
     for (let i = 1; i <= n; i++) {
       totalNormalInterest += amount * (rate / 100) * ((n - i + 1) / 12);
@@ -84,21 +102,16 @@ export default function SavingsPlanPage() {
     const taxRate = 0.154;
     const netNormalInterest = totalNormalInterest * (1 - taxRate);
 
-    // 선납이연 플랜 계산
-    // 6-1-5: 1회차(6개월치), 7회차(1개월치), 12회차(5개월치)
-    // 1-11: 1회차(1개월치), 7회차(11개월치)
-    // 6-6: 1회차(6개월치), 7회차(6개월치)
-    
     const getPlanSchedule = (type: "6-1-5" | "1-11" | "6-6") => {
       const schedule: { date: Date; count: number; amount: number }[] = [];
       const d1 = new Date(scheduledDates[0]);
-      const d7 = new Date(scheduledDates[6] || scheduledDates[0]); // 12개월 기준 7회차
+      const d7 = new Date(scheduledDates[6] || scheduledDates[0]); 
       
       if (type === "6-1-5") {
         schedule.push({ date: d1, count: 6, amount: amount * 6 });
         schedule.push({ date: d7, count: 1, amount: amount * 1 });
         const dLast = new Date(maturityDate);
-        dLast.setDate(dLast.getDate() - 1); // 만기 전날
+        dLast.setDate(dLast.getDate() - 1);
         schedule.push({ date: dLast, count: 5, amount: amount * 5 });
       } else if (type === "1-11") {
         schedule.push({ date: d1, count: 1, amount: amount * 1 });
@@ -141,11 +154,14 @@ export default function SavingsPlanPage() {
   };
 
   const handleShare = async () => {
-    const resultText = `[LifeFit] 적금 선납이연 계산기 💰\n월 ${formatCurrency(amount)}원, ${period}개월, ${rate}% 기준\n세후 이자: 약 ${formatCurrency(results?.netNormalInterest || 0)}원`;
-    const shareUrl = typeof window !== "undefined" ? window.location.href : "https://lifefit.kr/tools/savings-plan";
+    if (!results) return;
+    const resultText = `[LifeFit] 적금 선납이연 계산기 💰\n월 ${formatCurrency(amount)}원, ${period}개월, ${rate}% 기준\n세후 이자: 약 ${formatCurrency(results.netNormalInterest)}원`;
+    const shareUrl = `https://lifefit.kr/tools/savings-plan?amt=${amountStr}&period=${period}&rate=${rateStr}&start=${startDateStr}`;
     const fullText = `${resultText}\n\n👉 내 적금 이자 극대화하는 법 확인하기:\n${shareUrl}`;
 
-    if (navigator.share) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 적금 선납이연 계산기 💰",
@@ -153,14 +169,16 @@ export default function SavingsPlanPage() {
           url: shareUrl,
         });
         return;
-      } catch {
-        // Ignored
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          console.error("Web Share API error:", err);
+        }
       }
     }
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
       showToastNotification("복사에 실패했습니다.");
     }
@@ -336,6 +354,11 @@ export default function SavingsPlanPage() {
 
           {step === 5 && results && (
             <div className="animate-fade-in space-y-6">
+              {isSharedResult && (
+                <div className="w-full rounded-xl bg-blue-50 p-3 text-xs font-semibold text-blue-800 border border-blue-100 flex items-center justify-center gap-1.5">
+                  <span>💌</span> 친구가 보내온 맞춤 적금 플랜입니다!
+                </div>
+              )}
               <div className="text-center pb-2">
                 <h2 className="text-2xl font-bold text-[#191f28]">계산 결과</h2>
                 <p className="text-sm text-[#8b95a1] mt-1">
@@ -433,11 +456,15 @@ export default function SavingsPlanPage() {
                       setStep(1);
                       setAmountStr("");
                       setRateStr("");
+                      setIsSharedResult(false);
+                      if (typeof window !== "undefined") {
+                        window.history.replaceState({}, "", window.location.pathname);
+                      }
                     }}
                     className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
                   >
                     <History size={16} />
-                    다시 하기
+                    {isSharedResult ? "나도 해보기" : "다시 하기"}
                   </button>
                   <button
                     onClick={handleShare}
@@ -488,7 +515,8 @@ export default function SavingsPlanPage() {
       </div>
 
       {showToast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
+          <span>💬</span>
           {toastMessage}
         </div>
       )}
