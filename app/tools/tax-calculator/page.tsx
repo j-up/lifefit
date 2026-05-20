@@ -12,6 +12,10 @@ import {
   Building2,
   AlertTriangle,
   PiggyBank,
+  CheckCircle2,
+  TrendingUp,
+  Receipt,
+  Minus,
 } from "lucide-react";
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -95,6 +99,8 @@ export default function TaxCalculatorPage() {
       taxFreeNet,
       isHighIncome,
       mutualTaxRate: Number((mutualTaxRate * 100).toFixed(1)),
+      maxSavings: generalTax, // 일반과세 대비 비과세 시 절약되는 금액
+      mutualSavings: generalTax - mutualTax, // 일반과세 대비 저율과세 시 절약되는 금액
     };
   }, [step, amount, rate, salary]);
 
@@ -389,64 +395,81 @@ export default function TaxCalculatorPage() {
                 </p>
               </div>
 
-              {/* 메인 결과 박스 */}
-              <div className="bg-[#f8f9fa] rounded-2xl p-5 border border-[#e5e8eb]">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-[#4e5968]">총 세전 이자</span>
-                  <span className="text-lg font-bold text-[#191f28]">
+              {/* 하이라이트 요약 카드 */}
+              <div className="rounded-2xl p-5 bg-[#3182f6] text-white shadow-lg shadow-blue-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp size={20} className="text-blue-100" />
+                  <span className="text-sm font-medium text-blue-100">최대 절세 혜택</span>
+                </div>
+                <p className="text-2xl font-bold mb-1">
+                  약 {formatCurrency(results.maxSavings)}원을 아낄 수 있어요!
+                </p>
+                <p className="text-xs text-blue-100 opacity-80">
+                  일반 시중은행 대비 비과세 혜택 적용 시 기준
+                </p>
+              </div>
+
+              {/* 세부 결과 리스트 */}
+              <div className="space-y-3">
+                {/* 세전 이자 */}
+                <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#e5e8eb] flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <Receipt size={18} className="text-[#8b95a1]" />
+                    <span className="text-sm font-bold text-[#4e5968]">총 세전 이자</span>
+                  </div>
+                  <span className="text-lg font-extrabold text-[#191f28]">
                     {formatCurrency(results.grossInterest)}원
                   </span>
                 </div>
-                
-                <div className="space-y-4">
+
+                <div className="pt-2">
+                  <h3 className="text-xs font-bold text-[#8b95a1] mb-3 px-1 uppercase tracking-wider">세후 실수령액 비교</h3>
+                  
+                  {/* 비과세 (Best) */}
+                  <div className="p-5 rounded-2xl bg-[#e6f9f1] border-2 border-[#00c471] mb-3 relative overflow-hidden">
+                    <div className="absolute right-0 top-0 bg-[#00c471] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl">
+                      BEST
+                    </div>
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <p className="text-xs font-bold text-[#00c471] mb-1">비과세 종합저축 (0%)</p>
+                        <p className="text-xl font-extrabold text-[#191f28]">{formatCurrency(results.taxFreeNet)}원</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] text-[#00c471] font-bold bg-white/50 w-fit px-2 py-1 rounded-lg">
+                      <CheckCircle2 size={12} />
+                      세금 0원 전액 수령
+                    </div>
+                  </div>
+
+                  {/* 저율과세 (상호금융) */}
+                  <div className="p-5 rounded-2xl bg-[#e8f3ff] border border-[#3182f6] mb-3">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <p className="text-xs font-bold text-[#3182f6] mb-1">
+                          저율과세 ({results.mutualTaxRate}%)
+                          {results.isHighIncome && <span className="ml-1 text-[10px] text-[#f04452]">인상대상</span>}
+                        </p>
+                        <p className="text-xl font-extrabold text-[#191f28]">{formatCurrency(results.mutualNet)}원</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-[11px] text-[#3182f6] font-bold">
+                      <Minus size={10} />
+                      일반 대비 {formatCurrency(results.mutualSavings)}원 더 받음
+                    </div>
+                  </div>
+
                   {/* 일반과세 */}
-                  <div className="relative">
-                    <div className="flex justify-between items-end mb-1">
-                      <span className="text-xs font-bold text-[#4e5968]">일반과세 (15.4%)</span>
-                      <span className="text-sm font-bold text-[#191f28]">
-                        {formatCurrency(results.generalNet)}원
-                      </span>
+                  <div className="p-5 rounded-2xl bg-white border border-[#e5e8eb]">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <p className="text-xs font-bold text-[#8b95a1] mb-1">일반과세 (15.4%)</p>
+                        <p className="text-xl font-extrabold text-[#4e5968]">{formatCurrency(results.generalNet)}원</p>
+                      </div>
                     </div>
-                    <div className="h-2 w-full bg-[#e5e8eb] rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-[#8b95a1] rounded-full" 
-                        style={{ width: `${(results.generalNet / results.taxFreeNet) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* 저율과세 */}
-                  <div className="relative">
-                    <div className="flex justify-between items-end mb-1">
-                      <span className="text-xs font-bold text-[#3182f6]">
-                        저율과세 ({results.mutualTaxRate}%)
-                        {results.isHighIncome && <span className="ml-1 text-[10px] text-[#f04452]">인상대상</span>}
-                      </span>
-                      <span className="text-sm font-bold text-[#3182f6]">
-                        {formatCurrency(results.mutualNet)}원
-                      </span>
-                    </div>
-                    <div className="h-2 w-full bg-[#e8f3ff] rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-[#3182f6] rounded-full" 
-                        style={{ width: `${(results.mutualNet / results.taxFreeNet) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* 비과세 */}
-                  <div className="relative">
-                    <div className="flex justify-between items-end mb-1">
-                      <span className="text-xs font-bold text-[#00c471]">비과세 종합저축 (0%)</span>
-                      <span className="text-sm font-bold text-[#00c471]">
-                        {formatCurrency(results.taxFreeNet)}원
-                      </span>
-                    </div>
-                    <div className="h-2 w-full bg-[#e6f9f1] rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-[#00c471] rounded-full" 
-                        style={{ width: "100%" }}
-                      />
+                    <div className="flex items-center gap-1 text-[11px] text-[#8b95a1] font-medium">
+                      <AlertTriangle size={12} />
+                      세금으로 {formatCurrency(results.generalTax)}원 차감
                     </div>
                   </div>
                 </div>
