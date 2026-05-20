@@ -17,7 +17,8 @@ import {
   Home,
   Search,
   ChevronRight,
-  Send
+  Send,
+  Loader2
 } from "lucide-react";
 
 interface LogEntry {
@@ -31,6 +32,8 @@ export const dynamic = "force-dynamic";
 export default function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [adminSecret, setAdminSecret] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [authError, setAuthError] = useState("");
   const [category, setCategory] = useState("주거·복지");
   const [searching, setSearching] = useState(false);
   const [searchedNews, setSearchedNews] = useState<any>(null);
@@ -42,6 +45,34 @@ export default function AdminPage() {
   const addLog = (message: string, type: "info" | "success" | "warning" | "error" = "info") => {
     const time = new Date().toLocaleTimeString();
     setLogs((prev) => [...prev, { timestamp: time, message, type }]);
+  };
+
+  // 0. 비밀키 서버 검증
+  const handleVerifyPasskey = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!adminSecret.trim()) return;
+
+    setVerifying(true);
+    setAuthError("");
+
+    try {
+      const response = await fetch("/api/admin/verify-passkey", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${adminSecret.trim()}`
+        }
+      });
+
+      if (response.ok) {
+        setIsAuthorized(true);
+      } else {
+        setAuthError("비밀키가 일치하지 않습니다. 다시 확인해 주세요.");
+      }
+    } catch (err) {
+      setAuthError("서버와의 통신에 실패했습니다.");
+    } finally {
+      setVerifying(false);
+    }
   };
 
   // 1. AI 뉴스 서치
@@ -62,6 +93,11 @@ export default function AdminPage() {
         },
         body: JSON.stringify({ category })
       });
+
+      if (response.status === 401) {
+        setIsAuthorized(false);
+        throw new Error("세션이 만료되었거나 비밀키가 올바르지 않습니다.");
+      }
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
@@ -98,6 +134,11 @@ export default function AdminPage() {
         })
       });
 
+      if (response.status === 401) {
+        setIsAuthorized(false);
+        throw new Error("비밀키 인증에 실패했습니다.");
+      }
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
 
@@ -133,24 +174,30 @@ export default function AdminPage() {
             </h1>
             <p className="text-slate-400 text-sm mt-2 font-medium">관리자 전용 콘솔 접속을 위해 비밀키를 입력하세요.</p>
           </div>
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur-xl shadow-2xl space-y-6">
+          <form onSubmit={handleVerifyPasskey} className="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur-xl shadow-2xl space-y-6">
             <div className="space-y-2">
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] ml-1">Security Passkey</label>
               <input
                 type="password"
                 value={adminSecret}
                 onChange={(e) => setAdminSecret(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && setIsAuthorized(true)}
                 placeholder="ADMIN_SECRET 입력"
                 className="w-full rounded-2xl border border-slate-800 bg-slate-950/80 px-5 py-4 text-sm text-white placeholder-slate-700 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner"
                 autoFocus
+                required
               />
+              {authError && <p className="text-[11px] text-rose-500 font-bold ml-1 animate-shake">{authError}</p>}
             </div>
-            <button onClick={() => setIsAuthorized(true)} className="w-full flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-4 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-500 active:scale-[0.98] transition-all transform">
-              <TerminalIcon size={18} /> 콘솔 접속하기
+            <button 
+              type="submit"
+              disabled={verifying}
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-4 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-500 active:scale-[0.98] transition-all transform disabled:opacity-50"
+            >
+              {verifying ? <Loader2 size={18} className="animate-spin" /> : <TerminalIcon size={18} />}
+              콘솔 접속하기
             </button>
             <Link href="/" className="block text-center text-xs text-slate-500 hover:text-slate-400 transition-colors pt-2">← 메인 페이지로 돌아가기</Link>
-          </div>
+          </form>
         </div>
       </div>
     );
