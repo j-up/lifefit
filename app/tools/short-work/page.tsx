@@ -17,7 +17,9 @@ import {
   Share2,
   Coins,
   Landmark,
+  History,
 } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -73,6 +75,7 @@ export default function Home() {
   const [reducedHours, setReducedHours] = useState<number>(30);
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -88,6 +91,48 @@ export default function Home() {
     }
   }, [showToast]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_short_work_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (sal: string, orig: number, red: number, first: boolean | null) => {
+    if (typeof window === "undefined") return;
+    try {
+      const history = {
+        salaryStr: sal,
+        originalHours: orig,
+        reducedHours: red,
+        isFirst12Months: first,
+        date: new Date().toISOString(),
+      };
+      localStorage.setItem("lifefit_short_work_history", JSON.stringify(history));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_short_work_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setSalaryStr(parsed.salaryStr);
+          setOriginalHours(parsed.originalHours);
+          setReducedHours(parsed.reducedHours);
+          setIsFirst12Months(parsed.isFirst12Months);
+          setStep(5);
+          showToastNotification("이전 계산 기록을 불러왔습니다!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -151,8 +196,12 @@ export default function Home() {
 
   const nextStep = useCallback(() => {
     if (!canProceed()) return;
-    if (step < 5) setStep((s) => (s + 1) as Step);
-  }, [canProceed, step]);
+    const next = (step + 1) as Step;
+    setStep(next);
+    if (next === 5) {
+      saveToHistory(salaryStr, originalHours, reducedHours, isFirst12Months);
+    }
+  }, [canProceed, step, salaryStr, originalHours, reducedHours, isFirst12Months]);
 
   const prevStep = useCallback(() => {
     if (step > 1) setStep((s) => (s - 1) as Step);
@@ -211,6 +260,29 @@ export default function Home() {
             applicationCategory: "BusinessApplication",
             operatingSystem: "All",
             description: "2026년 기준 육아기 근로시간 단축 급여액, 회사 지급액, 고용보험 지원금 및 최종 실수령액 모의계산기",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "육아기 단축근무 계산기",
+                item: "https://lifefit.kr/tools/short-work",
+              },
+            ],
           }),
         }}
       />
@@ -276,6 +348,15 @@ export default function Home() {
 
           {step === 1 && (
             <div className="space-y-4">
+              {hasHistory && (
+                <button
+                  onClick={loadHistory}
+                  className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50 animate-fade-in"
+                >
+                  <History size={14} />
+                  이전 계산 기록 불러오기
+                </button>
+              )}
               <div className="relative">
                 <Wallet
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8b95a1]"
@@ -590,8 +671,6 @@ export default function Home() {
                 </ul>
               </div>
 
-
-
               {/* CTA */}
               <Link
                 href="/tools/short-work/parking"
@@ -601,6 +680,16 @@ export default function Home() {
                 <br />
                 고금리 파킹통장 비교하러 가기
               </Link>
+
+              {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+              <AdSenseSlot adFormat="auto" />
+
+              {/* 북마크 유도 팁 - 리텐션 극대화 */}
+              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
+                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 단축근무 수령액 확인 시 즉시 다시 확인할 수 있습니다.
+                </p>
+              </div>
 
             </div>
           )}
@@ -693,7 +782,7 @@ export default function Home() {
             본 계산기는 고용보험법에 명시된 <strong>2026년 최신 육아기 근로시간 단축 급여 산정 방식</strong>을 기반으로 제작되었습니다.
           </p>
           <p className="mb-2">
-            자녀가 만 12세 이하(초등학교 6학년 이하)인 근로자는 주 15시간~35시간 사이로 단축 근무를 신청할 수 있습니다. 단축 후 최초 12개월 동안은 <strong>통상임금의 100% (상한액 200만 원)</strong>를 기준으로 고용보험에서 단축된 시간만큼 비례하여 급여를 지원합니다.
+            자녀가 만 12세 이하(초등학교 6학년 이하)인 근로자는 주 15시간~35시간 사이로 단축 근무를 신청할 수 있습니다. 단축 후 최초 12개월 동안은 <strong>통상임금의 100% (상한액 250만 원)</strong>를 기준으로 고용보험에서 단축된 시간만큼 비례하여 급여를 지원합니다.
           </p>
           <p>
             근로자는 회사로부터 단축된 근무 시간에 비례한 임금을 지급받으며, 고용보험의 지원금을 합산하여 실질적인 급여 감소를 최소화할 수 있습니다. 본 모의계산 결과는 예상치이므로 정확한 실수령액은 관할 고용센터를 통해 확인하시기 바랍니다.

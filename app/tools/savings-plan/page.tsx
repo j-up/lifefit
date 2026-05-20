@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   History,
 } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -46,6 +47,7 @@ export default function SavingsPlanPage() {
     new Date().toISOString().split("T")[0]
   );
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -53,6 +55,49 @@ export default function SavingsPlanPage() {
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
     setShowToast(true);
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_savings_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (amt: string, p: number, r: string, start: string) => {
+    if (typeof window === "undefined") return;
+    try {
+      const history = {
+        amountStr: amt,
+        period: p,
+        rateStr: r,
+        startDateStr: start,
+        date: new Date().toISOString(),
+      };
+      localStorage.setItem("lifefit_savings_history", JSON.stringify(history));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_savings_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setAmountStr(parsed.amountStr);
+          setPeriod(parsed.period);
+          setRateStr(parsed.rateStr);
+          setStartDateStr(parsed.startDateStr);
+          setStep(5);
+          showToastNotification("이전 계산 기록을 불러왔습니다!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   };
 
   useEffect(() => {
@@ -146,7 +191,11 @@ export default function SavingsPlanPage() {
 
   const nextStep = () => {
     if (!canProceed()) return;
-    setStep((s) => (s + 1) as Step);
+    const next = (step + 1) as Step;
+    setStep(next);
+    if (next === 5) {
+      saveToHistory(amountStr, period, rateStr, startDateStr);
+    }
   };
 
   const prevStep = () => {
@@ -168,6 +217,7 @@ export default function SavingsPlanPage() {
           text: resultText,
           url: shareUrl,
         });
+        showToastNotification("💬 공유하기가 완료되었습니다!");
         return;
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -178,9 +228,9 @@ export default function SavingsPlanPage() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("복사가 성공되었습니다!");
+      showToastNotification("💬 결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
     } catch {
-      showToastNotification("복사에 실패했습니다.");
+      showToastNotification("❌ 복사에 실패했습니다.");
     }
   };
 
@@ -197,6 +247,29 @@ export default function SavingsPlanPage() {
             applicationCategory: "FinancialApplication",
             operatingSystem: "All",
             description: "6-1-5, 1-11, 6-6 등 적금 선납이연 방식을 통한 이자 수익 최적화 계산기",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "적금 선납이연 계산기",
+                item: "https://lifefit.kr/tools/savings-plan",
+              },
+            ],
           }),
         }}
       />
@@ -236,6 +309,15 @@ export default function SavingsPlanPage() {
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-[rgba(0,27,55,0.05)]">
           {step === 1 && (
             <div className="animate-fade-in">
+              {hasHistory && (
+                <button
+                  onClick={loadHistory}
+                  className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50"
+                >
+                  <History size={14} />
+                  이전 계산 기록 불러오기
+                </button>
+              )}
               <h2 className="text-xl font-bold text-[#191f28] mb-2">
                 월 납입 금액을 알려주세요
               </h2>
@@ -419,6 +501,16 @@ export default function SavingsPlanPage() {
               <div className="p-4 bg-[#f2f4f6] rounded-2xl">
                 <p className="text-xs text-[#4e5968] leading-relaxed">
                   ※ <strong>선납이연</strong>은 적금의 일부 회차를 미리 내고(선납), 일부는 늦게 내는(이연) 방식으로 자금 흐름을 조절하는 테크닉입니다. 결과적으로 만기 이자는 일반 적금과 동일하게 수령하면서, 중간에 자금을 다른 곳(예: 파킹통장)에 활용할 수 있는 장점이 있습니다.
+                </p>
+              </div>
+
+              {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+              <AdSenseSlot adFormat="auto" />
+
+              {/* 북마크 유도 팁 - 리텐션 극대화 */}
+              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
+                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 납입 회차일에 즉시 다시 확인할 수 있습니다.
                 </p>
               </div>
             </div>

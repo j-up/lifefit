@@ -20,7 +20,9 @@ import {
   Banknote,
   TrendingUp,
   Info,
+  History,
 } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -165,6 +167,50 @@ export default function CarBondPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [hasHistory, setHasHistory] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_car_bond_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (r: Region | null, t: CarType | null, y: Year | null, p: string) => {
+    if (typeof window === "undefined") return;
+    try {
+      const history = {
+        region: r,
+        carType: t,
+        year: y,
+        priceStr: p,
+        date: new Date().toISOString(),
+      };
+      localStorage.setItem("lifefit_car_bond_history", JSON.stringify(history));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_car_bond_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setRegion(parsed.region);
+          setCarType(parsed.carType);
+          setYear(parsed.year);
+          setPriceStr(parsed.priceStr);
+          setStep(5);
+          showToastNotification("이전 계산 기록을 불러왔습니다!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
@@ -235,8 +281,12 @@ export default function CarBondPage() {
 
   const nextStep = useCallback(() => {
     if (!canProceed()) return;
-    if (step < 5) setStep((s) => (s + 1) as Step);
-  }, [canProceed, step]);
+    const next = (step + 1) as Step;
+    setStep(next);
+    if (next === 5) {
+      saveToHistory(region, carType, year, priceStr);
+    }
+  }, [canProceed, step, region, carType, year, priceStr]);
 
   const prevStep = useCallback(() => {
     if (step > 1) setStep((s) => (s - 1) as Step);
@@ -246,7 +296,7 @@ export default function CarBondPage() {
     if (!results || !region || !carType || !year) return;
     const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
     const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
-    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산필보기:\n${shareUrl}`;
+    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -315,6 +365,29 @@ export default function CarBondPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "자동차 미환급 채권 계산기",
+                item: "https://lifefit.kr/tools/car-bond",
+              },
+            ],
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 메인으로 가기 */}
         <Link
@@ -377,7 +450,17 @@ export default function CarBondPage() {
           </p>
 
           {step === 1 && (
-            <div className="grid grid-cols-3 gap-3">
+            <div className="animate-fade-in">
+              {hasHistory && (
+                <button
+                  onClick={loadHistory}
+                  className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50"
+                >
+                  <History size={14} />
+                  이전 계산 기록 불러오기
+                </button>
+              )}
+              <div className="grid grid-cols-3 gap-3">
               {allRegions.map((r) => (
                 <button
                   key={r}
@@ -392,6 +475,7 @@ export default function CarBondPage() {
                   <span className="text-sm font-bold">{REGION_DATA[r].name}</span>
                 </button>
               ))}
+              </div>
             </div>
           )}
 
@@ -808,6 +892,16 @@ export default function CarBondPage() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+              <AdSenseSlot adFormat="auto" />
+
+              {/* 북마크 유도 팁 - 리텐션 극대화 */}
+              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
+                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 자동차 채권 환급 조회 시 즉시 다시 확인할 수 있습니다.
+                </p>
               </div>
 
               {/* Info Box */}

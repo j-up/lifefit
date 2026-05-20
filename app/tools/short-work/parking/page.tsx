@@ -31,7 +31,7 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "파킹통장",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["전액 자유입출금", "수시입출금 가능", "ATM 수수료 물", "카카오뱅크 이체 수수료 물"],
+    features: ["전액 자유입출금", "수시입출금 가능", "ATM 수수료 무료", "이체 수수료 무료"],
     tag: "인기",
     color: "#0064ff",
   },
@@ -41,7 +41,7 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "세이프박스",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["별도 계좌 관리", "즉시 이체 가능", "ATM 물", "카카오톡 연동"],
+    features: ["별도 계좌 관리", "즉시 이체 가능", "ATM 수수료 무료", "카카오톡 연동"],
     tag: "인기",
     color: "#fee500",
   },
@@ -51,7 +51,7 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "비상금통장",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["1만원부터 가입", "자유로운 입출금", "ATM 물", "카카오뱅크 이체 물"],
+    features: ["1만원부터 가입", "자유로운 입출금", "ATM 수수료 무료", "이체 수수료 무료"],
     color: "#ff8700",
   },
   {
@@ -60,7 +60,7 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "올원e예금",
     baseRate: 1.5,
     maxRate: 2.1,
-    features: ["농협 ATM 물", "농협카드 연계 우대", "비대면 가입 가능"],
+    features: ["농협 ATM 수수료 무료", "농협카드 연계 우대", "비대면 가입 가능"],
     color: "#006241",
   },
   {
@@ -69,7 +69,7 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "i-ONE뱅크통장",
     baseRate: 1.5,
     maxRate: 2.0,
-    features: ["비대면 전용", "ATM 물", "기업은행 카드 연계"],
+    features: ["비대면 전용", "ATM 수수료 무료", "기업은행 카드 연계"],
     color: "#0055a2",
   },
   {
@@ -137,7 +137,7 @@ export default function ParkingPage() {
         list.sort((a, b) => b.maxRate - a.maxRate);
         break;
       case "baseDesc":
-        list.sort((a, b) => b.baseRate - a.baseRate);
+        list.sort((a, b) => a.baseRate - b.baseRate);
         break;
       case "nameAsc":
         list.sort((a, b) => a.bank.localeCompare(b.bank, "ko"));
@@ -153,6 +153,49 @@ export default function ParkingPage() {
 
   return (
     <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "2026 고금리 파킹통장 금리 비교",
+            url: "https://lifefit.kr/tools/short-work/parking",
+            applicationCategory: "FinancialApplication",
+            operatingSystem: "All",
+            description: "주요 시중은행 및 인터넷은행(토스, 카카오, 케이뱅크)의 파킹통장 금리와 예상 이자를 한눈에 비교하는 도구",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "육아기 단축근무 계산기",
+                item: "https://lifefit.kr/tools/short-work",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "파킹통장 비교",
+                item: "https://lifefit.kr/tools/short-work/parking",
+              },
+            ],
+          }),
+        }}
+      />
       <div className="w-full max-w-[480px]">
         {/* Header */}
         <div className="mb-6">

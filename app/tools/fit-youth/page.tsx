@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
-import { Share2, Coins, Info, Calculator, Landmark } from "lucide-react";
+import { Share2, Coins, Info, Calculator, Landmark, History } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -62,6 +63,39 @@ export default function HomePage() {
     subscription: null,
   });
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_fit_youth_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (ans: Answers) => {
+    if (typeof window === "undefined") return;
+    try {
+      localStorage.setItem("lifefit_fit_youth_history", JSON.stringify(ans));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_fit_youth_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setAnswers(parsed);
+          setStep(6);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -94,8 +128,13 @@ export default function HomePage() {
 
   const handleAnswer = (value: boolean) => {
     const currentKey = STEPS[step - 1].key;
-    setAnswers((prev) => ({ ...prev, [currentKey]: value }));
-    setStep((s) => s + 1);
+    const nextAnswers = { ...answers, [currentKey]: value };
+    setAnswers(nextAnswers);
+    const nextStep = step + 1;
+    setStep(nextStep);
+    if (nextStep === 6) {
+      saveToHistory(nextAnswers);
+    }
   };
 
   const handlePrev = () => {
@@ -177,6 +216,29 @@ export default function HomePage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "청년 주거지원 판별기",
+                item: "https://lifefit.kr/tools/fit-youth",
+              },
+            ],
+          }),
+        }}
+      />
       <div className="w-full max-w-md">
         {/* 메인으로 가기 */}
         <Link
@@ -195,7 +257,14 @@ export default function HomePage() {
 
         {/* 메인 카드 */}
         <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm">
-          {step === 0 && <IntroScreen key="intro" onStart={() => setStep(1)} />}
+          {step === 0 && (
+            <IntroScreen
+              key="intro"
+              onStart={() => setStep(1)}
+              hasHistory={hasHistory}
+              onLoadHistory={loadHistory}
+            />
+          )}
 
           {step >= 1 && step <= 5 && (
             <QuestionScreen
@@ -234,9 +303,26 @@ export default function HomePage() {
 
 /* ===================== 서브 컴포넌트 ===================== */
 
-function IntroScreen({ onStart }: { onStart: () => void }) {
+function IntroScreen({
+  onStart,
+  hasHistory,
+  onLoadHistory,
+}: {
+  onStart: () => void;
+  hasHistory: boolean;
+  onLoadHistory: () => void;
+}) {
   return (
     <div className="animate-fade-in flex flex-col items-center text-center">
+      {hasHistory && (
+        <button
+          onClick={onLoadHistory}
+          className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50"
+        >
+          <History size={14} />
+          이전 판별 기록 불러오기
+        </button>
+      )}
       <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl">
         🏠
       </div>
@@ -547,6 +633,16 @@ function ResultScreen({
         청년 우대형 통장 개설 가능한 은행 알아보기 →
       </Link>
 
+      {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+      <AdSenseSlot adFormat="auto" />
+
+      {/* 북마크 유도 팁 - 리텐션 극대화 */}
+      <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center mb-4">
+        <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+          ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 주거 요건 변동 시 즉시 다시 확인할 수 있습니다.
+        </p>
+      </div>
+
       {/* 3버튼 공유 레이아웃 */}
       <div className="w-full mt-4 pt-6 border-t border-gray-100 space-y-4 text-center">
         <div>
@@ -566,7 +662,7 @@ function ResultScreen({
               className="flex-1 h-12 rounded-2xl bg-gray-100 text-gray-700 font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-all active:scale-[0.98]"
             >
               <Calculator size={16} />
-              {isSharedResult ? "나도 판별핼보기" : "다시 확인하기"}
+              {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
             </button>
 
             {/* 공유하기 버튼 */}

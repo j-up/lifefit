@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "청년 우대형 통장 개설 가능 은행 비교",
     description:
-      "2026년 청년 우대형 통장 상품을 제공하는 주요 은행들의 금리와 혜택을 비교핸 보세요.",
+      "2026년 청년 우대형 통장 상품을 제공하는 주요 은행들의 금리와 혜택을 비교해 보세요.",
     type: "website",
     locale: "ko_KR",
   },
@@ -84,6 +84,49 @@ const BANKS: BankInfo[] = [
 export default function BanksPage() {
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "청년 우대형 통장 은행 비교",
+            url: "https://lifefit.kr/tools/fit-youth/banks",
+            applicationCategory: "FinancialApplication",
+            operatingSystem: "All",
+            description: "2026년 청년도약계좌 등 청년 우대형 통장을 개설할 수 있는 주요 은행의 금리와 혜택을 비교합니다.",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "청년 주거지원 판별기",
+                item: "https://lifefit.kr/tools/fit-youth",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "은행 비교",
+                item: "https://lifefit.kr/tools/fit-youth/banks",
+              },
+            ],
+          }),
+        }}
+      />
       <div className="mx-auto max-w-md">
         {/* 메인으로 가기 */}
         <div className="flex items-center gap-4 mb-4">
@@ -109,7 +152,7 @@ export default function BanksPage() {
           </h1>
           <p className="mt-2 text-base leading-relaxed text-gray-500">
             2026년 기준 청년 우대형 통장(청년도약계좌)을 제공하는 주요 은행과
-            금리를 비교핸 보세요.
+            금리를 비교해 보세요.
           </p>
         </div>
 

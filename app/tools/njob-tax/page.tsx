@@ -16,7 +16,9 @@ import {
   Share2,
   Coins,
   Landmark,
+  History,
 } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 type IncomeType = "3.3" | "business" | "other" | null;
@@ -44,6 +46,50 @@ export default function NJobTaxPage() {
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [hasHistory, setHasHistory] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_njob_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (job: boolean | null, sal: string, side: string, type: IncomeType) => {
+    if (typeof window === "undefined") return;
+    try {
+      const history = {
+        hasJob: job,
+        salaryStr: sal,
+        sideIncomeStr: side,
+        incomeType: type,
+        date: new Date().toISOString(),
+      };
+      localStorage.setItem("lifefit_njob_history", JSON.stringify(history));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_njob_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setHasJob(parsed.hasJob);
+          setSalaryStr(parsed.salaryStr);
+          setSideIncomeStr(parsed.sideIncomeStr);
+          setIncomeType(parsed.incomeType);
+          setStep(5);
+          showToastNotification("이전 계산 기록을 불러왔습니다!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
@@ -176,7 +222,11 @@ export default function NJobTaxPage() {
     if (step === 1 && !hasJob) {
       setStep(3); // 직장 없으면 바로 부수입 입력으로 건너뜀
     } else {
-      setStep((s) => (s + 1) as Step);
+      const next = (step + 1) as Step;
+      setStep(next);
+      if (next === 5) {
+        saveToHistory(hasJob, salaryStr, sideIncomeStr, incomeType);
+      }
     }
   };
 
@@ -235,6 +285,29 @@ export default function NJobTaxPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "N잡러 건보료 계산기",
+                item: "https://lifefit.kr/tools/njob-tax",
+              },
+            ],
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 네비게이션 */}
         <div className="flex items-center gap-4 mb-4">
@@ -271,6 +344,15 @@ export default function NJobTaxPage() {
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-[rgba(0,27,55,0.05)]">
           {step === 1 && (
             <div className="animate-fade-in">
+              {hasHistory && (
+                <button
+                  onClick={loadHistory}
+                  className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50"
+                >
+                  <History size={14} />
+                  이전 계산 기록 불러오기
+                </button>
+              )}
               <h2 className="text-xl font-bold text-[#191f28] mb-2">
                 현재 직장에 다니고 계신가요?
               </h2>
@@ -588,6 +670,16 @@ export default function NJobTaxPage() {
                 </a>
               </div>
 
+              {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+              <AdSenseSlot adFormat="auto" />
+
+              {/* 북마크 유도 팁 - 리텐션 극대화 */}
+              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
+                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 종합소득세/건보료 계산 시 즉시 다시 확인할 수 있습니다.
+                </p>
+              </div>
+
             </div>
           )}
 
@@ -681,6 +773,7 @@ export default function NJobTaxPage() {
               국세청 홈택스에서 확인하시기 바랍니다.
             </li>
           </ul>
+        </div>
         {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
         <article className="mt-8 p-5 bg-white rounded-2xl border border-[#e5e8eb] text-sm text-[#4e5968] leading-relaxed">
           <h2 className="text-base font-bold text-[#191f28] mb-3">
@@ -696,7 +789,6 @@ export default function NJobTaxPage() {
             피부양자 자격을 유지하기 위해서는 연 소득금액 합계액이 <strong>3,400만 원 이하</strong>여야 하나, 사업자등록증이 있는 경우 단 1원의 사업소득이라도 발생 시 자격이 즉각 박탈됩니다. (프리랜서 3.3% 원천징수 등 사업자 미등록 시 500만 원 이하 유지 필요) 반드시 5월 종합소득세 신고 전 본인의 예상 과세표준을 미리 모의계산하여 불이익을 방지하시기 바랍니다.
           </p>
         </article>
-      </div>
       </div>
       {showToast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">

@@ -90,6 +90,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7832182931355116"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script
           id="kakao-sdk"
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
           integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"

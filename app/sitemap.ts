@@ -30,7 +30,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: "https://lifefit.kr/tools/short-work/parking",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://lifefit.kr/tools/fit-youth",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://lifefit.kr/tools/fit-youth/banks",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://lifefit.kr/tools/car-bond",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://lifefit.kr/tools/savings-plan",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://lifefit.kr/tools/tax-calculator",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,

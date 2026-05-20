@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Calculator } from "lucide-react";
 import type { Metadata } from "next";
 import { posts } from "@/app/data/posts";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 interface Props {
   params: Promise<{
@@ -255,6 +256,9 @@ export default async function PostPage({ params }: Props) {
               className="prose prose-blue mt-8 max-w-none text-gray-600"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+
+            {/* AdSense Slot */}
+            <AdSenseSlot className="mt-8" />
 
             {/* Related Tool CTA */}
             <div className="mt-10">

@@ -24,7 +24,7 @@ export const postsPart1: Post[] = [
 <p>육아기 근로시간 단축 제도는 아이를 키우는 부모가 정상적인 근무 시간을 줄이고, 그 줄어든 시간만큼 <strong>고용보험에서 급여를 지원</strong>해 주는 정책입니다. 쉽게 말해, "회사에서 일하는 시간을 줄이되, 줄어든 돈의 일부를 국가가 채워준다"는 제도라고 생각하시면 됩니다.</p>
 <p>이 제도는 <strong>출산 후 부모의 경제적 부담을 덜어주고</strong>, 아이와 볼 시간을 늘려주기 위해 마련되었습니다. 예를 들어, 기존에 주 40시간 일하시던 분이 주 20시간으로 줄이면, 나머지 20시간 분의 임금을 고용보험이 <strong>일정 비율(최대 80%)</strong> 보전해 드립니다.</p>
 
-<img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80" alt="부모와 아이가 함께 시간을 볂는 모습" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80" alt="부모와 아이가 함께 시간을 보내는 모습" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>2026년 달라진 점: 2년 연장과 급여 지원 확대</h2>
 <p>2026년부터 이 제도에 중요한 변화가 생겼습니다. 기존에는 아이가 만 8세(초등학교 2학년) 이하이거나, 초등학교 3~4학년(만 9~10세)인 경우에만 신청할 수 있었는데요, <strong>2026년부터는 지원 대상 자녀 연령이 2년 연장</strong>되어 초등학교 6학년(만 12세) 이하까지 확대되었습니다.</p>

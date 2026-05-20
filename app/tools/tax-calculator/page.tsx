@@ -14,7 +14,9 @@ import {
   PiggyBank,
   TrendingUp,
   Check,
+  History,
 } from "lucide-react";
+import AdSenseSlot from "@/app/components/AdSenseSlot";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 type InstitutionType = "bank" | "mutual" | null;
@@ -30,6 +32,7 @@ export default function TaxCalculatorPage() {
   const [salaryStr, setSalaryStr] = useState<string>("");
   const [institution, setInstitution] = useState<InstitutionType>(null);
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -37,6 +40,49 @@ export default function TaxCalculatorPage() {
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
     setShowToast(true);
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lifefit_tax_history");
+      if (saved) setHasHistory(true);
+    }
+  }, [step]);
+
+  const saveToHistory = (amt: string, r: string, sal: string, inst: InstitutionType) => {
+    if (typeof window === "undefined") return;
+    try {
+      const history = {
+        amountStr: amt,
+        rateStr: r,
+        salaryStr: sal,
+        institution: inst,
+        date: new Date().toISOString(),
+      };
+      localStorage.setItem("lifefit_tax_history", JSON.stringify(history));
+      setHasHistory(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const loadHistory = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lifefit_tax_history");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setAmountStr(parsed.amountStr);
+          setRateStr(parsed.rateStr);
+          setSalaryStr(parsed.salaryStr);
+          setInstitution(parsed.institution);
+          setStep(5);
+          showToastNotification("이전 계산 기록을 불러왔습니다!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   };
 
   useEffect(() => {
@@ -120,7 +166,11 @@ export default function TaxCalculatorPage() {
 
   const nextStep = () => {
     if (!canProceed()) return;
-    setStep((s) => (s + 1) as Step);
+    const next = (step + 1) as Step;
+    setStep(next);
+    if (next === 5) {
+      saveToHistory(amountStr, rateStr, salaryStr, institution);
+    }
   };
 
   const prevStep = () => {
@@ -144,6 +194,7 @@ export default function TaxCalculatorPage() {
           text: resultText,
           url: shareUrl,
         });
+        showToastNotification("💬 공유하기가 완료되었습니다!");
         return;
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -154,9 +205,9 @@ export default function TaxCalculatorPage() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("복사가 성공되었습니다!");
+      showToastNotification("💬 결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
     } catch {
-      showToastNotification("복사에 실패했습니다.");
+      showToastNotification("❌ 복사에 실패했습니다.");
     }
   };
 
@@ -173,6 +224,29 @@ export default function TaxCalculatorPage() {
             applicationCategory: "FinanceApplication",
             operatingSystem: "All",
             description: "2026년 기준 시중은행 및 상호금융 예적금 이자 세금 비교 및 실수령액 모의계산기",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "이자 세금 비교 계산기",
+                item: "https://lifefit.kr/tools/tax-calculator",
+              },
+            ],
           }),
         }}
       />
@@ -213,6 +287,15 @@ export default function TaxCalculatorPage() {
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-[rgba(0,27,55,0.05)]">
           {step === 1 && (
             <div className="animate-fade-in">
+              {hasHistory && (
+                <button
+                  onClick={loadHistory}
+                  className="mb-5 w-full h-11 rounded-2xl bg-blue-50/70 text-blue-600 font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-blue-100/70 transition-all active:scale-[0.98] border border-blue-100/50"
+                >
+                  <History size={14} />
+                  이전 계산 기록 불러오기
+                </button>
+              )}
               <h2 className="text-xl font-bold text-[#191f28] mb-2">
                 예치할 금액을 입력해주세요
               </h2>
@@ -488,6 +571,16 @@ export default function TaxCalculatorPage() {
                       : "상호금융 가입 시 출자금 통장을 함께 활용하면 배당금 비과세 혜택도 챙길 수 있습니다."}
                   </p>
                 </div>
+              </div>
+
+              {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
+              <AdSenseSlot adFormat="auto" />
+
+              {/* 북마크 유도 팁 - 리텐션 극대화 */}
+              <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100/30 text-center">
+                <p className="text-[11px] text-[#4e5968] leading-relaxed flex items-center justify-center gap-1.5 font-medium">
+                  ⭐️ <span className="font-bold text-[#3182f6]">북마크 추천:</span> <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Ctrl + D</kbd> 또는 <kbd className="bg-white px-1.5 py-0.5 rounded border border-[#e5e8eb] shadow-sm font-mono text-[9px] font-bold">Cmd + D</kbd>를 눌러 즐겨찾기에 추가해 두시면, 다음 예적금 세금 조회 시 즉시 다시 확인할 수 있습니다.
+                </p>
               </div>
             </div>
           )}
