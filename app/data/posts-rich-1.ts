@@ -281,14 +281,14 @@ export const postsPart1: Post[] = [
     slug: "youth-housing-dream-account",
     date: "2026-05-15",
     summary: "청년들의 내 집 마련을 돕는 청약통장의 혜택과 일반 청약통장과의 차이점을 비교합니다.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80",
     category: "주거·청년",
     readTime: "8분",
     content: `<h2>청년 주택드림 청약통장이란?</h2>
 <p>청년 주택드림 청약통장(이하 '주택드림통장')은 <strong>만 19세~34세 청년</strong>이 내 집 마련을 위해 돈을 모을 때 국가가 파격적인 금리와 세제 혜택, 대출 우대까지 제공하는 특별 청약 상품입니다. 일반 청약통장과 비슷해 보이지만, <strong>금리가 훨씬 높고 세금 혜택이 크며 대출 연계</strong>까지 된다는 점에서 차원이 다른 상품입니다.</p>
 <p>이 통장은 2023년에 출시되어 2026년 현재까지 많은 청년들이 가입하고 있으며, 정부는 지속적으로 한도와 혜택을 확대하고 있습니다.</p>
 
-<img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="청년 주택 마련을 위한 저금" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" alt="청년 주택 마련을 위한 저금" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>주택드림통장의 3대 혜택</h2>
 
