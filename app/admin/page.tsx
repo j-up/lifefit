@@ -23,6 +23,8 @@ interface LogEntry {
   type: "info" | "success" | "warning" | "error";
 }
 
+export const dynamic = "force-dynamic";
+
 export default function AdminPage() {
   const [adminSecret, setAdminSecret] = useState("");
   const [category, setCategory] = useState("주거·복지");

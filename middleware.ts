@@ -52,6 +52,6 @@ export const config = {
      * - _next/image (이미지 최적화 파일)
      * - favicon.ico, sitemap.xml, robots.txt, *.png, *.svg 등 (메타데이터 및 정적 에셋)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
+    "/((?!api|admin|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
   ],
 };
