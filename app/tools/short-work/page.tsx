@@ -130,6 +130,17 @@ export default function Home() {
   // Load Kakao SDK on component mount
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const initKakao = () => {
+        const kakao = (window as any).Kakao;
+        if (kakao && !kakao.isInitialized()) {
+          try {
+            kakao.init("d5745b5e1623229be8701723aa5f3bb4");
+          } catch (e) {
+            console.error("Kakao initialization failed:", e);
+          }
+        }
+      };
+
       if (!document.getElementById("kakao-sdk")) {
         const script = document.createElement("script");
         script.id = "kakao-sdk";
@@ -137,16 +148,11 @@ export default function Home() {
         script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
         script.crossOrigin = "anonymous";
         script.onload = () => {
-          const kakao = (window as any).Kakao;
-          if (kakao && !kakao.isInitialized()) {
-            try {
-              kakao.init("1b590e66c0d01d4a85fa0a98c8f0e0c9");
-            } catch (e) {
-              console.error("Kakao initialization failed:", e);
-            }
-          }
+          initKakao();
         };
         document.body.appendChild(script);
+      } else {
+        initKakao();
       }
     }
   }, []);
