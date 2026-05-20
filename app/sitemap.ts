@@ -1,9 +1,46 @@
 import { MetadataRoute } from "next";
-import { posts } from "@/app/data/posts";
+import { posts as staticPosts } from "@/app/data/posts";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+async function getDbPosts() {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl.replace(/\/$/, "")}/rest/v1/posts?select=slug,date`,
+      {
+        headers: {
+          apikey: supabaseAnonKey,
+          Authorization: `Bearer ${supabaseAnonKey}`,
+        },
+        next: { revalidate: 3600 }, // Sitemap can be cached longer
+      }
+    );
+
+    if (!response.ok) return [];
+    return await response.json();
+  } catch (error) {
+    console.error("Sitemap DB fetch error:", error);
+    return [];
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const dbPosts = await getDbPosts();
+
+  // Merge static and dynamic posts, unique by slug
+  const allPostsMap = new Map();
+  staticPosts.forEach(p => allPostsMap.set(p.slug, p));
+  dbPosts.forEach((p: any) => allPostsMap.set(p.slug, p));
+
+  const allPosts = Array.from(allPostsMap.values());
+
   // 블로그 포스트 동적 라우팅
-  const postRoutes = posts.map((post) => ({
+  const postRoutes = allPosts.map((post) => ({
     url: `https://lifefit.kr/posts/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "weekly" as const,

@@ -1,8 +1,55 @@
 import Link from "next/link";
 import Image from "next/image";
-import { posts } from "@/app/data/posts";
+import { posts as staticPosts } from "@/app/data/posts";
 
-export default function Home() {
+async function getDbPosts() {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl.replace(/\/$/, "")}/rest/v1/posts?select=*&order=date.desc`,
+      {
+        headers: {
+          apikey: supabaseAnonKey,
+          Authorization: `Bearer ${supabaseAnonKey}`,
+        },
+        next: { revalidate: 60 }, // On-demand revalidation every 60s
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Supabase Fetch Error:", await response.text());
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to fetch DB posts:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const dbPosts = await getDbPosts();
+  
+  // Merge static and dynamic posts, remove duplicates by slug, sort by date
+  const allPostsMap = new Map();
+  staticPosts.forEach(p => allPostsMap.set(p.slug, p));
+  dbPosts.forEach((p: any) => allPostsMap.set(p.slug, {
+    ...p,
+    id: p.id.toString(), // Ensure id is string
+    readTime: p.read_time // Map read_time to readTime for compatibility
+  }));
+  
+  const allPosts = Array.from(allPostsMap.values()).sort((a, b) => 
+    new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {/* JSON-LD: BreadcrumbList for homepage */}
@@ -233,12 +280,12 @@ export default function Home() {
               </p>
             </div>
             <span className="text-sm text-gray-400">
-              총 {posts.length}개의 콘텐츠
+              총 {allPosts.length}개의 콘텐츠
             </span>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
+            {allPosts.map((post) => (
               <article
                 key={post.id}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all hover:shadow-lg hover:-translate-y-1"
@@ -343,7 +390,7 @@ export default function Home() {
             <div>
               <h3 className="mb-3 font-bold text-gray-900">인기 가이드</h3>
               <ul className="space-y-2 text-gray-500">
-                {posts.slice(0, 3).map((post) => (
+                {allPosts.slice(0, 3).map((post) => (
                   <li key={post.id}>
                     <Link href={`/posts/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1">
                       {post.title}
@@ -367,3 +414,4 @@ export default function Home() {
     </div>
   );
 }
+

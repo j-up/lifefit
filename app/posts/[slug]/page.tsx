@@ -3,9 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Calculator } from "lucide-react";
 import type { Metadata } from "next";
-import { posts } from "@/app/data/posts";
-import AdSenseSlot from "@/app/components/AdSenseSlot";
-import SubscribeCard from "@/app/components/SubscribeCard";
+import { posts as staticPosts, Post } from "@/app/data/posts";
 
 interface Props {
   params: Promise<{
@@ -13,8 +11,52 @@ interface Props {
   }>;
 }
 
+async function getDbPost(slug: string): Promise<Post | null> {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl.replace(/\/$/, "")}/rest/v1/posts?slug=eq.${slug}&select=*`,
+      {
+        headers: {
+          apikey: supabaseAnonKey,
+          Authorization: `Bearer ${supabaseAnonKey}`,
+        },
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    if (data && data.length > 0) {
+      const p = data[0];
+      return {
+        ...p,
+        id: p.id.toString(),
+        readTime: p.read_time
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch DB post:", error);
+    return null;
+  }
+}
+
+async function getPost(slug: string): Promise<Post | null> {
+  const staticPost = staticPosts.find((p) => p.slug === slug);
+  if (staticPost) return staticPost;
+  return await getDbPost(slug);
+}
+
 export async function generateStaticParams() {
-  return posts.map((post) => ({
+  return staticPosts.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -34,7 +76,7 @@ function getOgImageUrl(imageUrl: string): string {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post = await getPost(slug);
 
   if (!post) {
     return {
@@ -81,7 +123,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
@@ -111,18 +153,6 @@ export default async function PostPage({ params }: Props) {
           desc: "2026년 청년월세 특별지원 대상자 여부를 빠르고 정확하게 판별해 드립니다.",
           theme: "purple" as const,
         };
-    }
-  })();
-
-  const defaultCategory = (() => {
-    switch (post.category) {
-      case "육아·복지":
-      case "복지·육아":
-        return "welfare" as const;
-      case "세금·복지":
-        return "tax" as const;
-      default:
-        return "housing" as const;
     }
   })();
 
@@ -270,9 +300,6 @@ export default async function PostPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            {/* AdSense Slot */}
-            <AdSenseSlot className="mt-8" />
-
             {/* Related Tool CTA */}
             <div className="mt-10">
               <Link
@@ -297,9 +324,6 @@ export default async function PostPage({ params }: Props) {
                 </div>
               </Link>
             </div>
-
-            {/* 알림 구독 신청 - 리텐션 극대화 */}
-            <SubscribeCard defaultCategory={defaultCategory} />
 
             {/* Back link */}
             <div className="mt-12 border-t border-gray-100 pt-8">
