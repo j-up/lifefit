@@ -248,8 +248,10 @@ export default function CarBondPage() {
     const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산필보기:\n${shareUrl}`;
 
-    // 1. Web Share API (모바일 네이티브 공유 시트 → 카카오톡 등 선택)
-    if (navigator.share) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // 모바일: 네이티브 공유 시트
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 자동차 미환급 채권 계산기 🚗",
@@ -264,12 +266,12 @@ export default function CarBondPage() {
       }
     }
 
-    // 2. 클립보드 복사 (PC 및 fallback)
+    // PC: 클립보드 복사
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)필보세요!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
-      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+      showToastNotification("복사에 실패했습니다.");
     }
   };
 

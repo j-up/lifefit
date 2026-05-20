@@ -194,7 +194,9 @@ export default function NJobTaxPage() {
     const shareUrl = `https://lifefit.kr/tools/njob-tax?job=${hasJob ? 1 : 0}&sal=${salaryStr}&side=${sideIncomeStr}&type=${incomeType || ""}`;
     const fullText = `${resultText}\n\n👉 내 건보료 폭탄 위험도 1분 만에 확인하기:\n${shareUrl}`;
 
-    if (navigator.share) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit N잡러 건보료 폭탄 계산기 💸",
@@ -211,9 +213,9 @@ export default function NJobTaxPage() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
-      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+      showToastNotification("복사에 실패했습니다.");
     }
   };
 

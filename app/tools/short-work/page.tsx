@@ -164,7 +164,9 @@ export default function Home() {
     const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
-    if (navigator.share) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 육아기 단축근무 급여 계산기 👶",
@@ -181,9 +183,9 @@ export default function Home() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
-      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+      showToastNotification("복사에 실패했습니다.");
     }
   };
 

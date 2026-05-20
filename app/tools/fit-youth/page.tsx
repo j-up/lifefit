@@ -352,8 +352,10 @@ function ResultScreen({
   const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
 
   const handleShare = async () => {
-    // 1. Web Share API
-    if (navigator.share) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // 모바일: 네이티브 공유 시트
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 청년 주거지원 판별기 🏠",
@@ -368,12 +370,12 @@ function ResultScreen({
       }
     }
 
-    // 2. 클립보드 복사
+    // PC: 클립보드 복사
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)핼보세요!");
+      showToastNotification("복사가 성공되었습니다!");
     } catch {
-      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+      showToastNotification("복사에 실패했습니다.");
     }
   };
 
