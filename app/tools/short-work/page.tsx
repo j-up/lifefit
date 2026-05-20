@@ -66,44 +66,6 @@ function estimateNetPayRatio(gross: number): number {
   return 1 - rate;
 }
 
-function AdSenseBanner({
-  slot = "5604101234",
-  className = "",
-}: {
-  slot?: string;
-  className?: string;
-}) {
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-      }
-    } catch (err) {
-      console.error("AdSense placement error:", err);
-    }
-  }, []);
-
-  return (
-    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
-      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
-      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-7832182931355116"
-          data-ad-slot={slot}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
-          <Coins size={24} className="text-[#b0b8c1] mb-1" />
-          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const [step, setStep] = useState<Step>(1);
   const [salaryStr, setSalaryStr] = useState<string>("");
@@ -684,9 +646,6 @@ export default function Home() {
 
 
 
-              {/* 상단 애드센스 배너 (CTR 향상) */}
-              <AdSenseBanner slot="7832182931355116" className="my-2" />
-
               {/* CTA */}
               <Link
                 href="/tools/short-work/parking"
@@ -697,8 +656,6 @@ export default function Home() {
                 고금리 파킹통장 비교하러 가기
               </Link>
 
-              {/* 하단 애드센스 배너 (CTR 극대화) */}
-              <AdSenseBanner slot="7832182931355116" className="my-2" />
             </div>
           )}
 
