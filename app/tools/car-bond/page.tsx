@@ -152,6 +152,44 @@ function calculateBond(
   };
 }
 
+function AdSenseBanner({
+  slot = "5604101234",
+  className = "",
+}: {
+  slot?: string;
+  className?: string;
+}) {
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense placement error:", err);
+    }
+  }, []);
+
+  return (
+    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
+      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
+      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-7832182931355116"
+          data-ad-slot={slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
+          <Coins size={24} className="text-[#b0b8c1] mb-1" />
+          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CarBondPage() {
   const [step, setStep] = useState<Step>(1);
   const [region, setRegion] = useState<Region | null>(null);
@@ -160,6 +198,31 @@ export default function CarBondPage() {
   const [priceStr, setPriceStr] = useState<string>("");
   const [isCopied, setIsCopied] = useState(false);
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
+  // Load Kakao SDK on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!document.getElementById("kakao-sdk")) {
+        const script = document.createElement("script");
+        script.id = "kakao-sdk";
+        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
+        script.crossOrigin = "anonymous";
+        script.onload = () => {
+          const kakao = (window as any).Kakao;
+          if (kakao && !kakao.isInitialized()) {
+            try {
+              kakao.init("1b590e66c0d01d4a85fa0a98c8f0e0c9");
+            } catch (e) {
+              console.error("Kakao initialization failed:", e);
+            }
+          }
+        };
+        document.body.appendChild(script);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -211,30 +274,56 @@ export default function CarBondPage() {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
 
-  const handleShare = async () => {
+  const handleKakaoShare = () => {
     if (!results || !region || !carType || !year) return;
-    const resultText = `[LifeFit] 자동차 미환급 채권 환급금 모의계산 🚗\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
     const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
+    
+    const kakao = (window as any).Kakao;
+    if (kakao && kakao.isInitialized()) {
+      try {
+        kakao.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: "LifeFit 자동차 미환급 채권 계산기 🚗",
+            description: `내 예상 환급금은 약 ${formatCurrency(results.total)}원! 잠자고 있는 환급금을 확인해보세요.`,
+            imageUrl: "https://lifefit.kr/og-car-bond.png",
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+          buttons: [
+            {
+              title: "예상 환급금 확인하기",
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+              },
+            },
+          ],
+        });
+        return;
+      } catch (err) {
+        console.error("Kakao share error", err);
+      }
+    }
+
+    const webSharerUrl = `https://sharer.kakao.com/schemes/share/web?url=${encodeURIComponent(shareUrl)}`;
+    window.open(webSharerUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyLink = async () => {
+    if (!results || !region || !carType || !year) return;
+    const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
+    const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "LifeFit 자동차 미환급 채권 환급금 계산기",
-          text: `\n${resultText}`,
-          url: shareUrl,
-        });
-      } catch {
-        // 사용자 취소 시 무시
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(fullText);
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
-      } catch {
-        alert("복사에 실패했습니다.");
-      }
+    try {
+      await navigator.clipboard.writeText(fullText);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch {
+      alert("복사에 실패했습니다.");
     }
   };
 
@@ -262,7 +351,7 @@ export default function CarBondPage() {
   const allYears: Year[] = ["before2018", "2019", "2020", "2021", "after2022"];
 
   return (
-    <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+    <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 pt-6 pb-28 sm:pt-10 sm:pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -668,36 +757,94 @@ export default function CarBondPage() {
               </div>
 
 
-              {/* 지자체별 금고 은행 링크 */}
-              <div className="space-y-3">
-                <p className="text-sm font-bold text-[#191f28]">
-                  지자체별 금고 은행에서 실제 조회하기
+              {/* 상단 애드센스 배너 (CTR 향상) */}
+              <AdSenseBanner slot="7832182931355116" className="my-2" />
+
+              {/* 지자체별 금고 은행 및 정부24 실제 환급 신청 카드 */}
+              <div className="rounded-2xl border border-green-100 bg-[#f8fdfa] p-5 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 pb-1 border-b border-green-50">
+                  <div className="w-8 h-8 rounded-xl bg-[#00c471] text-white flex items-center justify-center">
+                    <Landmark size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-extrabold text-[#191f28]">
+                      내 계좌로 실제 환급금 신청하기
+                    </h3>
+                    <p className="text-[10px] text-[#8b95a1] font-medium mt-0.5">
+                      정부24 및 지자체 금고은행 온라인 즉시 조회·신청
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-[#4e5968] leading-relaxed">
+                  선택하신 <strong>{REGION_DATA[region].name}</strong> 지역의 자동차 채권 금고 은행인 <strong>{REGION_DATA[region].bank.name}</strong> 또는 <strong>정부24</strong> 미환급금 찾기 페이지를 통해 실제 환급금 전액을 본인인증(공동인증서/간편인증 등) 후 즉시 조회하고 신청할 수 있습니다.
                 </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {Object.entries(REGION_DATA).map(([key, data]) => (
-                    <a
-                      key={key}
-                      href={data.bank.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between p-3 rounded-xl bg-white border border-[#e5e8eb] hover:border-[#00c471] hover:shadow-sm transition-all"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Landmark size={16} className="text-[#8b95a1]" />
-                        <div className="text-left">
-                          <p className="text-xs font-bold text-[#191f28]">
-                            {data.name}
-                          </p>
-                          <p className="text-[10px] text-[#8b95a1]">
-                            {data.bank.name}
-                          </p>
-                        </div>
-                      </div>
-                      <ExternalLink size={14} className="text-[#b0b8c1]" />
-                    </a>
-                  ))}
+
+                <div className="flex flex-col gap-2">
+                  {/* 정부24 미환급금 조회 */}
+                  <a
+                    href="https://www.gov.kr/portal/service/serviceInfo/131000001099"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-12 rounded-xl bg-[#191f28] text-white text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-[#2d3745] transition-all shadow-sm active:scale-[0.98]"
+                  >
+                    <span>정부24 미환급금 통합 조회/신청</span>
+                    <ExternalLink size={14} />
+                  </a>
+
+                  {/* 지자체별 지정 금고 은행 */}
+                  <a
+                    href={REGION_DATA[region].bank.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-12 rounded-xl bg-[#00c471] text-white text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-[#00a85e] transition-all shadow-md shadow-green-100 active:scale-[0.98]"
+                  >
+                    <span>{REGION_DATA[region].name} 채권 금고 ({REGION_DATA[region].bank.name}) 바로가기</span>
+                    <ExternalLink size={14} />
+                  </a>
+                </div>
+
+                {/* 다른 지자체 금고 은행 리스트 접기 아코디언 */}
+                <div className="pt-3 border-t border-green-50">
+                  <button
+                    onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+                    type="button"
+                    className="w-full flex items-center justify-between text-xs font-bold text-[#8b95a1] hover:text-[#4e5968] transition-colors"
+                  >
+                    <span>내가 등록한 지역이 다른 곳인가요?</span>
+                    <span className={`transform transition-transform text-[10px] duration-200 ${isAccordionOpen ? "rotate-180" : ""}`}>
+                      ▼
+                    </span>
+                  </button>
+
+                  {isAccordionOpen && (
+                    <div className="grid grid-cols-2 gap-2 mt-3 animate-fadeIn">
+                      {Object.entries(REGION_DATA).map(([key, data]) => (
+                        <a
+                          key={key}
+                          href={data.bank.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all ${
+                            key === region
+                              ? "border-[#00c471] bg-[#e8f9f0] text-[#00c471]"
+                              : "border-[#e5e8eb] bg-white text-[#4e5968] hover:border-[#b0b8c1] hover:shadow-sm"
+                          }`}
+                        >
+                          <div className="text-[10px] leading-normal">
+                            <p className="font-bold">{data.name}</p>
+                            <p className="text-[#8b95a1] font-medium">{data.bank.name}</p>
+                          </div>
+                          <ExternalLink size={12} className="text-[#b0b8c1]" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
+
+              {/* 하단 애드센스 배너 (CTR 극대화) */}
+              <AdSenseBanner slot="7832182931355116" className="my-2" />
 
               {/* Info Box */}
               <div className="rounded-2xl bg-[#fff8db] p-4 text-xs text-[#8b6a00] leading-relaxed">
@@ -745,31 +892,62 @@ export default function CarBondPage() {
               </button>
             )}
             {step === 5 && (
-              <div className="flex w-full gap-2">
-                <button
-                  onClick={() => {
-                    setStep(1);
-                    setRegion(null);
-                    setCarType(null);
-                    setYear(null);
-                    setPriceStr("");
-                    setIsSharedResult(false);
-                    if (typeof window !== "undefined") {
-                      window.history.replaceState({}, "", window.location.pathname);
-                    }
-                  }}
-                  className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
-                >
-                  <Calculator size={16} className="mr-1" />
-                  {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
-                </button>
-                <button
-                  onClick={handleShare}
-                  className="flex-1 h-12 rounded-2xl bg-[#00c471] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-green-200 hover:bg-[#00a85e] transition-colors"
-                >
-                  <Share2 size={16} />
-                  {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
-                </button>
+              <div className="w-full mt-4 pt-6 border-t border-[#f2f4f6] space-y-4">
+                <div className="text-center">
+                  <p className="text-sm font-bold text-[#191f28]">
+                    🎉 내 예상 환급금 주변에 공유하기
+                  </p>
+                  <p className="text-xs text-[#8b95a1] mt-1">
+                    친구들도 잠자고 있는 자동차 채권 환급금이 있는지 알려주세요!
+                  </p>
+                </div>
+                
+                <div className="flex flex-col gap-2.5">
+                  {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
+                  <button
+                    onClick={handleKakaoShare}
+                    type="button"
+                    className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
+                  >
+                    <span className="text-lg">💬</span>
+                    카카오톡으로 친구에게 알려주기
+                  </button>
+                  
+                  <div className="flex gap-2">
+                    {/* 다시 계산하기 버튼 */}
+                    <button
+                      onClick={() => {
+                        setStep(1);
+                        setRegion(null);
+                        setCarType(null);
+                        setYear(null);
+                        setPriceStr("");
+                        setIsSharedResult(false);
+                        setIsAccordionOpen(false);
+                        if (typeof window !== "undefined") {
+                          window.history.replaceState({}, "", window.location.pathname);
+                        }
+                      }}
+                      className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
+                    >
+                      <Calculator size={16} />
+                      {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
+                    </button>
+                    
+                    {/* 링크 복사 버튼 */}
+                    <button
+                      onClick={handleCopyLink}
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471]"
+                          : "bg-[#00c471] text-white hover:bg-[#00a85e] shadow-md shadow-green-100"
+                      }`}
+                    >
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "복사 완료!" : "링크 주소 복사"}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
