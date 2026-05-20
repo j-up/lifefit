@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | LifeFit",
   },
   description:
-    "육아기 단축근무 급여, 청년 월세 지원, N잡러 건보료 등 2026년 최신 정부 정책과 복지 혜택을 한눈에 확인하세요. 1분 모의 계산으로 내게 맞는 지원금을 알아보세요.",
+    "육아·청년 지원금, N잡러 건보료 등 2026년 정부 정책과 혜택을 1분 만에 계산해 보세요.",
   keywords: [
     "2026 복지 혜택",
     "육아기 단축근무 급여 계산기",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "LifeFit (라이프핏) - 2026 청년·육아 복지 지원금 가이드 및 계산기",
+    title: "2026 청년·육아 복지 계산기 | LifeFit",
     description:
       "2026년 청년 월세 지원부터 육아기 단축근무 급여 계산까지! 복잡한 정부 정책을 LifeFit에서 가장 쉽고 빠르게 확인하세요.",
     url: "https://lifefit.kr",
