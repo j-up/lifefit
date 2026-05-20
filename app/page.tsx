@@ -26,10 +26,10 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="text-xl font-bold text-blue-600">
+          <Link href="/" className="text-xl font-bold text-blue-600 shrink-0">
             LifeFit
           </Link>
-          <nav className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1 sm:gap-3">
+          <nav className="no-scrollbar flex items-center gap-2 overflow-x-auto pl-4 pb-1 sm:gap-3">
             <Link
               href="/tools/savings-plan"
               className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
@@ -65,135 +65,165 @@ export default function Home() {
               <span className="text-base">💸</span>
               N잡세금
             </Link>
+            <Link
+              href="/tools/car-bond"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-600 transition-colors hover:bg-green-100 sm:text-sm"
+            >
+              <span className="text-base">🚗</span>
+              자동차채권
+            </Link>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-white py-16 sm:py-24">
+      <section className="bg-white py-12 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               생활을 더 건강하고 풍요롭게
             </h1>
-            <p className="mt-4 text-lg text-gray-500">
-              정부 지원 정책, 복지 정보, 금융 팁을 한눈에 확인하세요.
+            <p className="mt-4 text-base text-gray-500 sm:text-lg">
+              2026년 정부 정책, 복지 정보, 금융 팁을 한눈에 확인하세요.
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-        {/* Featured Tools CTA */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-2xl border border-orange-200 bg-orange-50 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-orange-600">
-              신규 도구 💰
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              적금 선납이연 플랜 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              6-1-5, 1-11 등 적금 이자를 극대화하는 선납이연 납입일자를 확인하세요.
-            </p>
-            <Link
-              href="/tools/savings-plan"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-indigo-600">
-              신규 도구 📊
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              2026 이자 세금 비교 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              일반, 저율과세, 비과세 중 내 연봉에 맞는 가장 유리한 저축을 찾으세요.
-            </p>
-            <Link
-              href="/tools/tax-calculator"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-blue-200 bg-blue-100 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-blue-600">
-              추천 도구
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              육아기 근로시간 단축 급여 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산해보세요.
-            </p>
-            <Link
-              href="/tools/short-work"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-purple-200 bg-purple-100 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-purple-600">
-              추천 도구
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              청년 주거지원 대상자 판별기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              내가 청년 주거지원 정책의 대상자인지 1분 만에 확인해보세요.
-            </p>
-            <Link
-              href="/tools/fit-youth"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-teal-200 bg-teal-100 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-teal-600">
-              추천 도구
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              N잡러 세금·건보료 폭탄 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              종합소득세 신고 후 건강보험료 인상과 피부양자 탈락 리스크를 확인하세요.
-            </p>
-            <Link
-              href="/tools/njob-tax"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-green-200 bg-green-100 p-6 transition-all hover:shadow-sm">
-            <span className="text-xs font-semibold uppercase text-green-600">
-              추천 도구
-            </span>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">
-              자동차 미환급 채권 환급금 계산기
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              차량 구매 시 의무 매입한 채권, 지금 바로 환급받을 수 있는 금액을 확인하세요.
-            </p>
-            <Link
-              href="/tools/car-bond"
-              className="mt-4 inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700"
-            >
-              바로가기 →
-            </Link>
-          </div>
+      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        {/* Reorganized Tools Section */}
+        <div className="space-y-12">
+          {/* Category 1: Financial Asset Management */}
+          <section>
+            <div className="mb-6 flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+                💰
+              </span>
+              <h2 className="text-xl font-bold text-gray-900">재테크 & 금융 관리</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="group rounded-2xl border border-blue-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-blue-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
+                  적금 선납이연 플랜 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  6-1-5, 1-11 등 적금 이자를 극대화하는 선납이연 납입일자를 확인하세요.
+                </p>
+                <Link
+                  href="/tools/savings-plan"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600"
+                >
+                  계산해보기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-indigo-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-indigo-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-indigo-600">
+                  2026 이자 세금 비교 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  일반, 저율과세, 비과세 중 내 연봉에 맞는 가장 유리한 저축을 찾으세요.
+                </p>
+                <Link
+                  href="/tools/tax-calculator"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600"
+                >
+                  계산해보기 →
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Category 2: Welfare & Support */}
+          <section>
+            <div className="mb-6 flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
+                🎁
+              </span>
+              <h2 className="text-xl font-bold text-gray-900">정부 지원 & 복지 혜택</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="group rounded-2xl border border-orange-200 bg-white p-6 transition-all hover:shadow-md">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600">
+                  육아기 근로시간 단축 급여 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  단축근무 시 실제로 내가 받을 수 있는 급여를 모의 계산해보세요.
+                </p>
+                <Link
+                  href="/tools/short-work"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-orange-600"
+                >
+                  확인하기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-purple-200 bg-white p-6 transition-all hover:shadow-md">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-purple-600">
+                  청년 주거지원 대상자 판별기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  내가 청년 주거지원 정책의 대상자인지 1분 만에 확인해보세요.
+                </p>
+                <Link
+                  href="/tools/fit-youth"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-purple-600"
+                >
+                  확인하기 →
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Category 3: Living & Tax */}
+          <section>
+            <div className="mb-6 flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-100 text-teal-600">
+                🏠
+              </span>
+              <h2 className="text-xl font-bold text-gray-900">생활 밀착 & 세금 관리</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="group rounded-2xl border border-teal-200 bg-white p-6 transition-all hover:shadow-md">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-teal-600">
+                  N잡러 세금·건보료 폭탄 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  부업 수익 발생 시 건강보험료 인상과 피부양자 탈락 리스크를 확인하세요.
+                </p>
+                <Link
+                  href="/tools/njob-tax"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-teal-600"
+                >
+                  계산해보기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-green-200 bg-white p-6 transition-all hover:shadow-md">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-600">
+                  자동차 미환급 채권 환급금 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  차량 구매 시 의무 매입한 채권, 지금 바로 돌려받을 수 있는 금액을 확인하세요.
+                </p>
+                <Link
+                  href="/tools/car-bond"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-green-600"
+                >
+                  조회하기 →
+                </Link>
+              </div>
+            </div>
+          </section>
         </div>
 
         {/* Blog Posts Grid */}
-        <div>
-          <div className="mb-8 flex items-end justify-between">
+        <div className="mt-20">
+          <div className="mb-8 flex items-end justify-between border-t border-gray-100 pt-12">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
                 최신 정보 및 가이드
@@ -301,6 +331,11 @@ export default function Home() {
                 <li>
                   <Link href="/tools/njob-tax" className="hover:text-blue-600 transition-colors">
                     N잡러 건보료 폭탄 계산기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tools/car-bond" className="hover:text-blue-600 transition-colors">
+                    자동차 미환급 채권 계산기
                   </Link>
                 </li>
               </ul>
