@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   Circle,
   Share2,
+  Coins,
+  Landmark,
 } from "lucide-react";
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -64,6 +66,44 @@ function estimateNetPayRatio(gross: number): number {
   return 1 - rate;
 }
 
+function AdSenseBanner({
+  slot = "5604101234",
+  className = "",
+}: {
+  slot?: string;
+  className?: string;
+}) {
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense placement error:", err);
+    }
+  }, []);
+
+  return (
+    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
+      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
+      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-7832182931355116"
+          data-ad-slot={slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
+          <Coins size={24} className="text-[#b0b8c1] mb-1" />
+          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [step, setStep] = useState<Step>(1);
   const [salaryStr, setSalaryStr] = useState<string>("");
@@ -72,6 +112,44 @@ export default function Home() {
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToastNotification = (msg: string) => {
+    setToastMessage(msg);
+    setShowToast(true);
+  };
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
+  // Load Kakao SDK on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!document.getElementById("kakao-sdk")) {
+        const script = document.createElement("script");
+        script.id = "kakao-sdk";
+        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
+        script.crossOrigin = "anonymous";
+        script.onload = () => {
+          const kakao = (window as any).Kakao;
+          if (kakao && !kakao.isInitialized()) {
+            try {
+              kakao.init("1b590e66c0d01d4a85fa0a98c8f0e0c9");
+            } catch (e) {
+              console.error("Kakao initialization failed:", e);
+            }
+          }
+        };
+        document.body.appendChild(script);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -142,30 +220,79 @@ export default function Home() {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
 
-  const handleShare = async () => {
+  const handleKakaoShare = async () => {
     if (!results) return;
     const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
     const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
     const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
 
+    // 1. Try Native Share Sheet if available (Mobile default)
     if (navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 육아기 단축근무 급여 계산기",
-          text: `\n${resultText}`,
+          text: resultText,
           url: shareUrl,
         });
+        return;
       } catch (err) {
-        // 사용자 취소 시 에러 무시
+        // user cancelled or failed, fall through to Kakao SDK or clipboard
       }
-    } else {
+    }
+
+    // 2. Try Kakao JS SDK
+    const kakao = (window as any).Kakao;
+    if (kakao && kakao.isInitialized()) {
       try {
-        await navigator.clipboard.writeText(fullText);
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
+        kakao.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: "LifeFit 육아기 단축근무 급여 계산기 👶",
+            description: `내 예상 실수령액은 월 약 ${formatCurrency(results.totalNet)}원! 회사 월급과 고용보험 지원금 모의계산을 1분만에 확인해보세요!`,
+            imageUrl: "https://lifefit.kr/og-short-work.png",
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+          buttons: [
+            {
+              title: "내 예상 수령액 확인하기",
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+              },
+            },
+          ],
+        });
+        return;
       } catch (err) {
-        alert("복사에 실패했습니다.");
+        console.error("Kakao share error", err);
       }
+    }
+
+    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    try {
+      await navigator.clipboard.writeText(fullText);
+      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+    } catch {
+      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+    }
+  };
+
+  const handleCopyLink = async () => {
+    if (!results) return;
+    const resultText = `[LifeFit] 2026 육아기 근로시간 단축 급여 모의계산 👶\n✅ 내 예상 실수령액: 월 ${formatCurrency(results.totalNet)}원\n(회사 월급 ${formatCurrency(results.companyPay)}원 + 고용보험 지원금 ${formatCurrency(results.govSupport)}원)`;
+    const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
+    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
+
+    try {
+      await navigator.clipboard.writeText(fullText);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
+    } catch {
+      showToastNotification("링크 복사에 실패했습니다.");
     }
   };
 
@@ -178,7 +305,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 py-6 sm:py-10">
+    <main className="min-h-screen bg-[#f2f4f6] flex flex-col items-center px-4 pt-6 pb-28 sm:pt-10 sm:pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -571,6 +698,9 @@ export default function Home() {
 
 
 
+              {/* 상단 애드센스 배너 (CTR 향상) */}
+              <AdSenseBanner slot="7832182931355116" className="my-2" />
+
               {/* CTA */}
               <Link
                 href="/tools/short-work/parking"
@@ -580,6 +710,9 @@ export default function Home() {
                 <br />
                 고금리 파킹통장 비교하러 가기
               </Link>
+
+              {/* 하단 애드센스 배너 (CTR 극대화) */}
+              <AdSenseBanner slot="7832182931355116" className="my-2" />
             </div>
           )}
 
@@ -608,31 +741,61 @@ export default function Home() {
               </button>
             )}
             {step === 5 && (
-              <div className="flex w-full gap-2">
-                <button
-                  onClick={() => {
-                    setStep(1);
-                    setSalaryStr("");
-                    setOriginalHours(40);
-                    setReducedHours(30);
-                    setIsFirst12Months(null);
-                    setIsSharedResult(false);
-                    if (typeof window !== "undefined") {
-                      window.history.replaceState({}, "", window.location.pathname);
-                    }
-                  }}
-                  className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center hover:bg-[#e5e8eb] transition-colors"
-                >
-                  <Calculator size={16} className="mr-1" />
-                  {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
-                </button>
-                <button
-                  onClick={handleShare}
-                  className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-blue-200 hover:bg-[#1e6fdb] transition-colors"
-                >
-                  <Share2 size={16} />
-                  {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
-                </button>
+              <div className="w-full mt-4 pt-6 border-t border-[#f2f4f6] space-y-4 text-center">
+                <div>
+                  <p className="text-sm font-bold text-[#191f28]">
+                    🎉 내 예상 결과 주변에 공유하기
+                  </p>
+                  <p className="text-xs text-[#8b95a1] mt-1">
+                    친구들도 육아기 단축근무 실수령액 계산을 해볼 수 있게 알려주세요!
+                  </p>
+                </div>
+                
+                <div className="flex flex-col gap-2.5">
+                  {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
+                  <button
+                    onClick={handleKakaoShare}
+                    type="button"
+                    className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
+                  >
+                    <span className="text-lg">💬</span>
+                    카카오톡으로 친구에게 알려주기
+                  </button>
+                  
+                  <div className="flex gap-2">
+                    {/* 다시 계산하기 버튼 */}
+                    <button
+                      onClick={() => {
+                        setStep(1);
+                        setSalaryStr("");
+                        setOriginalHours(40);
+                        setReducedHours(30);
+                        setIsFirst12Months(null);
+                        setIsSharedResult(false);
+                        if (typeof window !== "undefined") {
+                          window.history.replaceState({}, "", window.location.pathname);
+                        }
+                      }}
+                      className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
+                    >
+                      <Calculator size={16} />
+                      {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
+                    </button>
+                    
+                    {/* 링크 복사 버튼 */}
+                    <button
+                      onClick={handleCopyLink}
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471]"
+                          : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
+                      }`}
+                    >
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "복사 완료!" : "링크 주소 복사"}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -662,6 +825,12 @@ export default function Home() {
           </p>
         </article>
       </div>
+      {showToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
+          <span>💬</span>
+          {toastMessage}
+        </div>
+      )}
     </main>
   );
 }

@@ -199,6 +199,20 @@ export default function CarBondPage() {
   const [isCopied, setIsCopied] = useState(false);
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToastNotification = (msg: string) => {
+    setToastMessage(msg);
+    setShowToast(true);
+  };
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   // Load Kakao SDK on component mount
   useEffect(() => {
@@ -274,10 +288,27 @@ export default function CarBondPage() {
     if (step > 1) setStep((s) => (s - 1) as Step);
   }, [step]);
 
-  const handleKakaoShare = () => {
+  const handleKakaoShare = async () => {
     if (!results || !region || !carType || !year) return;
     const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
-    
+    const resultText = `🚘 [LifeFit] 자동차 미환급 채권 환급금 모의계산\n✅ 내 예상 환급금: 약 ${formatCurrency(results.total)}원\n(원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원)`;
+    const fullText = `${resultText}\n\n👉 나도 1분 만에 계산해보기:\n${shareUrl}`;
+
+    // 1. Try Native Share Sheet if available (Mobile default)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "LifeFit 자동차 미환급 채권 계산기",
+          text: resultText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        // user cancelled or failed, fall through to Kakao SDK or clipboard
+      }
+    }
+
+    // 2. Try Kakao JS SDK
     const kakao = (window as any).Kakao;
     if (kakao && kakao.isInitialized()) {
       try {
@@ -308,8 +339,13 @@ export default function CarBondPage() {
       }
     }
 
-    const webSharerUrl = `https://sharer.kakao.com/schemes/share/web?url=${encodeURIComponent(shareUrl)}`;
-    window.open(webSharerUrl, "_blank", "noopener,noreferrer");
+    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    try {
+      await navigator.clipboard.writeText(fullText);
+      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+    } catch {
+      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+    }
   };
 
   const handleCopyLink = async () => {
@@ -322,8 +358,9 @@ export default function CarBondPage() {
       await navigator.clipboard.writeText(fullText);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
+      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
     } catch {
-      alert("복사에 실패했습니다.");
+      showToastNotification("링크 복사에 실패했습니다.");
     }
   };
 
@@ -981,6 +1018,12 @@ export default function CarBondPage() {
           </p>
         </article>
       </div>
+      {showToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
+          <span>💬</span>
+          {toastMessage}
+        </div>
+      )}
     </main>
   );
 }

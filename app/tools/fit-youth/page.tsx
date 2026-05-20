@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
-import { Share2 } from "lucide-react";
+import { Share2, Coins, Info, CheckCircle2, Calculator, Landmark } from "lucide-react";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -50,6 +50,44 @@ const STEPS: StepInfo[] = [
     guide: "기존 청약저축/청약부금 보유 시 전환 가능 여부를 확인합니다.",
   },
 ];
+
+function AdSenseBanner({
+  slot = "5604101234",
+  className = "",
+}: {
+  slot?: string;
+  className?: string;
+}) {
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense placement error:", err);
+    }
+  }, []);
+
+  return (
+    <div className={`w-full my-4 overflow-hidden rounded-2xl bg-white border border-[#e5e8eb] p-3 text-center ${className}`}>
+      <span className="block text-[9px] font-bold text-[#b0b8c1] tracking-wider uppercase mb-1.5">ADVERTISEMENT</span>
+      <div className="flex items-center justify-center min-h-[100px] bg-[#f8f9fa] rounded-xl relative">
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-7832182931355116"
+          data-ad-slot={slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
+          <Coins size={24} className="text-[#b0b8c1] mb-1" />
+          <span className="text-[10px] text-[#8b95a1]">구글 맞춤 광고 영역</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [step, setStep] = useState<number>(0); // 0: intro, 1~5: questions, 6: result
@@ -161,7 +199,7 @@ export default function HomePage() {
   }, [answers]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 pt-8 pb-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -331,30 +369,112 @@ function ResultScreen({
   isSharedResult: boolean;
 }) {
   const [isCopied, setIsCopied] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
-  const handleShare = async () => {
-    const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${rentSupportLabel}\n✅ 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
-    const shareUrl = `https://lifefit.kr/tools/fit-youth?age=${answers.age ? 1 : 0}&residence=${answers.residence ? 1 : 0}&income=${answers.income ? 1 : 0}&asset=${answers.asset ? 1 : 0}&subscription=${answers.subscription ? 1 : 0}`;
-    const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
+  const showToastNotification = (msg: string) => {
+    setToastMessage(msg);
+    setShowToast(true);
+  };
 
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
+  // Load Kakao SDK on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!document.getElementById("kakao-sdk")) {
+        const script = document.createElement("script");
+        script.id = "kakao-sdk";
+        script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+        script.integrity = "sha384-TiCUE00h649YGqhGQr5oXMxbGsOxRy5Mh16HReXUpk47VRYz9MvxWthAtdm9CrLz";
+        script.crossOrigin = "anonymous";
+        script.onload = () => {
+          const kakao = (window as any).Kakao;
+          if (kakao && !kakao.isInitialized()) {
+            try {
+              kakao.init("1b590e66c0d01d4a85fa0a98c8f0e0c9");
+            } catch (e) {
+              console.error("Kakao initialization failed:", e);
+            }
+          }
+        };
+        document.body.appendChild(script);
+      }
+    }
+  }, []);
+
+  const resultText = `[LifeFit] 2026 청년 주거지원 판별 결과 🏠\n✅ 청년월세 특별지원: ${rentSupportLabel}\n✅ 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}`;
+  const shareUrl = `https://lifefit.kr/tools/fit-youth?age=${answers.age ? 1 : 0}&residence=${answers.residence ? 1 : 0}&income=${answers.income ? 1 : 0}&asset=${answers.asset ? 1 : 0}&subscription=${answers.subscription ? 1 : 0}`;
+  const fullText = `${resultText}\n\n👉 나도 1분 만에 대상자인지 확인하기:\n${shareUrl}`;
+
+  const handleKakaoShare = async () => {
+    // 1. Try Native Share Sheet if available (Mobile default)
     if (navigator.share) {
       try {
         await navigator.share({
           title: "LifeFit 청년 주거지원 판별기",
-          text: `\n${resultText}`,
+          text: resultText,
           url: shareUrl,
         });
+        return;
       } catch (err) {
-        // 사용자 취소 시 에러 무시
+        // user cancelled or failed, fall through to Kakao SDK or clipboard
       }
-    } else {
+    }
+
+    // 2. Try Kakao JS SDK
+    const kakao = (window as any).Kakao;
+    if (kakao && kakao.isInitialized()) {
       try {
-        await navigator.clipboard.writeText(fullText);
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
+        kakao.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: "LifeFit 청년 주거지원 판별기 🏠",
+            description: `청년월세 특별지원: ${rentSupportLabel} / 청년 주택드림 청약: ${dreamEligible ? "통장 가입 가능" : "조건 일부 미충족"}. 내가 대상인지 1분만에 확인해보세요!`,
+            imageUrl: "https://lifefit.kr/og-fit-youth.png",
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+          buttons: [
+            {
+              title: "대상 여부 확인하기",
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+              },
+            },
+          ],
+        });
+        return;
       } catch (err) {
-        alert("복사에 실패했습니다.");
+        console.error("Kakao share error", err);
       }
+    }
+
+    // 3. Desktop/Webview Fallback: Copy to Clipboard & Show Premium Toast
+    try {
+      await navigator.clipboard.writeText(fullText);
+      showToastNotification("결과가 복사되었습니다! 💬 카카오톡을 열어 친구에게 붙여넣기(Ctrl+V)해보세요!");
+    } catch {
+      showToastNotification("복사에 실패했습니다. 수동으로 주소를 복사해주세요.");
+    }
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(fullText);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+      showToastNotification("결과 링크가 클립보드에 복사되었습니다!");
+    } catch {
+      showToastNotification("링크 복사에 실패했습니다.");
     }
   };
 
@@ -430,6 +550,9 @@ function ResultScreen({
             : "통장 보유/전환 여부는 별도 확인이 필요합니다."}
         </p>
       </div>
+
+      {/* 상단 애드센스 배너 (CTR 향상) */}
+      <AdSenseBanner slot="7832182931355116" className="my-2" />
 
       {/* 요약 테이블 */}
       <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50 p-4">
@@ -518,8 +641,6 @@ function ResultScreen({
         </ul>
       </div>
 
-
-
       {/* 제휴 마케팅 CTA 버튼 — 내부 랜딩 페이지로 연결 */}
       <Link
         href="/tools/fit-youth/banks"
@@ -528,20 +649,55 @@ function ResultScreen({
         청년 우대형 통장 개설 가능한 은행 알아보기 →
       </Link>
 
-      <div className="flex w-full gap-2 mb-2">
-        <button
-          onClick={onReset}
-          className="flex-1 rounded-xl border-2 border-gray-200 bg-white py-4 text-base font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50 active:scale-[0.98]"
-        >
-          {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
-        </button>
-        <button
-          onClick={handleShare}
-          className="flex-1 flex items-center justify-center gap-2 rounded-xl border-2 border-blue-600 bg-blue-600 py-4 text-base font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 active:scale-[0.98]"
-        >
-          <Share2 size={18} />
-          {isCopied ? "링크 복사 완료!" : "결과 공유하기"}
-        </button>
+      {/* 하단 애드센스 배너 (CTR 극대화) */}
+      <AdSenseBanner slot="7832182931355116" className="my-2" />
+
+      {/* 3버튼 공유 레이아웃 */}
+      <div className="w-full mt-4 pt-6 border-t border-gray-100 space-y-4 text-center">
+        <div>
+          <p className="text-sm font-bold text-gray-900">
+            🎉 내 판별 결과 주변에 공유하기
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            친구들도 청년 주거지원 대상자인지 알려주세요!
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2.5">
+          {/* 카카오톡 공유하기 버튼 - 브랜드 칼라 #FEE500 */}
+          <button
+            onClick={handleKakaoShare}
+            type="button"
+            className="w-full h-12 rounded-2xl bg-[#FEE500] text-[#3c1e1e] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#FADA0A] transition-all shadow-sm active:scale-[0.98]"
+          >
+            <span className="text-lg">💬</span>
+            카카오톡으로 친구에게 알려주기
+          </button>
+          
+          <div className="flex gap-2">
+            {/* 다시 계산하기 버튼 */}
+            <button
+              onClick={onReset}
+              className="flex-1 h-12 rounded-2xl bg-gray-100 text-gray-700 font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-all active:scale-[0.98]"
+            >
+              <Calculator size={16} />
+              {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
+            </button>
+            
+            {/* 링크 복사 버튼 */}
+            <button
+              onClick={handleCopyLink}
+              className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                isCopied
+                  ? "bg-[#e8f9f0] text-[#00c471] border border-green-200"
+                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-100"
+              }`}
+            >
+              {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+              {isCopied ? "복사 완료!" : "링크 주소 복사"}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
@@ -559,6 +715,13 @@ function ResultScreen({
           지원 대상에 선정되기 위해서는 소득 요건 외에도 총재산 가액 1억 2천2백만 원 이하(청년 독립가구 기준) 등 세부 자산 기준을 충족해야 합니다. 모의계산 결과는 참고용이며, 최종 대상 여부는 복지로(bokjiro.go.kr) 또는 마이홈 포털에서 확정 확인이 필요합니다.
         </p>
       </article>
+
+      {showToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
+          <span>💬</span>
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 }
