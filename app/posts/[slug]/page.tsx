@@ -249,14 +249,12 @@ export default async function PostPage({ params }: Props) {
           <Link href="/" className="text-xl font-bold text-blue-600">
             LifeFit
           </Link>
-          <nav className="flex items-center gap-4 text-sm font-medium text-gray-600">
-            <Link href="/tools/short-work" className="hover:text-blue-600">
-              육아수당 계산기
-            </Link>
-            <Link href="/tools/fit-youth" className="hover:text-blue-600">
-              월세지원 계산기
-            </Link>
-          </nav>
+          <Link
+            href="/"
+            className="text-sm font-medium text-gray-500 hover:text-blue-600"
+          >
+            홈으로
+          </Link>
         </div>
       </header>
 
