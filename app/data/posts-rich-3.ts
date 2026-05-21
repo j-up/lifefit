@@ -1047,4 +1047,108 @@ export const postsPart3: Post[] = [
       <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 근로장려금 신청을 거절당했는데 이의를 제기할 수 있나요?</strong><br>A. 네, 가능합니다. 국세청에 "이의신청"을 하거나, 필요한 경우 "심사청구"를 통해 다시 검토받을 수 있습니다.</p>
     `,
   },
+,
+  {
+    id: "32",
+    title: "2026 고유가(고층·유증기·가연성 외장재) 피해지원금 신청 완벽 가이드",
+    slug: "2026-goyuga-pihae-support",
+    date: "2026-05-21",
+    summary: "고유가(고층·유증기·가연성 외장재)로 인한 피해를 본 아파트·주택 거주자를 위한 2026년 피해지원금 신청 자격, 금액, 서류, 방법을 한눈에 정리했습니다.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=450&fit=crop&q=80",
+    category: "housing",
+    readTime: "7분",
+    content: `
+      <p class="text-gray-700 leading-relaxed my-4">
+        최근 아파트 및 다세대주택에서 발생하는 <strong>고유가(고층·유증기·가연성 외장재)</strong> 문제로 인해 많은 주민들이 재산상·정신적인 피해를 겪고 있습니다. 정부는 이러한 피해 주민들을 지원하기 위해 <strong>고유가 피해지원금</strong> 제도를 운영하고 있으며, 2026년에도 지원이 계속됩니다. 이번 글에서는 신청 자격, 지원 금액, 필요 서류, 신청 방법을 상세히 알아보겠습니다.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">1. 고유가(고층·유증기·가연성 외장재)란?</h2>
+      <p class="text-gray-700 leading-relaxed my-4">
+        <strong>고유가</strong>는 아파트 및 고층 건축물에서 발생하는 유증기(가스)와 가연성 외장재로 인한 안전사고 및 건강 피해를 통칭합니다. 주로 외벽 마감재, 단열재, 방수재 등에서 발생하는 유핵 가스로 인해 입주민들이 호흡기 질환이나 두통, 메스컴 등의 증상을 호소하고 있으며, 화재 시 가연성 외장재로 인해 화재가 급속히 확산될 위험도 큽니다.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">2. 2026년 고유가 피해지원금 지원 대상</h2>
+      <p class="text-gray-700 leading-relaxed my-4">2026년 기준 고유가 피해지원금을 받을 수 있는 대상은 다음과 같습니다.</p>
+      <ul class="list-disc pl-5 space-y-2 my-4">
+        <li><strong>피해 아파트·주택의 소유자 또는 세대주:</strong> 고유가 검출이 확인된 건축물에 거주하거나 소유하고 있는 자</li>
+        <li><strong>임차인(세입자):</strong> 실제 거주하고 있는 임차인도 지원 대상에 포함(세대주 동의 또는 임대차계약서 제출)</li>
+        <li><strong>건강 피해 입증자:</strong> 병원 진단서 등을 통해 고유가로 인한 건강 피해를 입증한 경우 추가 지원 가능</li>
+        <li><strong>재산 피해자:</strong> 외장재 보수·교체, 실내 공기 정화, 이사 비용 등 실제 지출이 발생한 경우</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">3. 지원 금액 및 항목</h2>
+      <p class="text-gray-700 leading-relaxed my-4">지원 금액은 피해 정도, 건축물 규모, 거주 지역 등에 따라 차등 지급되며, 주요 지원 항목은 다음과 같습니다.</p>
+      <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 border text-left">지원 항목</th>
+            <th class="p-3 border text-left">지원 금액(예시)</th>
+            <th class="p-3 border text-left">비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-3 border">임시 거주비(이사·임차료)</td>
+            <td class="p-3 border">세대당 최대 300만 원</td>
+            <td class="p-3 border">피해 정도에 따라 차등</td>
+          </tr>
+          <tr>
+            <td class="p-3 border">실내 공기 정화비</td>
+            <td class="p-3 border">세대당 최대 100만 원</td>
+            <td class="p-3 border">공기청정기, 환기 시설 등</td>
+          </tr>
+          <tr>
+            <td class="p-3 border">건강 검진비</td>
+            <td class="p-3 border">1인당 최대 50만 원</td>
+            <td class="p-3 border">호흡기·알레르기 질환 검진</td>
+          </tr>
+          <tr>
+            <td class="p-3 border">재산 피해 보상금</td>
+            <td class="p-3 border">실비 또는 정액 지급</td>
+            <td class="p-3 border">시·도 조례에 따라 상이</td>
+          </tr>
+          <tr>
+            <td class="p-3 border">정신적 피해 위로금</td>
+            <td class="p-3 border">세대당 최대 200만 원</td>
+            <td class="p-3 border">상담 치료비 포함 가능</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-gray-700 leading-relaxed my-4"><strong>※ 참고:</strong> 위 금액은 전국 평균 기준 예시이며, 실제 지원 금액은 거주 지역(시·도)의 조례 및 예산 상황에 따라 달라질 수 있습니다.</p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">4. 신청 기간 및 방법</h2>
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">신청 기간</h3>
+      <p class="text-gray-700 leading-relaxed my-4">
+        고유가 피해지원금은 <strong>상시 신청</strong>이 원칙이나, 일부 지자체는 특정 집중 신청 기간을 운영합니다. 피해 사실이 확인된 후 가능한 빨리 신청하시는 것이 유리합니다.
+      </p>
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">신청 방법</h3>
+      <ul class="list-disc pl-5 space-y-2 my-4">
+        <li><strong>온라인 신청:</strong> 거주 지역 주민센터(동사무소) 홈페이지 또는 정부24(www.gov.kr)를 통해 신청 가능합니다.</li>
+        <li><strong>오프라인 신청:</strong> 관할 주민센터(동사무소) 민원실에 방문하여 신청서를 제출합니다.</li>
+        <li><strong>보조금 통합관리시스템(e-나라도움):</strong> 일부 지자체는 별도의 온라인 시스템을 운영합니다.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">5. 필요 서류</h2>
+      <p class="text-gray-700 leading-relaxed my-4">신청 시 반드시 준비해야 하는 서류는 다음과 같습니다.</p>
+      <ul class="list-disc pl-5 space-y-2 my-4">
+        <li><strong>신분증:</strong> 주민등록증 또는 운전면허증</li>
+        <li><strong>주민등록등본:</strong> 최근 1개월 이내 발급분(세대주 및 세대원 전원 기재)</li>
+        <li><strong>건축물 피해 확인서:</strong> 한국건설생활환경시험연구원(KCL) 등 공인기관의 검사 결과서</li>
+        <li><strong>임대차계약서 사본:</strong> 임차인인 경우(세대주와 관계 증명)</li>
+        <li><strong>건강 피해 입증 서류:</strong> 병원 진단서, 치료비 영수증(해당자에 한함)</li>
+        <li><strong>재산 피해 증빙 서류:</strong> 공사 계약서, 견적서, 영수증 등(해당자에 한함)</li>
+        <li><strong>통장 사본:</strong> 지원금 수령 계좌</li>
+      </ul>
+
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+        <p class="text-amber-800"><strong>⚠️ 주의:</strong> 제출 서류가 불완전할 경우 보완 요청이 발생하여 지급이 지연될 수 있습니다. 신청 전 관할 주민센터나 해당 시·도 홈페이지에서 최신 서류 목록을 반드시 확인하세요.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">6. 자주 묻는 질문</h2>
+      <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 전세 살고 있는 세입자도 신청할 수 있나요?</strong><br>A. 네, 가능합니다. 임대차계약서와 주민등록등본을 함께 제출하면 세입자도 지원받을 수 있습니다. 단, 세대주(집주인)와 중복 신청은 불가능할 수 있으니 사전에 협의하세요.</p>
+      <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 피해 금액이 지원 한도를 초과하면 어떻게 되나요?</strong><br>A. 지원금은 정부 및 지자체 예산 범위 내에서 지급되므로, 실비를 초과하는 지원은 어렵습니다. 초과분은 민사 소송 등 별도의 구제 절차를 통해 관리 주체(시공사, 입주자대표회의 등)에게 손해배상을 청구하실 수 있습니다.</p>
+      <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 신청 후 언제쯤 지원금이 지급되나요?</strong><br>A. 일반적으로 신청서 접수 후 <strong>약 2~4주</strong> 내에 심사가 완료되며, 추가 서류 검토가 필요한 경우 더 소요될 수 있습니다.</p>
+      <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 2025년에 신청했는데 2026년에 추가 지원이 가능한가요?</strong><br>A. 지원금은 통상 <strong>1회성 지원</strong>이 원칙입니다. 다만 피해가 추가로 발생하거나 새로운 지원 사업이 신설된 경우 별도 신청이 가능할 수 있으니 관할 기관에 문의하세요.</p>
+    `,
+  },
 ];

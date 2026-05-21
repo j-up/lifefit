@@ -898,9 +898,6 @@ export default function CarBondPage() {
               {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
               <AdSenseSlot adFormat="auto" />
 
-              {/* 알림 구독 신청 - 리텐션 극대화 */}
-              <SubscribeCard defaultCategory="car" />
-
               {/* Info Box */}
               <div className="rounded-2xl bg-[#fff8db] p-4 text-xs text-[#8b6a00] leading-relaxed">
                 <p className="font-bold mb-1">참고 사항</p>
@@ -997,6 +994,9 @@ export default function CarBondPage() {
               </div>
             )}
           </div>
+          {step === 5 && (
+            <SubscribeCard defaultCategory="car" />
+          )}
         </div>
 
         {/* Footer */}

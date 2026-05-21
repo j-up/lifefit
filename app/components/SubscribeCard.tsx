@@ -159,7 +159,7 @@ export default function SubscribeCard({
 
       {/* Form */}
       <form onSubmit={handleSubscribe} className="relative space-y-3">
-        <div className="flex flex-col sm:flex-row gap-2.5">
+        <div className="flex flex-col gap-2.5">
           <div className="relative flex-1">
             <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
@@ -174,7 +174,7 @@ export default function SubscribeCard({
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="h-12 px-6 rounded-2xl bg-[#00c471] text-white font-bold text-sm flex items-center justify-center gap-1.5 shadow-md shadow-[#00c471]/10 hover:bg-[#00b064] transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 shrink-0"
+            className="h-12 px-6 rounded-2xl bg-[#00c471] text-white font-bold text-sm flex items-center justify-center gap-1.5 shadow-md shadow-[#00c471]/10 hover:bg-[#00b064] transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 whitespace-nowrap"
           >
             {status === "submitting" ? (
               <>

@@ -674,9 +674,6 @@ export default function NJobTaxPage() {
               {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
               <AdSenseSlot adFormat="auto" />
 
-              {/* 알림 구독 신청 - 리텐션 극대화 */}
-              <SubscribeCard defaultCategory="tax" />
-
             </div>
           )}
 
@@ -753,6 +750,9 @@ export default function NJobTaxPage() {
               </div>
             )}
           </div>
+          {step === 5 && (
+            <SubscribeCard defaultCategory="tax" />
+          )}
         </div>
 
         {/* 안내문 */}

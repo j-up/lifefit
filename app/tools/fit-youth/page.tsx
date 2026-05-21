@@ -637,9 +637,6 @@ function ResultScreen({
       {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
       <AdSenseSlot adFormat="auto" />
 
-      {/* 알림 구독 신청 - 리텐션 극대화 */}
-      <SubscribeCard defaultCategory="housing" />
-
       {/* 3버튼 공유 레이아웃 */}
       <div className="w-full mt-4 pt-6 border-t border-gray-100 space-y-4 text-center">
         <div>
@@ -673,6 +670,9 @@ function ResultScreen({
           </div>
         </div>
       </div>
+
+      {/* 알림 구독 신청 - 리텐션 극대화 */}
+      <SubscribeCard defaultCategory="housing" />
 
       {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
       <article className="mt-8 p-5 bg-white rounded-2xl border border-gray-200 text-sm text-gray-600 leading-relaxed text-left">
