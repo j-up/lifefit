@@ -1093,33 +1093,48 @@ export const postsPart3: Post[] = [
         </tbody>
       </table>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">3. 소득 기준 — 건강보험료 본인부담금 기준</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">3. 소득 기준 — 가구원 수별 건강보험료 본인부담금 기준</h2>
       <p class="text-gray-700 leading-relaxed my-4">
-        이번 2차 지원금은 <strong>건강보험료 본인부담금</strong>을 기준으로 지급 대상을 선별합니다. 외벌이 직장가입자 기준 월 건강보험료와 환산 연소득은 다음과 같습니다.
+        이번 2차 지원금은 <strong>건강보험료 본인부담금</strong>을 기준으로 지급 대상을 선별합니다. 가구원 수와 가입 유형(직장·지역·혼합)별 기준은 다음과 같습니다.
       </p>
       <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
         <thead>
           <tr class="bg-gray-100">
-            <th class="p-3 border text-left">가구 기준</th>
-            <th class="p-3 border text-left">월 건강보험료 본인부담금 기준</th>
-            <th class="p-3 border text-left">환산 연소득(세전·참고)</th>
+            <th class="p-3 border text-left">가구원수</th>
+            <th class="p-3 border text-left">직장가입자 기준</th>
+            <th class="p-3 border text-left">지역가입자 기준</th>
+            <th class="p-3 border text-left">혼합(직장+지역) 기준</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="p-3 border font-semibold">1인 외벌이 가구</td>
+            <td class="p-3 border font-semibold">1인</td>
             <td class="p-3 border">13만 원 이하</td>
-            <td class="p-3 border">약 4,430만 원</td>
+            <td class="p-3 border">8만 원 이하</td>
+            <td class="p-3 border">-</td>
           </tr>
           <tr>
-            <td class="p-3 border font-semibold">4인 외벌이 가구</td>
+            <td class="p-3 border font-semibold">2인</td>
+            <td class="p-3 border">14만 원 이하</td>
+            <td class="p-3 border">12만 원 이하</td>
+            <td class="p-3 border">14만 원 이하</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">3인</td>
+            <td class="p-3 border">26만 원 이하</td>
+            <td class="p-3 border">19만 원 이하</td>
+            <td class="p-3 border">24만 원 이하</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">4인</td>
             <td class="p-3 border">32만 원 이하</td>
-            <td class="p-3 border">약 1억 682만 원</td>
+            <td class="p-3 border">22만 원 이하</td>
+            <td class="p-3 border">30만 원 이하</td>
           </tr>
         </tbody>
       </table>
       <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
-        <p class="text-amber-800"><strong>※ 참고:</strong> 위 연소득은 복지부가 공개한 환산 기준입니다. 정확한 대상 여부는 건강보험공단의 보험료 산정 기록을 바탕으로 자동 선별되며, 복지로(bokjiro.go.kr) 또는 주민센터에서 사전 확인 가능합니다.</p>
+        <p class="text-amber-800"><strong>※ 참고:</strong> 예시로 외벌이 직장가입자 1인 가구(월 건보료 13만 원)는 연소득 약 4,430만 원 수준, 4인 가구(월 건보료 32만 원)는 연소득 약 1억 682만 원 수준입니다. 정확한 대상 여부는 건강보험공단의 보험료 산정 기록을 바탕으로 자동 선별되며, 복지로(bokjiro.go.kr) 또는 주민센터에서 사전 확인 가능합니다.</p>
       </div>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">4. 지급 수단</h2>
