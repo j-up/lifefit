@@ -1102,7 +1102,7 @@ export const postsPart3: Post[] = [
           <tr class="bg-gray-100">
             <th class="p-3 border text-left">가구원 수</th>
             <th class="p-3 border text-left">구분</th>
-            <th class="p-3 border text-left">3월 건포료 기준</th>
+            <th class="p-3 border text-left">3월 건보료 기준</th>
             <th class="p-3 border text-left">대략적인 연 소득 환산액</th>
           </tr>
         </thead>
