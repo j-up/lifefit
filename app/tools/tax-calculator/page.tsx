@@ -634,9 +634,6 @@ export default function TaxCalculatorPage() {
               </div>
             )}
           </div>
-          {step === 5 && (
-            <SubscribeCard defaultCategory="saving" />
-          )}
         </div>
 
         {/* 안내문 */}
@@ -674,7 +671,11 @@ export default function TaxCalculatorPage() {
         </article>
       </div>
 
-      {showToast && (
+      {step === 5 && (
+        <SubscribeCard defaultCategory="saving" />
+      )}
+
+            {showToast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
           <span>💬</span>
           {toastMessage}

@@ -671,9 +671,6 @@ function ResultScreen({
         </div>
       </div>
 
-      {/* 알림 구독 신청 - 리텐션 극대화 */}
-      <SubscribeCard defaultCategory="housing" />
-
       {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
       <article className="mt-8 p-5 bg-white rounded-2xl border border-gray-200 text-sm text-gray-600 leading-relaxed text-left">
         <h2 className="text-base font-bold text-gray-900 mb-3">
@@ -690,7 +687,11 @@ function ResultScreen({
         </p>
       </article>
 
-      {showToast && (
+      {step === 5 && (
+        <SubscribeCard defaultCategory="housing" />
+      )}
+
+            {showToast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-semibold animate-toast text-center whitespace-nowrap border border-[rgba(255,255,255,0.1)]">
           <span>💬</span>
           {toastMessage}
