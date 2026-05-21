@@ -302,7 +302,16 @@ export default async function Home() {
                     loading="lazy"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-700 backdrop-blur-sm">
-                    {post.category}
+                    {(() => {
+                      const map: Record<string, string> = {
+                        housing: "주거",
+                        tax: "세금",
+                        welfare: "복지",
+                        saving: "자산",
+                        car: "차량",
+                      };
+                      return map[post.category] ?? post.category;
+                    })()}
                   </span>
                 </Link>
 

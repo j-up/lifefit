@@ -1053,7 +1053,7 @@ export const postsPart3: Post[] = [
     slug: "2026-goyuga-pihae-support",
     date: "2026-05-21",
     summary: "고환율·유가·고물가(고유가)로 인한 서민층 삼중고를 완화하기 위한 2026년 피해지원금 신청 자격, 금액, 기간, 방법을 한눈에 정리했습니다.",
-    image: "https://images.unsplash.com/photo-1545231027-637d2f6210f8?w=1200&h=400&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1200&h=400&fit=crop&q=80",
     category: "welfare",
     readTime: "5분",
     content: `
