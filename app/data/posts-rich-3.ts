@@ -1058,48 +1058,71 @@ export const postsPart3: Post[] = [
     readTime: "5분",
     content: `
       <p class="text-gray-700 leading-relaxed my-4">
-        <strong>고유가(고환율·유가·고물가)</strong>로 인한 서민층의 삼중고를 완화하기 위해 정부가 <strong>고유가 피해지원금</strong>을 지급합니다. 소득 하위 70% 국민을 대상으로 1인당 최대 60만 원까지 지원되며, 지역사랑상품권·신용·체크카드·선불카드 중 선택하여 받을 수 있습니다. 이번 글에서는 신청 자격, 지원 금액, 신청 기간과 방법을 상세히 정리해 드립니다.
+        20일 행정안전부에 따른 정부는 <strong>소득 하위 70% 국민 약 3,600만 명</strong>을 대상으로 <strong>1인당 10만 원~25만 원</strong>의 고유가 피해지원금을 지급하고 있습니다. 수도권은 10만 원, 비수도권은 15만 원, 인구감소 특별지원지역은 최대 25만 원까지 받을 수 있습니다. 지역사랑상품권·신용·체크카드·선불카드 중 선택하여 받을 수 있으며, 이번 글에서는 정확한 지원 금액과 소득 기준, 신청 기간과 방법을 상세히 정리해 드립니다.
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">1. 지원 개요</h2>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>추진 배경:</strong> 고유가·고환율·고물가로 인한 서민층의 삼중고 완화</li>
-        <li><strong>지원 대상:</strong> 소득 하위 70% 국민(기초수급자·차상위·한부모 포함)</li>
-        <li><strong>지원 금액:</strong> 1인당 10만 원 ~ 60만 원</li>
-        <li><strong>지원 방식:</strong> 소득별·지역별 맞춤형 지원</li>
+        <li><strong>지원 대상:</strong> 소득 하위 70% 국민 약 3,600만 명</li>
+        <li><strong>지원 금액:</strong> 1인당 10만 원 ~ 25만 원(지역별 차등)</li>
+        <li><strong>지원 방식:</strong> 지역사랑상품권·신용·체크카드·선불카드 중 선택</li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">2. 지원 금액 상세</h2>
-      <p class="text-gray-700 leading-relaxed my-4">소득 계층과 거주 지역에 따라 지원 금액이 차등 지급됩니다.</p>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">2. 지역별 지원 금액</h2>
       <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
         <thead>
           <tr class="bg-gray-100">
-            <th class="p-3 border text-left">구분</th>
-            <th class="p-3 border text-left">기초수급자</th>
-            <th class="p-3 border text-left">차상위·한부모</th>
-            <th class="p-3 border text-left">소득하위 70%</th>
+            <th class="p-3 border text-left">거주 지역</th>
+            <th class="p-3 border text-left">1인당 지원 금액</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="p-3 border font-semibold">수도권</td>
-            <td class="p-3 border">55만 원</td>
-            <td class="p-3 border">45만 원</td>
-            <td class="p-3 border">10만 원</td>
+            <td class="p-3 border"><strong>10만 원</strong></td>
           </tr>
           <tr>
             <td class="p-3 border font-semibold">비수도권</td>
-            <td class="p-3 border">60만 원</td>
-            <td class="p-3 border">50만 원</td>
-            <td class="p-3 border">15만 원</td>
+            <td class="p-3 border"><strong>15만 원</strong></td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">인구감소 특별지원지역</td>
+            <td class="p-3 border"><strong>최대 25만 원</strong></td>
           </tr>
         </tbody>
       </table>
-      <p class="text-gray-700 leading-relaxed my-4">
-        <strong>인구감소지역 우대:</strong> 인구감소 우대지원지역은 20만 원, 특별지원지역은 25만 원이 추가 지원됩니다.
-      </p>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">3. 지급 수단</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">3. 소득 기준 — 건강보험료 본인부담금 기준</h2>
+      <p class="text-gray-700 leading-relaxed my-4">
+        이번 2차 지원금은 <strong>건강보험료 본인부담금</strong>을 기준으로 지급 대상을 선별합니다. 외벌이 직장가입자 기준 월 건강보험료와 환산 연소득은 다음과 같습니다.
+      </p>
+      <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 border text-left">가구 기준</th>
+            <th class="p-3 border text-left">월 건강보험료 본인부담금 기준</th>
+            <th class="p-3 border text-left">환산 연소득(세전·참고)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-3 border font-semibold">1인 외벌이 가구</td>
+            <td class="p-3 border">13만 원 이하</td>
+            <td class="p-3 border">약 4,430만 원</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">4인 외벌이 가구</td>
+            <td class="p-3 border">32만 원 이하</td>
+            <td class="p-3 border">약 1억 682만 원</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+        <p class="text-amber-800"><strong>※ 참고:</strong> 위 연소득은 복지부가 공개한 환산 기준입니다. 정확한 대상 여부는 건강보험공단의 보험료 산정 기록을 바탕으로 자동 선별되며, 복지로(bokjiro.go.kr) 또는 주민센터에서 사전 확인 가능합니다.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">4. 지급 수단</h2>
       <p class="text-gray-700 leading-relaxed my-4">수령자는 아래 수단 중 하나를 선택할 수 있습니다.</p>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>지역사랑상품권</strong></li>
@@ -1107,13 +1130,13 @@ export const postsPart3: Post[] = [
         <li><strong>선불카드</strong></li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">4. 신청 방법</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">5. 신청 방법</h2>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>온라인:</strong> 카드사·지역사랑상품권 앱 및 홈페이지</li>
         <li><strong>오프라인:</strong> 주민센터, 은행 영업점 방문 신청</li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">5. 신청·지급 기간</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">6. 신청·지급 기간</h2>
       <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">기초수급자·차상위·한부모 가구</h3>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>1차:</strong> 2026년 4월 27일(월) ~ 2026년 5월 8일(금)</li>
@@ -1123,49 +1146,12 @@ export const postsPart3: Post[] = [
         <p class="text-amber-800"><strong>※ 주의:</strong> 1차 기간에 신청·지급받은 경우 2차 기간에는 신청·지급이 불가합니다.</p>
       </div>
 
-      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">소득 하위 70% 대상 기준(가구원 수별)</h3>
-      <p class="text-gray-700 leading-relaxed my-4">
-        소득 하위 70%는 <strong>가구 기준 중위소득 120% 이하</strong>를 의미합니다. 아래는 2026년 기준 월 실수령액·연봉 세전으로 환산한 참고 기준입니다.
-      </p>
-      <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="p-3 border text-left">가구원 수</th>
-            <th class="p-3 border text-left">월 실수령액 기준(참고)</th>
-            <th class="p-3 border text-left">연봉 세전 기준(참고)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="p-3 border font-semibold">1인 가구</td>
-            <td class="p-3 border">약 220만 원 이하</td>
-            <td class="p-3 border">약 3,000만 원 이하</td>
-          </tr>
-          <tr>
-            <td class="p-3 border font-semibold">2인 가구</td>
-            <td class="p-3 border">약 360만 원 이하(합산)</td>
-            <td class="p-3 border">약 5,000만 원 이하(합산)</td>
-          </tr>
-          <tr>
-            <td class="p-3 border font-semibold">3인 가구</td>
-            <td class="p-3 border">약 460만 원 이하(합산)</td>
-            <td class="p-3 border">약 6,500만 원 이하(합산)</td>
-          </tr>
-          <tr>
-            <td class="p-3 border font-semibold">4인 가구</td>
-            <td class="p-3 border">약 550만 원 이하(합산)</td>
-            <td class="p-3 border">약 7,800만 원 이하(합산)</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
-        <p class="text-amber-800"><strong>※ 참고:</strong> 위 금액은 중위소득 120%를 월 실수령액·연봉 세전으로 환산한 <strong>참고치</strong>입니다. 정확한 대상 여부는 신청 시 소득·가구원 수를 바탕으로 자동 산정되며, 복지로(bokjiro.go.kr) 또는 주민센터에서 사전 확인 가능합니다.</p>
-      </div>
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">소득 하위 70% (국민의 70%)</h3>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>2차 신청 기간:</strong> 2026년 5월 18일(월) ~ 2026년 7월 3일(금)</li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">6. 사용 기한 및 범위</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">7. 사용 기한 및 범위</h2>
       <ul class="list-disc pl-5 space-y-2 my-4">
         <li><strong>사용 기한:</strong> 2026년 8월 31일(월)까지 ※ 1·2차 동일</li>
         <li><strong>사용 지역:</strong> 신청자 본인의 주소지(특·광역시 및 시·군)</li>
@@ -1177,10 +1163,10 @@ export const postsPart3: Post[] = [
         </li>
       </ul>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">7. 문의처</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">8. 문의처</h2>
       <p class="text-gray-700 leading-relaxed my-4">
         고유가 피해지원금 관련 문의는 <strong>고유가 피해지원금 전담 콜센터 1670-2626</strong>으로 연락하시기 바랍니다.
       </p>
     `,
-  },
+  },,
 ];
