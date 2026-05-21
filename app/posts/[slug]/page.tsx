@@ -273,7 +273,16 @@ export default async function PostPage({ params }: Props) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-800 backdrop-blur-sm">
-              {post.category}
+              {(() => {
+                const map: Record<string, string> = {
+                  housing: "주거",
+                  tax: "세금",
+                  welfare: "복지",
+                  saving: "자산",
+                  car: "차량",
+                };
+                return map[post.category] ?? post.category;
+              })()}
             </span>
           </div>
 
