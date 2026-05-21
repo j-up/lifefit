@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // www → non-www 리디렉션 (중복 도메인 방지)
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.lifefit.kr",
+          },
+        ],
+        destination: "https://lifefit.kr/:path*",
+        permanent: true,
+      },
       // HTTP → HTTPS 강제 리디렉션 (중복 URL 방지)
       {
         source: "/:path*",
