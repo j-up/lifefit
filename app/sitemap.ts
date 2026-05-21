@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: "https://lifefit.kr",
+      url: "https://lifefit.kr/",
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,

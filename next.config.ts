@@ -3,6 +3,27 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
+  // 트레일링 슬래시 없음으로 통일 (canonical 중복 방지)
+  trailingSlash: false,
+
+  async redirects() {
+    return [
+      // HTTP → HTTPS 강제 리디렉션 (중복 URL 방지)
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "header",
+            key: "x-forwarded-proto",
+            value: "http",
+          },
+        ],
+        destination: "https://lifefit.kr/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {

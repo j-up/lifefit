@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "LifeFit",
   ],
   alternates: {
-    canonical: "https://lifefit.kr",
+    canonical: "https://lifefit.kr/",
     types: {
       "application/rss+xml": "https://lifefit.kr/rss.xml",
     },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: "2026 청년·육아 복지 계산기 | LifeFit",
     description:
       "2026년 청년 월세 지원부터 육아기 단축근무 급여 계산까지! 복잡한 정부 정책을 LifeFit에서 가장 쉽고 빠르게 확인하세요.",
-    url: "https://lifefit.kr",
+    url: "https://lifefit.kr/",
     siteName: "LifeFit",
     locale: "ko_KR",
     type: "website",
@@ -113,7 +113,7 @@ export default function RootLayout({
                   "@type": "Organization",
                   "@id": "https://lifefit.kr/#organization",
                   name: "LifeFit",
-                  url: "https://lifefit.kr",
+                  url: "https://lifefit.kr/",
                   logo: {
                     "@type": "ImageObject",
                     url: "https://lifefit.kr/favicon.ico",
