@@ -1047,7 +1047,6 @@ export const postsPart3: Post[] = [
       <p class="text-gray-700 leading-relaxed my-4"><strong>Q. 근로장려금 신청을 거절당했는데 이의를 제기할 수 있나요?</strong><br>A. 네, 가능합니다. 국세청에 "이의신청"을 하거나, 필요한 경우 "심사청구"를 통해 다시 검토받을 수 있습니다.</p>
     `,
   },
-,
   {
     id: "32",
     title: "2026 고유가(고층·유증기·가연성 외장재) 피해지원금 신청 완벽 가이드",
