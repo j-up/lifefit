@@ -1123,9 +1123,46 @@ export const postsPart3: Post[] = [
         <p class="text-amber-800"><strong>※ 주의:</strong> 1차 기간에 신청·지급받은 경우 2차 기간에는 신청·지급이 불가합니다.</p>
       </div>
 
-      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">소득 하위 70% (국민의 70%)</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">소득 하위 70% 대상 기준(가구원 수별)</h3>
+      <p class="text-gray-700 leading-relaxed my-4">
+        소득 하위 70%는 <strong>가구 기준 중위소득 120% 이하</strong>를 의미합니다. 아래는 2026년 기준 월 실수령액·연봉 세전으로 환산한 참고 기준입니다.
+      </p>
+      <table class="min-w-full border-collapse border border-gray-300 text-sm my-6">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 border text-left">가구원 수</th>
+            <th class="p-3 border text-left">월 실수령액 기준(참고)</th>
+            <th class="p-3 border text-left">연봉 세전 기준(참고)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-3 border font-semibold">1인 가구</td>
+            <td class="p-3 border">약 220만 원 이하</td>
+            <td class="p-3 border">약 3,000만 원 이하</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">2인 가구</td>
+            <td class="p-3 border">약 360만 원 이하(합산)</td>
+            <td class="p-3 border">약 5,000만 원 이하(합산)</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">3인 가구</td>
+            <td class="p-3 border">약 460만 원 이하(합산)</td>
+            <td class="p-3 border">약 6,500만 원 이하(합산)</td>
+          </tr>
+          <tr>
+            <td class="p-3 border font-semibold">4인 가구</td>
+            <td class="p-3 border">약 550만 원 이하(합산)</td>
+            <td class="p-3 border">약 7,800만 원 이하(합산)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+        <p class="text-amber-800"><strong>※ 참고:</strong> 위 금액은 중위소득 120%를 월 실수령액·연봉 세전으로 환산한 <strong>참고치</strong>입니다. 정확한 대상 여부는 신청 시 소득·가구원 수를 바탕으로 자동 산정되며, 복지로(bokjiro.go.kr) 또는 주민센터에서 사전 확인 가능합니다.</p>
+      </div>
       <ul class="list-disc pl-5 space-y-2 my-4">
-        <li><strong>2차:</strong> 2026년 5월 18일(월) ~ 2026년 7월 3일(금)</li>
+        <li><strong>2차 신청 기간:</strong> 2026년 5월 18일(월) ~ 2026년 7월 3일(금)</li>
       </ul>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">6. 사용 기한 및 범위</h2>
