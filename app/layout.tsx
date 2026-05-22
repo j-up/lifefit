@@ -61,6 +61,14 @@ export const metadata: Metadata = {
       "2026년 최신 정부 정책과 복지 혜택을 1분 만에 계산하고 확인하세요.",
     images: ["/og-default.png"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
+  },
   verification: {
     google: "8ORgAQ1y7T1TywdMGnJt933zXw8x_-9l6Q5_8x1qR48",
   },
