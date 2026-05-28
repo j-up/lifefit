@@ -86,6 +86,13 @@ export default async function Home() {
               선납이연
             </Link>
             <Link
+              href="/tools/future-savings"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#e8f3ff] px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
+            >
+              <span className="text-base">✨</span>
+              미래적금
+            </Link>
+            <Link
               href="/tools/tax-calculator"
               className="flex shrink-0 items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-100 sm:text-sm"
             >
@@ -98,6 +105,13 @@ export default async function Home() {
             >
               <span className="text-base">👶</span>
               육아수당
+            </Link>
+            <Link
+              href="/tools/child-tax-benefit"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-600 transition-colors hover:bg-teal-100 sm:text-sm"
+            >
+              <span className="text-base">🍼</span>
+              보육비과세
             </Link>
             <Link
               href="/tools/fit-youth"
@@ -150,7 +164,7 @@ export default async function Home() {
               </span>
               <h2 className="text-xl font-bold text-gray-900">재테크 & 금융 관리</h2>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="group rounded-2xl border border-blue-200 bg-white p-6 transition-all hover:shadow-md">
                 <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-blue-600">
                   New
@@ -183,6 +197,23 @@ export default async function Home() {
                   className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600"
                 >
                   계산해보기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-blue-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-blue-600">
+                  HOT
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
+                  청년미래적금 자격&amp;수령액 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  2026년 6월 신설 청년미래적금 가입조건 판별 및 매칭금액 만기 수령액 시뮬레이션
+                </p>
+                <Link
+                  href="/tools/future-savings"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600"
+                >
+                  판별해보기 →
                 </Link>
               </div>
             </div>
@@ -236,7 +267,7 @@ export default async function Home() {
               </span>
               <h2 className="text-xl font-bold text-gray-900">생활 밀착 & 세금 관리</h2>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="group rounded-2xl border border-teal-200 bg-white p-6 transition-all hover:shadow-md">
                 <h3 className="text-lg font-bold text-gray-900 group-hover:text-teal-600">
                   N잡러 세금·건보료 폭탄 계산기
@@ -263,6 +294,23 @@ export default async function Home() {
                   className="mt-4 inline-flex items-center text-sm font-semibold text-green-600"
                 >
                   조회하기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-teal-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-teal-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-teal-600">
+                  보육수당 자녀별 비과세 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  2026 자녀별 월 20만 원 보육수당 비과세 개편으로 매월 늘어나는 실수령액 계산
+                </p>
+                <Link
+                  href="/tools/child-tax-benefit"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-teal-600"
+                >
+                  계산하기 →
                 </Link>
               </div>
             </div>
@@ -376,6 +424,11 @@ export default async function Home() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/tools/future-savings" className="hover:text-blue-600 transition-colors">
+                    청년미래적금 자격&amp;수령액 계산기
+                  </Link>
+                </li>
+                <li>
                   <Link href="/tools/tax-calculator" className="hover:text-blue-600 transition-colors">
                     2026 이자 세금 비교 계산기
                   </Link>
@@ -383,6 +436,11 @@ export default async function Home() {
                 <li>
                   <Link href="/tools/short-work" className="hover:text-blue-600 transition-colors">
                     육아기 단축근무 급여 계산기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tools/child-tax-benefit" className="hover:text-blue-600 transition-colors">
+                    보육수당 자녀별 비과세 계산기
                   </Link>
                 </li>
                 <li>
