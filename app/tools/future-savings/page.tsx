@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
+import Footer from "@/app/components/Footer";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -1074,6 +1075,7 @@ export default function FutureSavingsPage() {
           {toastMessage}
         </div>
       )}
+      <Footer />
     </main>
   );
 }

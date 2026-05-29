@@ -5,6 +5,7 @@ import { useMemo, useState, useEffect } from "react";
 import { Share2, Coins, Info, Calculator, Landmark, History } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
+import Footer from "@/app/components/Footer";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -298,6 +299,7 @@ export default function HomePage() {
           LH·SH에서 확인하세요.
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

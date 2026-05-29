@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Footer from "@/app/components/Footer";
 
 export const metadata: Metadata = {
   title: "청년 우대형 통장 개설 가능 은행 비교 | 2026 금리 및 혜택 안내",
@@ -218,6 +219,7 @@ export default function BanksPage() {
           영업점에서 확인하세요.
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

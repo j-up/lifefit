@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { posts as staticPosts } from "@/app/data/posts";
 import SubscribeCard from "@/app/components/SubscribeCard";
+import Footer from "@/app/components/Footer";
 
 async function getDbPosts() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -412,78 +413,7 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-gray-100 bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-          <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-            <div>
-              <h3 className="mb-3 font-bold text-gray-900">도구</h3>
-              <ul className="space-y-2 text-gray-500">
-                <li>
-                  <Link href="/tools/savings-plan" className="hover:text-blue-600 transition-colors">
-                    적금 선납이연 플랜 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/future-savings" className="hover:text-blue-600 transition-colors">
-                    청년미래적금 자격&amp;수령액 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/tax-calculator" className="hover:text-blue-600 transition-colors">
-                    2026 이자 세금 비교 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/short-work" className="hover:text-blue-600 transition-colors">
-                    육아기 단축근무 급여 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/child-tax-benefit" className="hover:text-blue-600 transition-colors">
-                    보육수당 자녀별 비과세 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/fit-youth" className="hover:text-blue-600 transition-colors">
-                    청년 주거지원 대상자 판별기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/njob-tax" className="hover:text-blue-600 transition-colors">
-                    N잡러 건보료 폭탄 계산기
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/tools/car-bond" className="hover:text-blue-600 transition-colors">
-                    자동차 미환급 채권 계산기
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-3 font-bold text-gray-900">인기 가이드</h3>
-              <ul className="space-y-2 text-gray-500">
-                {allPosts.slice(0, 3).map((post) => (
-                  <li key={post.id}>
-                    <Link href={`/posts/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1">
-                      {post.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-3 font-bold text-gray-900">LifeFit</h3>
-              <p className="text-gray-500 leading-relaxed">
-                내 삶에 딱 맞는 정부 지원금과 복지 혜택을 가장 쉽고 빠르게 찾아주는 서비스입니다.
-              </p>
-            </div>
-          </div>
-          <p className="text-center text-sm text-gray-400 border-t border-gray-100 pt-6">
-            © 2026 LifeFit. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

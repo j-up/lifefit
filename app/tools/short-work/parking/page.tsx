@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Footer from "@/app/components/Footer";
 import {
   ArrowLeft,
   PiggyBank,
@@ -482,6 +483,7 @@ export default function ParkingPage() {
           상품 가입 전 반드시 해당 금융기관의 공식 채널을 통해 확인하시기 바랍니다.
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

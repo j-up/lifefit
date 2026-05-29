@@ -5,6 +5,7 @@ import { Calculator } from "lucide-react";
 import type { Metadata } from "next";
 import { posts as staticPosts, Post } from "@/app/data/posts";
 import SubscribeCard from "@/app/components/SubscribeCard";
+import Footer from "@/app/components/Footer";
 
 interface Props {
   params: Promise<{
@@ -371,13 +372,7 @@ export default async function PostPage({ params }: Props) {
       </main>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-gray-100 bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-          <p className="text-center text-sm text-gray-400">
-            © 2026 LifeFit. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

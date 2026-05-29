@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 
 interface AdSenseSlotProps {
+  adSlot?: string;
   adFormat?: string;
   fullWidthResponsive?: boolean;
   className?: string;
 }
 
 export default function AdSenseSlot({
+  adSlot,
   adFormat = "auto",
   fullWidthResponsive = true,
   className = "",
@@ -18,6 +20,8 @@ export default function AdSenseSlot({
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const activeAdSlot = adSlot || process.env.NEXT_PUBLIC_ADSENSE_SLOT || "8336336336"; // Fallback dummy slot ID
 
   useEffect(() => {
     if (!isLoaded || process.env.NODE_ENV === "development") return;
@@ -46,12 +50,13 @@ export default function AdSenseSlot({
           AdSense Preview
         </div>
         <span className="text-xl mb-1 text-blue-500 font-semibold group-hover:scale-105 transition-transform">
-          📢 Google AdSense
+          📢 Google AdSense Slot
         </span>
-        <span className="text-xs text-gray-400 font-medium">
-          [반응형 광고 영역] 퍼블리셔 ID: <code className="bg-gray-100 px-1 rounded text-blue-600 font-mono text-[10px]">ca-pub-7832182931355116</code>
-        </span>
-        <span className="text-[10px] text-gray-300 mt-1">
+        <div className="flex flex-col gap-0.5 text-xs text-gray-400 font-medium">
+          <span>퍼블리셔 ID: <code className="bg-gray-100 px-1 rounded text-blue-600 font-mono text-[10px]">ca-pub-7832182931355116</code></span>
+          <span>광고 단위 ID (Slot): <code className="bg-gray-100 px-1 rounded text-indigo-600 font-mono text-[10px]">{activeAdSlot}</code></span>
+        </div>
+        <span className="text-[10px] text-gray-300 mt-2">
           ※ 프로덕션 배포 시 구글 실광고로 자동 전환됩니다.
         </span>
       </div>
@@ -64,6 +69,7 @@ export default function AdSenseSlot({
         className="adsbygoogle"
         style={{ display: "block" }}
         data-ad-client="ca-pub-7832182931355116"
+        data-ad-slot={activeAdSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={fullWidthResponsive ? "true" : "false"}
       />

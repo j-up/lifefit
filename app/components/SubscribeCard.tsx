@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Mail, CheckCircle2, BellRing, Loader2 } from "lucide-react";
 
 interface SubscribeCardProps {
@@ -24,6 +25,7 @@ export default function SubscribeCard({
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [agreePrivacy, setAgreePrivacy] = useState(false);
 
   // defaultCategory가 들어오면 기본값으로 선택 처리
   useEffect(() => {
@@ -58,6 +60,11 @@ export default function SubscribeCard({
 
     if (selectedCategories.length === 0) {
       setErrorMessage("최소 1개 이상의 관심 카테고리를 선택해 주세요.");
+      return;
+    }
+
+    if (!agreePrivacy) {
+      setErrorMessage("개인정보 수집 및 이용 약관에 동의해 주세요.");
       return;
     }
 
@@ -158,7 +165,30 @@ export default function SubscribeCard({
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubscribe} className="relative space-y-3">
+      <form onSubmit={handleSubscribe} className="relative space-y-4">
+        {/* Privacy Consent Checkbox (Mandatory for AdSense and Personal Info Protection Act) */}
+        <div className="flex items-start gap-2 px-1">
+          <input
+            type="checkbox"
+            id="agree-privacy"
+            checked={agreePrivacy}
+            onChange={(e) => setAgreePrivacy(e.target.checked)}
+            className="mt-0.5 h-4.5 w-4.5 rounded border-gray-300 text-[#00c471] focus:ring-[#00c471] cursor-pointer"
+            required
+          />
+          <label htmlFor="agree-privacy" className="text-xs text-[#4e5968] leading-normal font-semibold cursor-pointer">
+            [필수] {" "}
+            <Link
+              href="/privacy"
+              target="_blank"
+              className="text-[#00c471] underline font-bold hover:text-[#00b064]"
+            >
+              개인정보 수집 및 이용
+            </Link>{" "}
+            에 동의합니다. (이메일 및 관심 카테고리 수집)
+          </label>
+        </div>
+
         <div className="flex flex-col gap-2.5">
           <div className="relative flex-1">
             <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
