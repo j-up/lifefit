@@ -72,13 +72,10 @@ export default async function Home() {
           }),
         }}
       />
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="text-xl font-bold text-blue-600 shrink-0">
-            LifeFit
-          </Link>
-          <nav className="no-scrollbar flex items-center gap-2 overflow-x-auto pl-4 pb-1 sm:gap-3">
+      {/* Quick Tool Shortcuts */}
+      <div className="border-b border-gray-100 bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
+          <nav className="no-scrollbar flex items-center gap-2 overflow-x-auto sm:gap-3">
             <Link
               href="/tools/savings-plan"
               className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
@@ -137,7 +134,7 @@ export default async function Home() {
             </Link>
           </nav>
         </div>
-      </header>
+      </div>
 
       {/* Hero Section */}
       <section className="bg-white py-12 sm:py-20">
