@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import Header from "@/app/components/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -96,7 +97,8 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        {children}
+        <Header />
+        <main className="flex-1 flex flex-col">{children}</main>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7832182931355116"
