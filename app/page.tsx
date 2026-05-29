@@ -153,7 +153,7 @@ export default async function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         {/* Reorganized Tools Section */}
-        <div className="space-y-12">
+        <div id="tools" className="space-y-12 scroll-mt-24">
           {/* Category 1: Financial Asset Management */}
           <section>
             <div className="mb-6 flex items-center gap-2">
@@ -316,7 +316,7 @@ export default async function Home() {
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="mt-20">
+        <div id="blog" className="mt-20 scroll-mt-24">
           <div className="mb-8 flex items-end justify-between border-t border-gray-100 pt-12">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">

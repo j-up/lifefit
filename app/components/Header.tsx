@@ -9,7 +9,6 @@ export default function Header() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "홈", href: "/" },
     { name: "복지 계산기", href: "/#tools" },
     { name: "정책 소식", href: "/#blog" },
   ];
