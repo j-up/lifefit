@@ -57,7 +57,8 @@ export async function POST(request: Request) {
               title: { type: "STRING" },
               content: { type: "STRING" },
               source: { type: "STRING" }
-            }
+            },
+            required: ["title", "content", "source"]
           }
         }
       })
