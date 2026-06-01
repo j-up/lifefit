@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     // 2. Body 파싱 및 유효성 검증
     const body = await request.json();
-    const { rawPressRelease, category, model } = body;
+    const { rawPressRelease, category, model, sendNotification } = body;
     const selectedModel = model || "gemini-2.5-flash";
 
     if (!rawPressRelease || !category) {
@@ -175,89 +175,90 @@ ${rawPressRelease}
       throw new Error(`DB 저장 중 에러가 발생했습니다: ${errText}`);
     }
 
-    // 6. 실시간 구독자 연쇄 알림 메일링 자동 트리거 (Cascade Trigger)
-    // 앞서 만든 /api/admin/broadcast 구조를 직접 로컬 함수 레벨에서 즉각 수행해 호출 비용 최소화
-    const targetCategoryMap: Record<string, string> = {
-      "주거·복지": "housing",
-      "세금·복지": "tax",
-      "복지·육아": "welfare",
-      "목돈·자산": "saving",
-      "자동차·채권": "car",
-    };
-    const alertCategory = targetCategoryMap[category] || "housing";
-
-    const subscribersUrl = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/subscriptions?categories=cs.{${alertCategory}}&select=email`;
-    const subResponse = await fetch(subscribersUrl, {
-      method: "GET",
-      headers: {
-        "apikey": supabaseAnonKey,
-        "Authorization": `Bearer ${supabaseAnonKey}`,
-        "Accept": "application/json",
-      },
-    });
-
+    // 6. 실시간 구독자 연쇄 알림 메일링 자동 트리거 (Cascade Trigger) - 선택적 실행
     let sentCount = 0;
     let totalSubscribers = 0;
 
-    if (subResponse.ok) {
-      const subscribers: { email: string }[] = await subResponse.json();
-      if (subscribers && subscribers.length > 0) {
-        totalSubscribers = subscribers.length;
-        const uniqueEmails = Array.from(new Set(subscribers.map((s) => s.email.trim())));
-        
-        const emailFrom = process.env.EMAIL_FROM || "LifeFit 알림 <onboarding@resend.dev>";
-        const targetLink = `https://lifefit.kr/posts/${newPostData.slug}`;
+    if (sendNotification) {
+      const targetCategoryMap: Record<string, string> = {
+        "주거·복지": "housing",
+        "세금·복지": "tax",
+        "복지·육아": "welfare",
+        "목돈·자산": "saving",
+        "자동차·채권": "car",
+      };
+      const alertCategory = targetCategoryMap[category] || "housing";
 
-        const sendPromises = uniqueEmails.map(async (email) => {
-          const fullHtml = `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 30px 20px; border: 1px solid #f2f4f6; border-radius: 16px; background-color: #ffffff;">
-              <div style="text-align: center; margin-bottom: 24px;">
-                <span style="font-size: 24px; font-weight: 800; color: #3182f6; letter-spacing: -0.5px;">LifeFit</span>
-                <div style="font-size: 11px; color: #8b95a1; margin-top: 4px;">생활 밀착형 혜택 정보 플랫폼</div>
-              </div>
-              
-              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #f1f5f9;">
-                <h2 style="font-size: 18px; font-weight: 800; color: #191f28; margin-top: 0; margin-bottom: 12px; line-height: 1.4;">
-                  📢 [신규 정책 가이드] ${newPostData.title}
-                </h2>
-                <div style="font-size: 14px; color: #4e5968; line-height: 1.6; margin-bottom: 20px;">
-                  <p>안녕하세요! 파트너님의 맞춤 알림 기준에 맞는 <strong>새로운 정부 혜택/정책 가이드</strong>가 LifeFit 플랫폼에 신규 작성되었습니다.</p>
-                  <p style="background-color: #ffffff; padding: 12px; border-radius: 8px; border-left: 4px solid #3182f6; font-style: italic;">
-                    "${newPostData.summary}"
-                  </p>
+      const subscribersUrl = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/subscriptions?categories=cs.{${alertCategory}}&select=email`;
+      const subResponse = await fetch(subscribersUrl, {
+        method: "GET",
+        headers: {
+          "apikey": supabaseAnonKey,
+          "Authorization": `Bearer ${supabaseAnonKey}`,
+          "Accept": "application/json",
+        },
+      });
+
+      if (subResponse.ok) {
+        const subscribers: { email: string }[] = await subResponse.json();
+        if (subscribers && subscribers.length > 0) {
+          totalSubscribers = subscribers.length;
+          const uniqueEmails = Array.from(new Set(subscribers.map((s) => s.email.trim())));
+          
+          const emailFrom = process.env.EMAIL_FROM || "LifeFit 알림 <onboarding@resend.dev>";
+          const targetLink = `https://lifefit.kr/posts/${newPostData.slug}`;
+
+          const sendPromises = uniqueEmails.map(async (email) => {
+            const fullHtml = `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 30px 20px; border: 1px solid #f2f4f6; border-radius: 16px; background-color: #ffffff;">
+                <div style="text-align: center; margin-bottom: 24px;">
+                  <span style="font-size: 24px; font-weight: 800; color: #3182f6; letter-spacing: -0.5px;">LifeFit</span>
+                  <div style="font-size: 11px; color: #8b95a1; margin-top: 4px;">생활 밀착형 혜택 정보 플랫폼</div>
                 </div>
                 
-                <div style="text-align: center;">
-                  <a href="${targetLink}" target="_blank" style="display: inline-block; background-color: #00c471; color: #ffffff; font-weight: 700; font-size: 14px; text-decoration: none; padding: 12px 28px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 196, 113, 0.15);">
-                    가이드 즉시 확인하러 가기 →
-                  </a>
+                <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #f1f5f9;">
+                  <h2 style="font-size: 18px; font-weight: 800; color: #191f28; margin-top: 0; margin-bottom: 12px; line-height: 1.4;">
+                    📢 [신규 정책 가이드] ${newPostData.title}
+                  </h2>
+                  <div style="font-size: 14px; color: #4e5968; line-height: 1.6; margin-bottom: 20px;">
+                    <p>안녕하세요! 파트너님의 맞춤 알림 기준에 맞는 <strong>새로운 정부 혜택/정책 가이드</strong>가 LifeFit 플랫폼에 신규 작성되었습니다.</p>
+                    <p style="background-color: #ffffff; padding: 12px; border-radius: 8px; border-left: 4px solid #3182f6; font-style: italic;">
+                      "${newPostData.summary}"
+                    </p>
+                  </div>
+                  
+                  <div style="text-align: center;">
+                    <a href="${targetLink}" target="_blank" style="display: inline-block; background-color: #00c471; color: #ffffff; font-weight: 700; font-size: 14px; text-decoration: none; padding: 12px 28px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 196, 113, 0.15);">
+                      가이드 즉시 확인하러 가기 →
+                    </a>
+                  </div>
+                </div>
+                
+                <div style="text-align: center; font-size: 11px; color: #8b95a1; line-height: 1.6; border-top: 1px solid #f2f4f6; padding-top: 20px; margin-top: 20px;">
+                  <p style="margin: 0 0 6px 0;">본 메일은 LifeFit 서비스에서 실시간 알림을 동의하셨기에 자동 발송되었습니다.</p>
+                  <p style="margin: 0;"><a href="#" style="color: #8b95a1; text-decoration: underline;">수신거부(Unsubscribe)</a></p>
                 </div>
               </div>
-              
-              <div style="text-align: center; font-size: 11px; color: #8b95a1; line-height: 1.6; border-top: 1px solid #f2f4f6; padding-top: 20px; margin-top: 20px;">
-                <p style="margin: 0 0 6px 0;">본 메일은 LifeFit 서비스에서 실시간 알림을 동의하셨기에 자동 발송되었습니다.</p>
-                <p style="margin: 0;"><a href="#" style="color: #8b95a1; text-decoration: underline;">수신거부(Unsubscribe)</a></p>
-              </div>
-            </div>
-          `;
+            `;
 
-          await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${resendApiKey}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              from: emailFrom,
-              to: email,
-              subject: `[LifeFit 알림] ${newPostData.title}`,
-              html: fullHtml,
-            }),
+            await fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${resendApiKey}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                from: emailFrom,
+                to: email,
+                subject: `[LifeFit 알림] ${newPostData.title}`,
+                html: fullHtml,
+              }),
+            });
           });
-        });
 
-        const results = await Promise.allSettled(sendPromises);
-        sentCount = results.filter((r) => r.status === "fulfilled").length;
+          const results = await Promise.allSettled(sendPromises);
+          sentCount = results.filter((r) => r.status === "fulfilled").length;
+        }
       }
     }
 

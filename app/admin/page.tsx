@@ -36,6 +36,7 @@ export default function AdminPage() {
   const [authError, setAuthError] = useState("");
   const [category, setCategory] = useState("주거·복지");
   const [selectedModel, setSelectedModel] = useState("gemini-2.5-flash");
+  const [sendNotification, setSendNotification] = useState(false);
   const [searching, setSearching] = useState(false);
   const [searchedNews, setSearchedNews] = useState<any>(null);
 
@@ -120,7 +121,10 @@ export default function AdminPage() {
     setResult(null);
     setLogs([]);
 
-    addLog("🚀 승인된 내용을 바탕으로 AI 자동 포스팅 및 뉴스레터 발송을 시작합니다...", "info");
+    const startMsg = sendNotification
+      ? "🚀 승인된 내용을 바탕으로 AI 자동 포스팅 및 뉴스레터 발송을 시작합니다..."
+      : "🚀 승인된 내용을 바탕으로 AI 자동 포스팅을 시작합니다...";
+    addLog(startMsg, "info");
 
     try {
       const response = await fetch("/api/admin/auto-post", {
@@ -132,7 +136,8 @@ export default function AdminPage() {
         body: JSON.stringify({
           rawPressRelease: searchedNews.content,
           category,
-          model: selectedModel
+          model: selectedModel,
+          sendNotification: sendNotification
         })
       });
 
@@ -148,7 +153,9 @@ export default function AdminPage() {
         addLog("⚠️ [Mock 모드] API 키 미설정으로 시뮬레이션 완료", "warning");
       } else {
         addLog(`📂 포스팅 완료: ${data.post?.slug}`, "success");
-        addLog(`✉️ 메일 발송 완료: ${data.broadcastSummary?.sentCount}명`, "success");
+        if (sendNotification) {
+          addLog(`✉️ 메일 발송 완료: ${data.broadcastSummary?.sentCount}명`, "success");
+        }
       }
 
       setResult(data);
@@ -321,14 +328,28 @@ export default function AdminPage() {
                     {searchedNews.source}
                   </div>
 
+                  {/* Notification Toggle Checkbox */}
+                  <div className="flex items-center gap-2.5 bg-slate-950/40 p-4 rounded-xl border border-slate-800 mt-2 hover:border-slate-700/80 transition-colors">
+                    <input
+                      type="checkbox"
+                      id="sendNotification"
+                      checked={sendNotification}
+                      onChange={(e) => setSendNotification(e.target.checked)}
+                      className="h-4 w-4 rounded border-slate-800 bg-slate-950 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-950 cursor-pointer"
+                    />
+                    <label htmlFor="sendNotification" className="text-xs text-slate-300 font-semibold cursor-pointer select-none flex-1">
+                      📢 포스팅 등록 시 구독자 알림 이메일 발송하기
+                    </label>
+                  </div>
+
                   <div className="pt-4 flex gap-3">
                     <button
                       onClick={handleRunAutomation}
                       disabled={loading}
                       className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-4 text-sm font-bold text-white shadow-lg hover:bg-blue-500 transition-all active:scale-[0.98]"
                     >
-                      {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                      이 내용으로 포스팅 및 알림 발송 시작
+                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                      이 내용으로 포스팅 등록하기
                     </button>
                     <button
                       onClick={() => setSearchedNews(null)}
