@@ -113,6 +113,42 @@ export default function AdminPage() {
     }
   };
 
+  // 1.5 API 모델 리스트 상태 진단
+  const handleDiagnoseModels = async () => {
+    setLogs([]);
+    addLog("🔍 현재 API 키로 사용 가능한 Google Gemini 모델 목록을 조회 중입니다...", "info");
+
+    try {
+      const response = await fetch("/api/admin/list-models", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${adminSecret}`
+        }
+      });
+
+      if (response.status === 401) {
+        setIsAuthorized(false);
+        throw new Error("세션이 만료되었거나 비밀키가 올바르지 않습니다.");
+      }
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "모델 목록 조회 실패");
+
+      if (data.models && data.models.length > 0) {
+        addLog("✨ 사용 가능한 모델 목록 조회가 성공했습니다!", "success");
+        data.models.forEach((m: any) => {
+          const name = m.name.replace("models/", "");
+          const status = m.supportedGenerationMethods.includes("generateContent") ? "🟢 지원됨" : "🔴 미지원";
+          addLog(`- ${name} (${status})`, "info");
+        });
+      } else {
+        addLog("⚠️ 사용 가능한 모델 목록이 비어 있습니다.", "warning");
+      }
+    } catch (err: any) {
+      addLog(`❌ 진단 실패: ${err.message}`, "error");
+    }
+  };
+
   // 2. 포스팅 및 메일 발송 실행
   const handleRunAutomation = async () => {
     if (!searchedNews) return;
@@ -266,6 +302,8 @@ export default function AdminPage() {
                   >
                     <option value="gemini-2.5-flash">🟢 Gemini 2.5 Flash (안정적/권장)</option>
                     <option value="gemini-3.5-flash">⚡ Gemini 3.5 Flash (최신/에이전트 특화)</option>
+                    <option value="gemini-1.5-pro">💎 Gemini 1.5 Pro (고성능 코어 분석)</option>
+                    <option value="gemini-2.5-pro">🔥 Gemini 2.5 Pro (최상위 추론 성능)</option>
                   </select>
                 </div>
 
@@ -281,13 +319,21 @@ export default function AdminPage() {
 
               {/* Terminal Logger */}
               <div className="rounded-xl border border-slate-800 bg-slate-950/90 shadow-xl overflow-hidden flex flex-col h-[280px] font-mono text-[10px]">
-                <div className="px-3 py-2 border-b border-slate-900 bg-slate-900/50 flex items-center gap-2">
-                  <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
+                <div className="px-3 py-2 border-b border-slate-900 bg-slate-900/50 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
+                    </div>
+                    <span className="text-slate-600 font-bold uppercase tracking-tighter">System Console</span>
                   </div>
-                  <span className="text-slate-600 font-bold uppercase tracking-tighter">System Console</span>
+                  <button 
+                    onClick={handleDiagnoseModels}
+                    className="text-[9px] bg-slate-800 hover:bg-slate-700 active:scale-[0.98] text-blue-400 font-bold px-2 py-0.5 rounded transition-all cursor-pointer"
+                  >
+                    API 모델 진단
+                  </button>
                 </div>
                 <div className="p-3 flex-1 overflow-y-auto space-y-1">
                   {logs.map((log, i) => (
