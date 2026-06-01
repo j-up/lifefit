@@ -219,7 +219,7 @@ export default function SavingsPlanPage() {
           text: resultText,
           url: shareUrl,
         });
-        showToastNotification("💬 공유하기가 완료되었습니다!");
+        showToastNotification("공유하기가 완료되었습니다!");
         return;
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -230,7 +230,7 @@ export default function SavingsPlanPage() {
 
     try {
       await navigator.clipboard.writeText(fullText);
-      showToastNotification("💬 결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
+      showToastNotification("결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
     } catch {
       showToastNotification("❌ 복사에 실패했습니다.");
     }
