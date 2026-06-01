@@ -135,9 +135,9 @@ export default function AdminPage() {
       if (!response.ok) throw new Error(data.error || "모델 목록 조회 실패");
 
       if (data.models && data.models.length > 0) {
-        addLog("✨ 선택 드롭다운 4개 핵심 모델 상태 진단 완료:", "success");
+        addLog("✨ 선택 드롭다운 3개 핵심 모델 상태 진단 완료:", "success");
         
-        const targetModels = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-1.5-pro", "gemini-2.5-pro"];
+        const targetModels = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-2.5-pro"];
         const apiModelNames = data.models.map((m: any) => m.name.replace("models/", ""));
         
         targetModels.forEach((target) => {
@@ -309,7 +309,6 @@ export default function AdminPage() {
                   >
                     <option value="gemini-2.5-flash">🟢 Gemini 2.5 Flash (안정적/권장)</option>
                     <option value="gemini-3.5-flash">⚡ Gemini 3.5 Flash (최신/에이전트 특화)</option>
-                    <option value="gemini-1.5-pro">💎 Gemini 1.5 Pro (고성능 코어 분석)</option>
                     <option value="gemini-2.5-pro">🔥 Gemini 2.5 Pro (최상위 추론 성능)</option>
                   </select>
                 </div>
