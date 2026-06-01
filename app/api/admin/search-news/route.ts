@@ -10,7 +10,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { category } = await request.json();
+    const { category, model } = await request.json();
+    const selectedModel = model || "gemini-2.5-flash";
     const geminiApiKey = process.env.GEMINI_API_KEY;
 
     // Mock Mode if no API Key
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
 
     // Gemini API 호출 - 최신 뉴스 서치 시뮬레이션 및 초안 작성
     // 실제 Google Search Grounding을 사용하려면 google_search_retrieval 툴을 페이로드에 포함해야 함
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${geminiApiKey}`;
     
     const prompt = `
 당신은 대한민국 정부 정책 전문 리서처입니다.

@@ -35,6 +35,7 @@ export default function AdminPage() {
   const [verifying, setVerifying] = useState(false);
   const [authError, setAuthError] = useState("");
   const [category, setCategory] = useState("주거·복지");
+  const [selectedModel, setSelectedModel] = useState("gemini-2.5-flash");
   const [searching, setSearching] = useState(false);
   const [searchedNews, setSearchedNews] = useState<any>(null);
 
@@ -91,7 +92,7 @@ export default function AdminPage() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${adminSecret}`
         },
-        body: JSON.stringify({ category })
+        body: JSON.stringify({ category, model: selectedModel })
       });
 
       if (response.status === 401) {
@@ -130,7 +131,8 @@ export default function AdminPage() {
         },
         body: JSON.stringify({
           rawPressRelease: searchedNews.content,
-          category
+          category,
+          model: selectedModel
         })
       });
 
@@ -245,6 +247,18 @@ export default function AdminPage() {
                     <option value="복지·육아">👶 복지·육아 (welfare)</option>
                     <option value="목돈·자산">📈 목돈·자산 (saving)</option>
                     <option value="자동차·채권">🚗 자동차·채권 (car)</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="flex items-center gap-1.5 text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">AI 모델 선택</label>
+                  <select
+                    value={selectedModel}
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                    className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-300"
+                  >
+                    <option value="gemini-2.5-flash">🟢 Gemini 2.5 Flash (안정적/권장)</option>
+                    <option value="gemini-3.5-flash">⚡ Gemini 3.5 Flash (최신/에이전트 특화)</option>
                   </select>
                 </div>
 

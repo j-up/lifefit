@@ -22,7 +22,8 @@ export async function POST(request: Request) {
 
     // 2. Body 파싱 및 유효성 검증
     const body = await request.json();
-    const { rawPressRelease, category } = body;
+    const { rawPressRelease, category, model } = body;
+    const selectedModel = model || "gemini-2.5-flash";
 
     if (!rawPressRelease || !category) {
       return NextResponse.json(
@@ -67,8 +68,8 @@ export async function POST(request: Request) {
       });
     }
 
-    // 4. Gemini 1.5 Flash API 호출을 통한 지능형 기사 작성 (JSON Schema 적용)
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`;
+    // 4. Gemini API 호출을 통한 지능형 기사 작성 (JSON Schema 적용)
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${geminiApiKey}`;
 
     const promptText = `
 당신은 최고의 정부 정책 분석 전문가이자 베스트셀러 경제/복지 에디터입니다.
