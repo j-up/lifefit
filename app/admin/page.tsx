@@ -116,7 +116,7 @@ export default function AdminPage() {
   // 1.5 API 모델 리스트 상태 진단
   const handleDiagnoseModels = async () => {
     setLogs([]);
-    addLog("🔍 현재 API 키로 사용 가능한 Google Gemini 모델 목록을 조회 중입니다...", "info");
+    addLog("🔍 구글 API 서버에 실시간 모의 쿼리를 발송하여 혼잡도를 테스트 중입니다...", "info");
 
     try {
       const response = await fetch("/api/admin/list-models", {
@@ -134,22 +134,21 @@ export default function AdminPage() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "모델 목록 조회 실패");
 
-      if (data.models && data.models.length > 0) {
-        addLog("✨ 선택 드롭다운 3개 핵심 모델 상태 진단 완료:", "success");
+      if (data.results && data.results.length > 0) {
+        addLog("✨ 핵심 3개 모델 실시간 교통 상황/혼잡도 진단 완료:", "success");
         
-        const targetModels = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-2.5-pro"];
-        const apiModelNames = data.models.map((m: any) => m.name.replace("models/", ""));
-        
-        targetModels.forEach((target) => {
-          const isSupported = apiModelNames.includes(target);
-          if (isSupported) {
-            addLog(`- ${target}: 🟢 사용 가능 (정상)`, "info");
+        data.results.forEach((res: any) => {
+          const { model, status, message } = res;
+          if (status === "OK") {
+            addLog(`- ${model}: 🟢 정상 작동 (지연 없음)`, "success");
+          } else if (status === "CONGESTED") {
+            addLog(`- ${model}: 🟡 혼잡 (${message})`, "warning");
           } else {
-            addLog(`- ${target}: 🔴 API 키 접근 불가 또는 지원 종료`, "error");
+            addLog(`- ${model}: 🔴 에러 (${message})`, "error");
           }
         });
       } else {
-        addLog("⚠️ 사용 가능한 모델 목록이 비어 있습니다.", "warning");
+        addLog("⚠️ 실시간 진단 결과를 받아오지 못했습니다.", "warning");
       }
     } catch (err: any) {
       addLog(`❌ 진단 실패: ${err.message}`, "error");
