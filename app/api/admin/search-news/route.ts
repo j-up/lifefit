@@ -63,7 +63,19 @@ export async function POST(request: Request) {
     });
 
     const data = await response.json();
-    const newsJson = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+
+    if (!response.ok) {
+      console.error("Gemini API Error Response:", JSON.stringify(data));
+      throw new Error(data.error?.message || `Gemini API Error (Status: ${response.status})`);
+    }
+
+    const candidates = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!candidates) {
+      console.error("Gemini Response structure is invalid:", JSON.stringify(data));
+      throw new Error("Gemini API가 유효하지 않은 응답 구조를 반환했습니다.");
+    }
+
+    const newsJson = JSON.parse(candidates);
 
     return NextResponse.json({
       success: true,
@@ -71,6 +83,7 @@ export async function POST(request: Request) {
     });
 
   } catch (error: any) {
+    console.error("search-news Route Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
