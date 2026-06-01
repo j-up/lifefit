@@ -84,6 +84,13 @@ export default async function Home() {
               선납이연
             </Link>
             <Link
+              href="/tools/kpass-climate"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-100 sm:text-sm"
+            >
+              <span className="text-base">🚌</span>
+              K패스기후
+            </Link>
+            <Link
               href="/tools/future-savings"
               className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#e8f3ff] px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
             >
@@ -225,7 +232,7 @@ export default async function Home() {
               </span>
               <h2 className="text-xl font-bold text-gray-900">정부 지원 & 복지 혜택</h2>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="group rounded-2xl border border-orange-200 bg-white p-6 transition-all hover:shadow-md">
                 <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600">
                   육아기 근로시간 단축 급여 계산기
@@ -252,6 +259,23 @@ export default async function Home() {
                   className="mt-4 inline-flex items-center text-sm font-semibold text-purple-600"
                 >
                   확인하기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-indigo-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-indigo-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-indigo-600">
+                  K-패스 vs 기후동행카드 비교기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  내 교통 패턴과 승차 횟수에 맞는 최적의 교통카드를 1분 만에 판별해 드립니다.
+                </p>
+                <Link
+                  href="/tools/kpass-climate"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600"
+                >
+                  비교해보기 →
                 </Link>
               </div>
             </div>
