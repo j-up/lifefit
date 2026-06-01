@@ -135,11 +135,18 @@ export default function AdminPage() {
       if (!response.ok) throw new Error(data.error || "모델 목록 조회 실패");
 
       if (data.models && data.models.length > 0) {
-        addLog("✨ 사용 가능한 모델 목록 조회가 성공했습니다!", "success");
-        data.models.forEach((m: any) => {
-          const name = m.name.replace("models/", "");
-          const status = m.supportedGenerationMethods.includes("generateContent") ? "🟢 지원됨" : "🔴 미지원";
-          addLog(`- ${name} (${status})`, "info");
+        addLog("✨ 선택 드롭다운 4개 핵심 모델 상태 진단 완료:", "success");
+        
+        const targetModels = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-1.5-pro", "gemini-2.5-pro"];
+        const apiModelNames = data.models.map((m: any) => m.name.replace("models/", ""));
+        
+        targetModels.forEach((target) => {
+          const isSupported = apiModelNames.includes(target);
+          if (isSupported) {
+            addLog(`- ${target}: 🟢 사용 가능 (정상)`, "info");
+          } else {
+            addLog(`- ${target}: 🔴 API 키 접근 불가 또는 지원 종료`, "error");
+          }
         });
       } else {
         addLog("⚠️ 사용 가능한 모델 목록이 비어 있습니다.", "warning");
