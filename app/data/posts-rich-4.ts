@@ -103,14 +103,14 @@ export const postsPart4: Post[] = [
     slug: "welfare-benefits-june-2026",
     date: "2026-06-01",
     summary: "2026년 6월에 새로 시작되거나 개편되는 가구 맞춤형 정부 혜택과 복지 수당 신청 정보입니다.",
-    image: "https://images.unsplash.com/photo-1489980508314-941910ded1f4?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80",
     category: "welfare",
     readTime: "8분",
     content: `<h2>2026년 6월, 나에게 맞는 복지 혜택이 시작됩니다</h2>
 <p>정부와 지방자치단체에서는 서민 가계의 부담을 덜어주기 위해 매 분기 다양한 복지 지원 제도를 신설하고 개편합니다. 하지만 정보가 부족하여 내가 신청 대상자임에도 불구하고 신청 기간을 놓쳐 지원금을 받지 못하는 안타까운 사례가 많습니다.</p>
 <p>2026년 6월부터 새롭게 신청을 받거나 혜택 조건이 대폭 완화되어 적용되는 <strong>청년, 임산부, 저소득 가구 대상 핵심 복지 제도 3가지</strong>를 꼼꼼하게 정리해 드립니다. 늦기 전에 나에게 해당되는 혜택이 있는지 꼭 확인해 보세요.</p>
 
-<img src="https://images.unsplash.com/photo-1489980508314-941910ded1f4?auto=format&fit=crop&w=800&q=80" alt="정부 복지 혜택 안내" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80" alt="정부 복지 혜택 안내" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>1. 청년월세 특별지원 2차 사업 연장 신청 (월 20만 원)</h2>
 <p>주거비 부담으로 고통받는 무주택 청년들을 위한 <strong>청년월세 특별지원 사업</strong>의 6월 연장 신청 접수가 시작됩니다. 부모님과 별도로 거주하는 청년이라면 누구나 대상이 될 수 있습니다.</p>
@@ -192,14 +192,14 @@ export const postsPart4: Post[] = [
     slug: "youth-future-savings-prepayment-deferral",
     date: "2026-05-28",
     summary: "청년미래적금의 기여금 혜택과 이자 비과세에 선납이연(미리 내고 늦게 내기) 방식을 결합해 실질 금리 효과를 극대화하는 재테크 비법을 공개합니다.",
-    image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1534951009808-766178b47a4f?auto=format&fit=crop&w=800&q=80",
     category: "saving",
     readTime: "8분",
     content: `<h2>2026년 청년 재테크의 중심, 청년미래적금</h2>
 <p>정부의 핵심 청년 정책 금융 상품인 <strong>청년미래적금</strong>은 만 19세~34세 청년들의 목돈 마련을 돕기 위해 파격적인 기여금(최대 12% 추가 매칭)과 이자소득 비과세 혜택을 주는 3년 만기 적금입니다. 매달 최대 50만 원씩 납입할 수 있으며, 만기 시 일반 적금과는 비교할 수 없는 수익을 보장합니다.</p>
 <p>그런데 이 유용한 적금 상품을 더 똑똑하고 영리하게 굴릴 수 있는 방법이 있다는 것을 알고 계셨나요? 바로 <strong>선납이연 재테크 기법</strong>을 적용하는 것입니다. 목돈이 당장 부족해도, 혹은 목돈을 대기 기간 동안 파킹통장에 넣어 굴리면서도 적금 만기 이자를 온전히 다 받아내는 전략을 소개해 드립니다.</p>
 
-<img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80" alt="청년미래적금 선납이연" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1534951009808-766178b47a4f?auto=format&fit=crop&w=800&q=80" alt="청년미래적금 선납이연" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>적금 선납이연이란 무엇인가요?</h2>
 <p>정기적금은 매월 약속된 날에 꼬박꼬박 돈을 입금하는 것이 원칙입니다. 하지만 은행 약관의 맹점을 이용하면 정해진 날보다 돈을 미리 넣는 <strong>선납(Prepayment)</strong>과 늦게 넣는 <strong>이연(Deferral)</strong>을 조화롭게 조합할 수 있습니다.</p>
@@ -243,14 +243,14 @@ export const postsPart4: Post[] = [
     slug: "how-to-use-savings-plan-calculator",
     date: "2026-05-26",
     summary: "6-1-5, 1-11 등 적금 선납이연 스케줄러를 똑똑하게 활용해 자금 효율을 높이는 플래너 계산기 200% 활용 팁입니다.",
-    image: "https://images.unsplash.com/photo-1616077168712-fc6c788bc4ee?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1435527173128-983b87201f4d?auto=format&fit=crop&w=800&q=80",
     category: "saving",
     readTime: "6분",
     content: `<h2>선납이연, 복잡하고 귀찮게 느껴지시나요?</h2>
 <p>선납이연이 적금 이자를 극대화하고 자금 운용을 효율화해 준다는 재테크 카페의 글들을 보고 의욕적으로 시작하려는 분들이 많습니다. 하지만 막상 가입을 하고 날짜를 계산해 보려면 눈앞이 아득해집니다. "1회차에 6개월치 넣고, 7회차에는 며칠에 넣어야 하지?", "내가 계산한 날짜가 단 하루라도 틀려서 만기가 한 달 뒤로 밀리면 어쩌지?" 하는 불안감 때문입니다.</p>
 <p>실제로 선납이연의 핵심은 <strong>정확한 날짜 계산</strong>입니다. 달력을 보며 손으로 계산하다가는 윤년(2월 29일)이나 대소월(30일/31일)의 일수 차이로 인해 미세한 오차가 발생하기 십상입니다. 이 글에서는 LifeFit이 제공하는 <strong>'적금 선납이연 계산기(플래너)'</strong>를 활용하여 복잡한 계산 없이 한 번에 완벽한 입금 일정을 짜고 관리하는 방법을 알려드립니다.</p>
 
-<img src="https://images.unsplash.com/photo-1616077168712-fc6c788bc4ee?auto=format&fit=crop&w=800&q=80" alt="선납이연 플래너 활용법" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1435527173128-983b87201f4d?auto=format&fit=crop&w=800&q=80" alt="선납이연 플래너 활용법" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>선납이연 계산기 사용법 3단계</h2>
 <p>LifeFit의 선납이연 플래너를 사용하면 복잡한 수식 없이 10초 만에 나만의 납입 포트폴리오를 설계할 수 있습니다.</p>
@@ -314,14 +314,14 @@ export const postsPart4: Post[] = [
     slug: "sudang-fit-custom-welfare-guide",
     date: "2026-05-24",
     summary: "본인의 소득과 나이, 자녀 수에 따라 숨겨진 아동수당, 부모급여, 청년 수당 등을 맞춤형으로 매칭하여 찾아내는 핵심 팁을 다룹니다.",
-    image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
     category: "welfare",
     readTime: "7분",
     content: `<h2>수많은 정부 지원금, 왜 내 통장엔 들어오지 않을까?</h2>
 <p>새해가 되거나 선거철이 지나면 수많은 복지 정책과 정부 지원 수당이 신설되었다는 뉴스가 쏟아집니다. "부모급여가 인상되었다", "청년 구직 지원금이 늘어났다" 등 헤드라인은 요란하지만 막상 나는 혜택을 받고 있는지 체감하기 어렵습니다. 내가 <strong>어떤 수당의 대상자이고, 어떻게 신청하는지 매칭해 주는 주체가 없기 때문</strong>입니다.</p>
 <p>정부 복지 수당은 철저히 '신청주의'를 채택하고 있습니다. 즉, 가만히 있으면 국가가 알아서 돈을 꽂아주는 것이 아니라, <strong>알아서 조건에 맞춰 신청한 사람에게만 지급</strong>합니다. 2026년 현재 가구 소득과 생애주기에 맞춰 누락 없이 꼭 챙겨야 할 '수당 Fit' 핵심 체크리스트를 공개합니다.</p>
 
-<img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80" alt="정부 수당 Fit 가이드" class="w-full rounded-xl my-6 object-cover h-64">
+<img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" alt="정부 수당 Fit 가이드" class="w-full rounded-xl my-6 object-cover h-64">
 
 <h2>1. 자녀를 키우는 가구를 위한 육아·아동 수당 Fit</h2>
 <p>아이를 출산하고 양육하는 부모님들이 반드시 중복 수령해야 할 필수 3대 수당 세트입니다. 소득 기준이 없어 누구나 신청 시 즉시 지급됩니다.</p>
