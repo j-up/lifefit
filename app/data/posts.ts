@@ -1,6 +1,7 @@
 import { postsPart1 } from "./posts-rich-1";
 import { postsPart2 } from "./posts-rich-2";
 import { postsPart3 } from "./posts-rich-3";
+import { postsPart4 } from "./posts-rich-4";
 
 export interface Post {
   id: string;
@@ -14,4 +15,4 @@ export interface Post {
   readTime: string;
 }
 
-export const posts: Post[] = [...postsPart1, ...postsPart2, ...postsPart3];
+export const posts: Post[] = [...postsPart1, ...postsPart2, ...postsPart3, ...postsPart4];
