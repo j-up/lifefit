@@ -286,4 +286,94 @@ export const postsPart4: Post[] = [
 <h2>아동 및 가구 수당 실수령액 시뮬레이션하기</h2>
 <p>우리 가정의 자녀 수와 가구원 나이에 따라 매달 또는 매년 실제로 환급받고 수령할 수 있는 <strong>자녀 세액 공제액 및 아동수당 합산 예상 수령금</strong>을 정확히 산정해 보고 싶으신가요? 본인의 상세 조건에 꼭 맞는 맞춤형 수당 산출 시뮬레이션 계산기를 제공해 드리고 있으니, 지금 바로 실행해 보시고 숨어 있는 우리 집 가계 지원금을 찾아가세요!</p>`,
   },
+  {
+    id: "20",
+    title: "2026년 ISA 계좌 절세 혜택 및 가입 조건 총정리: 만능 절세 통장 200% 활용법",
+    slug: "isa-tax-savings-guide-2026",
+    date: "2026-06-02",
+    summary: "2026년 대폭 상향된 납입 한도와 비과세 혜택을 가진 만능 절세 계좌인 ISA의 기본 개념부터 유형별 비교, 절세 극대화 꿀팁까지 한눈에 알아봅니다.",
+    image: "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80",
+    category: "tax",
+    readTime: "8분",
+    content: `<h2>재테크 필수 템, ISA(개인종합자산관리계좌)란?</h2>
+<p>최근 주식, ETF 투자자가 급증하면서 이자 및 배당소득에 대한 세금 고민도 깊어지고 있습니다. 투자를 열심히 해서 100만 원의 수익을 올렸더라도 일반 계좌에서는 15.4%의 이자소득세가 고스란히 뜯겨 실 수령액은 84만 6천 원에 불과합니다. 이때 세금을 비약적으로 줄여주는 만능 열쇠가 바로 <strong>ISA(Individual Savings Account, 개인종합자산관리계좌)</strong>입니다.</p>
+<p>ISA는 예·적금은 물론 국내 상장 주식, 펀드, ETF 등 다양한 금융 상품을 하나의 계좌에 담아 굴리면서, 세금 혜택을 극대화해 주는 정부 지원 계좌입니다. 특히 <strong>2026년 세법 개정안</strong>이 전면 적용되면서 혜택 한도가 2배 이상 늘어났습니다. 달라진 2026년 ISA 혜택과 나에게 맞는 활용 꿀팁을 총정리해 드립니다.</p>
+
+<img src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80" alt="ISA 절세 혜택 가이드" class="w-full rounded-xl my-6 object-cover h-64">
+
+<h2>2026년 달라진 ISA 핵심 개정 혜택 3가지</h2>
+<p>2026년부터 적용되는 ISA 제도는 한도와 혜택 면에서 파격적으로 개선되었습니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>납입 한도 대폭 상향 (연 4,000만 원, 총 2억 원):</strong> 기존 연간 2,000만 원(총 1억 원)이었던 납입 한도가 <strong>연간 4,000만 원(총 2억 원)</strong>으로 2배 상향되었습니다. 여유 목돈이 있는 투자자들의 활용 폭이 크게 넓어졌습니다.</li>
+  <li><strong>비과세 한도 확대 (최대 1,000만 원):</strong> 계좌 내에서 얻은 금융 수익에 대한 비과세 한도가 상향되었습니다.
+    <ul class="list-circle pl-5 mt-1 space-y-1">
+      <li><strong>일반형:</strong> 기존 200만 원 &rarr; <strong>500만 원</strong>으로 확대</li>
+      <li><strong>서민형·농어민형:</strong> 기존 400만 원 &rarr; <strong>1,000만 원</strong>으로 확대</li>
+    </ul>
+  </li>
+  <li><strong>비과세 한도 초과분 9.9% 분리과세:</strong> 비과세 한도(500만 원 또는 1,000만 원)를 넘어선 초과 소득에 대해서는 일반 세율 15.4%가 아닌 <strong>9.9% 분리과세(지방소득세 포함)</strong> 혜택이 유지됩니다. 이 초과 수익은 종합소득세 및 금융소득종합과세(연 2,000만 원 초과 분 합산) 대상에서 전액 제외되어 고자산가에게도 필수적인 절세 도구가 됩니다.</li>
+</ul>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p>💡 <strong>서민형 가입 꿀팁:</strong> 서민형은 <strong>근로소득 5,000만 원 이하 또는 종합소득 3,800만 원 이하</strong>인 경우 가입할 수 있습니다. 가입 시점에 홈택스에서 '소득확인증명서(개인종합자산관리계좌 가입용)'를 발급받아 금융기관에 제출하면 서민형(비과세 1,000만 원)으로 적용되니 무조건 서민형 자격 여부를 먼저 확인하세요!</p>
+</div>
+
+<h2>ISA 계좌 유형 비교: 일반형 vs 서민형 vs 농어민형</h2>
+
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">구분</th>
+      <th class="p-3 text-left border">일반형</th>
+      <th class="p-3 text-left border">서민형</th>
+      <th class="p-3 text-left border">농어민형</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">가입 자격</td>
+      <td class="p-3 border">만 19세 이상 거주자<br>(만 15~18세 근로소득자 포함)</td>
+      <td class="p-3 border">근로소득 5,000만 원 이하<br>종합소득 3,800만 원 이하</td>
+      <td class="p-3 border">지방자치단체 등록 농어민<br>종합소득 3,800만 원 이하</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">비과세 한도</td>
+      <td class="p-3 border text-blue-600 font-bold">500만 원</td>
+      <td class="p-3 border text-blue-600 font-bold">1,000만 원</td>
+      <td class="p-3 border text-blue-600 font-bold">1,000만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">한도 초과분 세율</td>
+      <td class="p-3 border" colspan="3"><strong>9.9% 분리과세</strong> (일반 과세 15.4% 대비 약 5.5%p 절세)</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">의무 가입 기간</td>
+      <td class="p-3 border" colspan="3"><strong>3년</strong> (3년 이내 해지 시 감면세액 추징)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>중개형 vs 신탁형 vs 일임형: 나에게 맞는 계좌는?</h2>
+<p>ISA는 운용 방식에 따라 세 가지 종류로 나뉩니다. 본인의 투자 성향에 맞게 가입해야 합니다.</p>
+<ul class="list-disc pl-5 space-y-3 my-4">
+  <li><strong>중개형 ISA (가장 추천):</strong> 투자자가 <strong>직접 주식이나 ETF를 선택하여 실시간 거래</strong>하는 계좌입니다. 수수료가 가장 저렴하고, 공모주 청약도 가능해 청년층 및 개인 투자자 사이에서 압도적으로 가입률이 높습니다.</li>
+  <li><strong>신탁형 ISA:</strong> 투자자가 예금, 펀드 등을 구체적으로 지시하여 담는 계좌입니다. 직접 주식 투자를 하지 않고, <strong>시중 은행의 고금리 예금들을 여러 개 묶어서 예금 비과세 혜택</strong>을 노리는 안정 추구형 투자자에게 적합합니다.</li>
+  <li><strong>일임형 ISA:</strong> 금융기관의 전문가(포트폴리오 매니저)가 알아서 모델 포트폴리오를 구성해 굴려주는 계좌입니다. 투자 공부를 할 시간이 전혀 없고 자산 배분을 일임하고 싶을 때 유용합니다.</li>
+</ul>
+
+<h2>ISA를 활용한 실전 ETF 투자 꿀팁</h2>
+<p>ISA 계좌의 절세 혜택은 특히 <strong>'국내 상장 해외 ETF(예: 미국 S&P500, 미국 나스닥100 등)'</strong>에 투자할 때 위력이 배가됩니다.</p>
+<p>일반 계좌에서 미국 ETF를 사면 매매 차익에 대해 15.4%의 배당소득세가 부과됩니다. 하지만 중개형 ISA에서 매매할 경우, 계좌 내에서 발생한 손실과 이익을 통산(손익통산)해 순이익에 대해서만 세금을 계산합니다. 순이익 중 500만 원(서민형 1,000만 원)까지는 세금이 한 푼도 없고, 초과분은 9.9%의 저율 분리과세만 냅니다. 이 혜택 하나만으로도 수백만 원의 투자 원금을 추가 확보하는 셈입니다.</p>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>의무 가입 기간 3년 주의사항:</strong> ISA 계좌는 <strong>최소 3년 동안 유지</strong>해야 비과세 혜택을 온전히 받을 수 있습니다. 3년 이내에 중도 해지하면 그동안 받은 세금 혜택을 다시 뱉어내야 합니다. 다만, 납입 원금 범위 내에서는 중도 인출(수수료 없음)이 가능하므로 급한 불을 끌 때 활용할 수는 있습니다.</p>
+</div>
+
+<h2>ISA 만기 자금 연금전환으로 추가 세액공제 받기</h2>
+<p>3년 만기가 도래한 ISA 계좌의 자금을 해지하여 <strong>개인연금(IRP 또는 연금저축) 계좌로 이체</strong>하면, 이체한 금액의 <strong>10%(최대 300만 원 한도)</strong>를 추가로 세액공제받을 수 있습니다. 연말정산 시 연금저축 한도와 별도로 세금을 더 돌려받을 수 있어 은퇴 자금 형성이나 세액 환급을 늘리고자 하는 직장인에게 최고의 연계 재테크로 꼽힙니다.</p>
+
+<h2>나의 연말정산 및 투자 절세 혜택 직접 산출해보기</h2>
+<p>ISA 계좌로 금융 상품을 굴렸을 때 일반 계좌 대비 아낄 수 있는 이자세와 연금 전환 시 얻게 되는 <strong>실질 소득세 절감액</strong>이 궁금하신가요? 가구 소득과 예상 투자 소득액을 입력하면 맞춤형 세금 환급액 및 절세 이자를 즉시 시뮬레이션해 주는 계산기를 활용해 본인만의 투자 절세 설계를 구상해 보세요!</p>`,
+  },
 ];
+
