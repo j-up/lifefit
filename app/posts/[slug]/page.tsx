@@ -132,7 +132,17 @@ export default async function PostPage({ params }: Props) {
   }
 
   const relatedTool = (() => {
+    if (post.relatedTool) {
+      return post.relatedTool;
+    }
     switch (post.category) {
+      case "housing":
+        return {
+          href: "/tools/fit-youth",
+          label: "내가 대상자인지 1분 만에 확인하기",
+          desc: "2026년 청년월세 특별지원 대상자 여부를 빠르고 정확하게 판별해 드립니다.",
+          theme: "purple" as const,
+        };
       case "육아·복지":
       case "복지·육아":
         return {
@@ -149,35 +159,59 @@ export default async function PostPage({ params }: Props) {
           theme: "teal" as const,
         };
       default:
-        return {
-          href: "/tools/fit-youth",
-          label: "내가 대상자인지 1분 만에 확인하기",
-          desc: "2026년 청년월세 특별지원 대상자 여부를 빠르고 정확하게 판별해 드립니다.",
-          theme: "purple" as const,
-        };
+        return null;
     }
   })();
 
-  const ctaClass =
-    relatedTool.theme === "blue"
-      ? "border-blue-100 bg-blue-50 hover:bg-blue-100"
-      : relatedTool.theme === "teal"
-        ? "border-teal-100 bg-teal-50 hover:bg-teal-100"
-        : "border-purple-100 bg-purple-50 hover:bg-purple-100";
-
-  const iconClass =
-    relatedTool.theme === "blue"
-      ? "bg-blue-500 text-white"
-      : relatedTool.theme === "teal"
-        ? "bg-teal-500 text-white"
-        : "bg-purple-500 text-white";
-
-  const textClass =
-    relatedTool.theme === "blue"
-      ? "text-blue-700"
-      : relatedTool.theme === "teal"
-        ? "text-teal-700"
-        : "text-purple-700";
+  const themeClasses = relatedTool
+    ? (() => {
+        switch (relatedTool.theme) {
+          case "blue":
+            return {
+              cta: "border-blue-100 bg-blue-50 hover:bg-blue-100",
+              icon: "bg-blue-500 text-white",
+              text: "text-blue-700",
+            };
+          case "teal":
+            return {
+              cta: "border-teal-100 bg-teal-50 hover:bg-teal-100",
+              icon: "bg-teal-500 text-white",
+              text: "text-teal-700",
+            };
+          case "amber":
+            return {
+              cta: "border-amber-100 bg-amber-50 hover:bg-amber-100",
+              icon: "bg-amber-500 text-white",
+              text: "text-amber-700",
+            };
+          case "indigo":
+            return {
+              cta: "border-indigo-100 bg-indigo-50 hover:bg-indigo-100",
+              icon: "bg-indigo-500 text-white",
+              text: "text-indigo-700",
+            };
+          case "rose":
+            return {
+              cta: "border-rose-100 bg-rose-50 hover:bg-rose-100",
+              icon: "bg-rose-500 text-white",
+              text: "text-rose-700",
+            };
+          case "emerald":
+            return {
+              cta: "border-emerald-100 bg-emerald-50 hover:bg-emerald-100",
+              icon: "bg-emerald-500 text-white",
+              text: "text-emerald-700",
+            };
+          case "purple":
+          default:
+            return {
+              cta: "border-purple-100 bg-purple-50 hover:bg-purple-100",
+              icon: "bg-purple-500 text-white",
+              text: "text-purple-700",
+            };
+        }
+      })()
+    : null;
 
   const jsonLdArticle = {
     "@context": "https://schema.org",
@@ -310,29 +344,31 @@ export default async function PostPage({ params }: Props) {
             />
 
             {/* Related Tool CTA */}
-            <div className="mt-10">
-              <Link
-                href={relatedTool.href}
-                className={`group flex items-center gap-4 rounded-2xl border p-5 transition-all sm:p-6 ${ctaClass}`}
-              >
-                <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${iconClass}`}
+            {relatedTool && themeClasses && (
+              <div className="mt-10">
+                <Link
+                  href={relatedTool.href}
+                  className={`group flex items-center gap-4 rounded-2xl border p-5 transition-all sm:p-6 ${themeClasses.cta}`}
                 >
-                  <Calculator size={22} />
-                </div>
-                <div className="min-w-0">
-                  <p className={`text-sm font-semibold ${textClass}`}>
-                    {relatedTool.label}
-                    <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">
-                      →
-                    </span>
-                  </p>
-                  <p className="mt-0.5 text-sm text-gray-500">
-                    {relatedTool.desc}
-                  </p>
-                </div>
-              </Link>
-            </div>
+                  <div
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${themeClasses.icon}`}
+                  >
+                    <Calculator size={22} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className={`text-sm font-semibold ${themeClasses.text}`}>
+                      {relatedTool.label}
+                      <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">
+                        →
+                      </span>
+                    </p>
+                    <p className="mt-0.5 text-sm text-gray-500">
+                      {relatedTool.desc}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            )}
 
             {/* Back link */}
             <div className="mt-12 border-t border-gray-100 pt-8">
