@@ -228,6 +228,56 @@ export default function ChildTaxBenefitPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "보육수당 비과세 계산기",
+                item: "https://lifefit.kr/tools/child-tax-benefit",
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "2026년 보육수당 비과세 한도 개편 내용은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "기존에는 자녀 수와 관계없이 근로자 1인당 월 20만 원까지가 비과세 한도였으나, 2026년부터는 자녀 1인당 월 20만 원(예: 자녀가 2명이면 월 40만 원, 3명이면 월 60만 원)으로 비과세 한도가 대폭 증액되었습니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "맞벌이 부부도 각각 보육수당 비과세 혜택을 적용받을 수 있나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "네, 맞벌이 부부는 동일한 자녀에 대해 각자의 회사에서 각각 월 20만 원씩 중복하여 비과세 혜택을 온전히 누리실 수 있습니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
 
       <div className="w-full max-w-[420px]">
         {/* 상단 네비게이션 */}

@@ -437,6 +437,56 @@ export default function FutureSavingsPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "홈",
+                item: "https://lifefit.kr",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "청년미래적금 계산기",
+                item: "https://lifefit.kr/tools/future-savings",
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "청년미래적금 가입 대상은 누구인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "만 19세 이상 34세 이하 청년 중 소득이 있는 자가 대상입니다. 군 복무 기간이 있을 경우 그 기간만큼 만 나이 계산 시 차감되어 가입 연령이 연장됩니다. 소득이 없는 사람은 가입이 차단됩니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "청년미래적금의 주요 혜택과 이율 우대 조건은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "월 최대 50만 원 한도로 3년간 납입 가능하며, 가구 중위소득 150% 이하 조건 충족 여부에 따라 기여금 매칭률이 6% 또는 12%로 차등 적용되고 이자소득 비과세 혜택이 주어집니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       
       <div className="w-full max-w-[420px]">
         {/* 상단 네비게이션 */}

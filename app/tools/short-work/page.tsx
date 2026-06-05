@@ -306,6 +306,33 @@ export default function Home() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "육아기 근로시간 단축 급여 지원 대상 조건은 어떻게 되나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "자녀가 만 12세 이하 또는 초등학교 6학년 이하인 근로자가 신청 가능하며, 주당 소정근로시간이 15시간 이상 35시간 이하여야 합니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "2026년 육아기 단축근무 급여 지원 금액은 어떻게 계산하나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "단축 후 최초 12개월 동안은 통상임금의 100%(상한 250만 원)를 기준으로 단축된 시간 비율만큼 지급되며, 12개월 초과 시(최대 24개월)에는 통상임금의 80%(상한 200만 원) 기준으로 지급됩니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 메인으로 가기 */}
         <Link

@@ -270,6 +270,33 @@ export default function TaxCalculatorPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "상호금융 저율과세 혜택이란 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "신협, 새마을금고, 단위농협 등 상호금융권에서 예적금 가입 시 발생하는 이자소득세(14%)를 면제해주고 농어촌특별세(1.4%)만 부과하여 이자 수령액을 극대화하는 세제 혜택입니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "2026년 상호금융 저율과세 한도와 세율 변동 내용은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "상호금융 저율과세 혜택은 전 금융기관 합산 1인당 3,000만 원 한도입니다. 단, 2026년부터 연봉 7,000만 원 초과 고소득자는 저율과세율이 기존 1.4%에서 5.0%로 상향 적용될 예정입니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       
       <div className="w-full max-w-[420px]">
         {/* 네비게이션 */}

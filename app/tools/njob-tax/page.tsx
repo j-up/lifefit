@@ -326,6 +326,33 @@ export default function NJobTaxPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "직장인 부업 시 건보료가 추가 부과되는 기준은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "직장 가입자의 경우 연간 보수 외 소득(부수입 등)이 2,000만 원을 초과할 경우 소득월액보험료가 추가로 고지되며, 이는 직장 건보료와 별도로 납부해야 합니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "건강보험 피부양자 자격 요건과 탈락 기준은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "피부양자 자격을 유지하기 위해서는 연 소득금액 합계액이 3,400만 원 이하여야 합니다. 다만 사업자등록증이 있는 경우 단 1원의 사업소득이라도 발생 시 자격이 즉각 박탈되며, 프리랜서 등 사업자 미등록 시에는 연 500만 원 초과 시 탈락하게 됩니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       <div className="w-full max-w-[420px]">
         {/* 네비게이션 */}
         <div className="flex items-center gap-4 mb-4">

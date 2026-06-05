@@ -242,6 +242,33 @@ export default function HomePage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "2026년 청년월세 특별지원 대상 자격 조건은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "만 19세 이상 34세 이하 무주택 청년으로서 부모님과 따로 거주해야 하며, 청년 본인 가구 소득이 기준 중위소득 60% 이하, 부모를 포함한 원 가구 소득이 기준 중위소득 100% 이하여야 지원받을 수 있습니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "청년월세 특별지원의 재산/자산 조건은 어떻게 되나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "청년 본인 가구의 총재산 가액이 1억 2,200만 원 이하(자동차 가액 3,558만 원 이하)여야 하며, 원가구의 총재산 가액은 4억 7,000만 원 이하여야 합니다."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       <div className="w-full max-w-md">
         {/* 메인으로 가기 */}
         <Link
