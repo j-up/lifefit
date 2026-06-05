@@ -647,12 +647,7 @@ export const postsPart4: Post[] = [
   </tbody>
 </table>
 
-<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
-  <p class="text-blue-800 font-semibold mb-3">🚗 내 차종과 지역에 따른 예상 채권 매입금과 즉시매도 할인 수수료를 즉시 계산해보세요!</p>
-  <a href="/tools/car-bond?price=2800&region=seoul" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
-    자동차 채권 환급금 실시간 계산기 바로가기 &rarr;
-  </a>
-</div>
+
 
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
   <p>⚠️ <strong>소멸시효 소멸 주의:</strong> 만기 도래 후 청구하지 않은 채권은 은행이 공시한 소멸기한(원금 5년, 이자 5년)이 지나면 영구히 환급이 불가능해집니다. 미루지 마시고 지금 스마트폰을 열어 본인 계좌를 조회해 보시기 바랍니다.</p>
@@ -702,12 +697,7 @@ export const postsPart4: Post[] = [
   <li><strong>경기/인천 출퇴근자 (기본 요금 2,000원 이상):</strong> 신분당선이나 광역버스를 탈 때는 기후동행카드가 적용되지 않으므로, 무조건 <strong>K-패스</strong>를 가입해 20~30% 환급을 받는 것이 이득입니다.</li>
 </ul>
 
-<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
-  <p class="text-blue-800 font-semibold mb-3">🚲 내 한 달 버스/지하철 탑승 횟수와 요금을 입력해 최고 절약 카드를 즉시 판별해보세요!</p>
-  <a href="/tools/kpass-climate?trips=45&fare=1500&region=seoul" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
-    K-패스 vs 기후동행카드 비교 계산기 바로가기 &rarr;
-  </a>
-</div>
+
 
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
   <p>⚠️ <strong>사용 횟수 한도 체크:</strong> K-패스는 한 달에 최대 60회 이용분까지만 환급 혜택이 주어집니다. 따라서 한 달에 60회를 넘어 70~80회씩 대중교통을 탈 정도로 이동이 잦은 서울 거주자라면, 기후동행카드가 압도적인 가성비를 보여줍니다.</p>
@@ -768,12 +758,7 @@ export const postsPart4: Post[] = [
   </tbody>
 </table>
 
-<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
-  <p class="text-blue-800 font-semibold mb-3">👶 우리 가정의 자녀 조건에 따른 세액공제와 보육수당 수령액을 즉시 시뮬레이션해보세요!</p>
-  <a href="/tools/child-tax-benefit?children=2&income=6000" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
-    자녀세액공제 및 아동수당 계산기 바로가기 &rarr;
-  </a>
-</div>
+
 
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
   <p>⚠️ <strong>연령 조건 유의사항:</strong> 자녀세액공제는 만 8세 이상 자녀부터 적용되지만, 기본 인적공제(1인당 150만 원 소득공제)는 만 20세 이하 자녀까지 연령 요건만 맞으면 부모 소득 요건(연간 소득금액 100만 원 이하)을 충족할 때 모두 적용되므로 혼동하지 마시고 모두 입력하셔야 세금 혜택을 극대화할 수 있습니다.</p>
@@ -822,12 +807,7 @@ export const postsPart4: Post[] = [
   <li><strong>효과:</strong> 11회차 분량의 돈을 만기 직전까지 온전히 다른 투자(주식, 파킹통장 등)에 활용할 수 있어 유동성이 비약적으로 증가합니다.</li>
 </ul>
 
-<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
-  <p class="text-blue-800 font-semibold mb-3">💰 본인의 저축 금액과 적금 이율을 입력해 최적의 선납이연 납입 일정을 자동으로 받아보세요!</p>
-  <a href="/tools/savings-plan?amount=100&rate=5.0&months=12" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
-    적금 선납이연 플랜 계산기 바로가기 &rarr;
-  </a>
-</div>
+
 
 <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
   <p>⚠️ <strong>정기적금 확인 및 자동이체 해제 필수:</strong> 선납이연을 활용하기 위해서는 가입하려는 상품이 반드시 매달 납입액이 고정된 <strong>정기적금(정액적립식)</strong>인지 확인해야 하며, 매달 정기적으로 나가는 <strong>자동이체 설정을 반드시 해제</strong>하고 직접 계획된 날짜에 수동 이체해야 사고가 나지 않습니다.</p>
