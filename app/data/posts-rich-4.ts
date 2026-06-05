@@ -311,14 +311,7 @@ export const postsPart4: Post[] = [
       <li><strong>서민형·농어민형:</strong> 기존 400만 원 &rarr; <strong>1,000만 원</strong>으로 확대</li>
     </ul>
   </li>
-  <li><strong>비과세 한도 초과분 9.9% 분리과세:</strong> 비과세 한도(500만 원 또는 1,000만 원)를 넘어선 초과 소득에 대해서는 일반 세율 15.4%가 아닌 <strong>9.9% 분리과세(지방소득세 포함)</strong> 혜택이 유지됩니다. 이 초과 수익은 종합소득세 및 금융소득종합과세(연 2,000만 원 초과 분 합산) 대상에서 전액 제외되어 고자산가에게도 필수적인 절세 도구가 됩니다.</li>
 </ul>
-
-<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
-  <p>💡 <strong>서민형 가입 꿀팁:</strong> 서민형은 <strong>근로소득 5,000만 원 이하 또는 종합소득 3,800만 원 이하</strong>인 경우 가입할 수 있습니다. 가입 시점에 홈택스에서 '소득확인증명서(개인종합자산관리계좌 가입용)'를 발급받아 금융기관에 제출하면 서민형(비과세 1,000만 원)으로 적용되니 무조건 서민형 자격 여부를 먼저 확인하세요!</p>
-</div>
-
-<h2>ISA 계좌 유형 비교: 일반형 vs 서민형 vs 농어민형</h2>
 
 <table class="w-full text-sm my-6 border-collapse">
   <thead class="bg-gray-100">
@@ -543,6 +536,236 @@ export const postsPart4: Post[] = [
 
 <h2>내 소득 구간에 맞는 복지 수당 매칭해보기</h2>
 <p>구직촉진수당 외에도 청년월세 특별지원, 첫만남이용권 등 내가 신청할 수 있는 숨겨진 정부 지원 복지 수당이 더 있을지 궁금하신가요? 본인의 나이와 가구 형태, 소득 요건 정보를 대입해 <strong>2026년 기준 본인 맞춤형 정부/지자체 복지 혜택과 예상 환급금을 1분 만에 판별</strong>해 주는 시뮬레이터를 이용해 보시고 나만을 위한 복지 수당 혜택을 한눈에 매칭해 보세요!</p>`,
+  },
+  {
+    id: "33",
+    title: "2026년 자동차 채권 환급금 조회 및 신청 방법 총정리: 숨은 미환급금 1분 만에 찾기",
+    slug: "car-bond-refund-2026",
+    date: "2026-06-03",
+    summary: "차량 구매 시 의무적으로 매입한 자동차 채권의 소멸시효가 지나기 전, 온라인으로 간편하게 환급금을 조회하고 신청하는 꿀팁을 전해드립니다.",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    category: "welfare",
+    readTime: "6분",
+    content: `<h2>나도 모르게 잠자고 있는 자동차 채권 환급금</h2>
+<p>새 차를 사거나 중고차를 구입해 등록할 때, 우리는 법적으로 반드시 <strong>도시철도채권</strong> 또는 <strong>지역개발채권</strong>을 매입해야 합니다. 많은 분들이 자동차 영업사원에게 모든 대행을 맡기기 때문에 채권의 존재조차 모르는 경우가 대부분입니다.</p>
+<p>이 채권은 발행 후 5년(도시철도채권) 또는 7년(지역개발채권)이 지나면 원금과 이자를 돌려받을 수 있는 만기가 도래합니다. 하지만 만기 후 일정 기간(도시철도채권 5년, 지역개발채권 10년) 동안 찾아가지 않으면 <strong>소멸시효가 완성되어 환급금이 국고로 귀속</strong>되게 됩니다. 지금 바로 내 돈을 조회하고 환급받는 법을 알아보겠습니다.</p>
+
+<img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="자동차 채권 환급금" class="w-full rounded-xl my-6 object-cover h-64">
+
+<h2>자동차 채권 매입 방식의 이해: 매입 vs 즉시매도</h2>
+<p>자동차 등록 시 채권을 처리하는 방식은 크게 두 가지가 있습니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>현설(채권 매입):</strong> 채권 가격 전액을 지불하고 매입하여 만기(5~7년)까지 보유한 뒤 원금과 약정 이자를 상환받는 방식입니다. 이 방식으로 처리하신 분들이 바로 만기 시 환급금을 청구할 수 있는 대상자입니다.</li>
+  <li><strong>즉시매도(할인):</strong> 채권을 매입하자마자 은행에 일정한 할인율(수수료)을 적용해 바로 되파는 방식입니다. 대부분의 차주가 등록 비용 부담을 줄이기 위해 이 방식을 선택합니다. 이 경우에는 초기 수수료만 내고 채권을 처분한 것이므로 나중에 돌려받을 환급금이 없습니다.</li>
+</ul>
+
+<h2>모바일로 1분 만에 환급금 조회 및 신청하기</h2>
+<p>행정안전부의 제도 개선으로 이제 전국 어디서나 본인의 주거래 은행 앱 또는 인터넷 뱅킹을 통해 숨은 채권 환급금을 즉시 조회하고 본인 계좌로 이체 신청할 수 있습니다. 각 지역별 대행 은행은 다음과 같습니다.</p>
+
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">지역 (지자체)</th>
+      <th class="p-3 text-left border">대행 은행</th>
+      <th class="p-3 text-left border">온라인 신청 경로</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">서울, 인천</td>
+      <td class="p-3 border">신한은행</td>
+      <td class="p-3 border">신한 SOL뱅크 앱 &gt; 공과금 &gt; 미환급채권 조회/신청</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">부산</td>
+      <td class="p-3 border">부산은행</td>
+      <td class="p-3 border">부산은행 모바일 &gt; 공과금 &gt; 지역개발채권</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">대구</td>
+      <td class="p-3 border">대구은행(iM뱅크)</td>
+      <td class="p-3 border">iM뱅크 앱 &gt; 공과금 &gt; 미환급 채권 찾기</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">광주, 전남</td>
+      <td class="p-3 border">광주은행</td>
+      <td class="p-3 border">광주은행 앱 &gt; 공과금 &gt; 지역개발채권 환급</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">경기, 강원, 충청, 전북, 경상, 제주</td>
+      <td class="p-3 border">NH농협은행</td>
+      <td class="p-3 border">NH올원뱅크 앱 &gt; 공과금 &gt; 지역개발채권 &gt; 미환급채권조회</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
+  <p class="text-blue-800 font-semibold mb-3">🚗 내 차종과 지역에 따른 예상 채권 매입금과 즉시매도 할인 수수료를 즉시 계산해보세요!</p>
+  <a href="/tools/car-bond?price=2800&region=seoul" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
+    자동차 채권 환급금 실시간 계산기 바로가기 &rarr;
+  </a>
+</div>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>소멸시효 소멸 주의:</strong> 만기 도래 후 청구하지 않은 채권은 은행이 공시한 소멸기한(원금 5년, 이자 5년)이 지나면 영구히 환급이 불가능해집니다. 미루지 마시고 지금 스마트폰을 열어 본인 계좌를 조회해 보시기 바랍니다.</p>
+</div>`,
+  },
+  {
+    id: "34",
+    title: "K-패스 vs 서울 기후동행카드 완벽 비교: 내 대중교통 이용 패턴에 맞는 카드는?",
+    slug: "kpass-climate-card-comparison-2026",
+    date: "2026-06-04",
+    summary: "전국구 환급형 교통카드인 K-패스와 서울 전용 무제한 교통카드인 기후동행카드의 혜택, 요금, 이용 횟수별 실질 할인율을 상세히 분석합니다.",
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+    category: "saving",
+    readTime: "7분",
+    content: `<h2>교통비 절약 전쟁: 환급형 K-패스 vs 무제한 기후동행카드</h2>
+<p>고물가 시대에 서민들의 지갑을 가장 크게 위협하는 항목 중 하나가 바로 대중교통 요금입니다. 다행히 정부와 서울시에서는 대중교통 혜택을 극대화하기 위해 각각 <strong>K-패스</strong>와 <strong>기후동행카드</strong>라는 뛰어난 대안을 제공하고 있습니다.</p>
+<p>하지만 두 카드의 혜택 제공 방식(정액제 무제한 vs 이용액 사후 환급)과 적용 범위가 완전히 달라, 어떤 카드를 발급받아야 한 달 교통비를 한 푼이라도 더 아낄 수 있을지 혼란스러운 분들이 많습니다. 오늘 두 카드의 장단점을 한눈에 파헤쳐 드립니다.</p>
+
+<img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="K-패스 기후동행카드 비교" class="w-full rounded-xl my-6 object-cover h-64">
+
+<h2>1. 전국구 교통비 환급 만능 키: K-패스</h2>
+<p>K-패스는 한 달에 대중교통을 최소 15회 이상 이용할 경우, 지출한 교통비의 일정 비율을 다음 달에 캐시백이나 마일리지로 환급해 주는 카드입니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>환급 비율:</strong> 일반 20%, 청년(만 19~34세) 30%, 저소득층 53.3% 환급</li>
+  <li><strong>적용 지역:</strong> 전국 모든 지하철, 시내버스, 마을버스, 광역버스 및 GTX 노선까지 모두 포함</li>
+  <li><strong>장점:</strong> 수도권 외 전국 각지에서 사용 가능하며, 먼 거리를 출퇴근하여 편도 요금이 비싼 광역버스나 신분당선을 주로 타는 승객에게 매우 유리합니다.</li>
+</ul>
+
+<h2>2. 서울 시내 무제한 통행권: 서울 기후동행카드</h2>
+<p>기후동행카드는 매월 정해진 정액권을 선불 충전하여 한 달 동안 서울 지하철과 시내/마을버스를 무제한 탑승할 수 있는 카드입니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>이용 요금:</strong> 따릉이 제외 62,000원 / 따릉이 포함 65,000원 (만 19~39세 청년은 약 7,000원 할인 혜택 적용)</li>
+  <li><strong>적용 지역:</strong> 서울시 면허 대중교통 수단 (서울시 외 지역에서 하차는 가능하나 승차는 불가한 경우가 많아 주의 필요)</li>
+  <li><strong>장점:</strong> 이용 횟수에 아무런 제한이 없어 주말 이동이 많거나 한 달 대중교통 이용 횟수가 극도로 많은 직장인/학생에게 유리합니다.</li>
+</ul>
+
+<h2>비교 시뮬레이션: 어떤 카드를 선택할까?</h2>
+<p>가장 핵심적인 판단 기준은 <strong>"한 달간 타는 횟수"</strong>와 <strong>"평균 편도 요금"</strong>입니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>서울 시내 일반 요금(1,400원) 기준:</strong> 한 달에 44회 이하로 타는 분들은 <strong>K-패스</strong>가 더 이득입니다. 44회를 초과하여 50~60회 이상 타는 프로 이동러들은 <strong>기후동행카드</strong> 정액권이 훨씬 저렴합니다.</li>
+  <li><strong>경기/인천 출퇴근자 (기본 요금 2,000원 이상):</strong> 신분당선이나 광역버스를 탈 때는 기후동행카드가 적용되지 않으므로, 무조건 <strong>K-패스</strong>를 가입해 20~30% 환급을 받는 것이 이득입니다.</li>
+</ul>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
+  <p class="text-blue-800 font-semibold mb-3">🚲 내 한 달 버스/지하철 탑승 횟수와 요금을 입력해 최고 절약 카드를 즉시 판별해보세요!</p>
+  <a href="/tools/kpass-climate?trips=45&fare=1500&region=seoul" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
+    K-패스 vs 기후동행카드 비교 계산기 바로가기 &rarr;
+  </a>
+</div>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>사용 횟수 한도 체크:</strong> K-패스는 한 달에 최대 60회 이용분까지만 환급 혜택이 주어집니다. 따라서 한 달에 60회를 넘어 70~80회씩 대중교통을 탈 정도로 이동이 잦은 서울 거주자라면, 기후동행카드가 압도적인 가성비를 보여줍니다.</p>
+</div>`,
+  },
+  {
+    id: "35",
+    title: "2026년 개정 아동수당 및 자녀세액공제 중복 수혜 총정리: 놓치기 쉬운 우리 아이 세금 혜택",
+    slug: "child-tax-benefit-exemption-2026",
+    date: "2026-06-04",
+    summary: "아동수당 수령에 따른 자녀세액공제 배제 규정의 오해와 진실, 2026년 기준 자녀 수별 실수령 세금 혜택 및 절세 방안을 명확하게 정리합니다.",
+    image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
+    category: "tax",
+    readTime: "6분",
+    content: `<h2>아동수당을 받으면 자녀세액공제를 못 받나요?</h2>
+<p>매월 지급되는 아동수당과 연말정산 시 주어지는 자녀세액공제는 대한민국 부모님들이라면 누구나 한 번쯤 들어보셨을 복지 제도입니다. 그러나 세법 지식이 부족해 "아동수당을 받으면 연말정산할 때 자녀세액공제 대상에서 제외되어 손해를 본다"는 잘못된 소문을 믿고 걱정하시는 분들이 많습니다.</p>
+<p>결론부터 말씀드리면, <strong>2026년 현재 아동수당 수령 여부와 관계없이 자녀세액공제는 전액 중복해서 적용받을 수 있습니다!</strong> 과거 세법의 과도기 시절 존재했던 제한 규정과 현재 개정된 2026년 기준 세법 혜택을 알기 쉽게 총정리해 드립니다.</p>
+
+<img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" alt="아동수당과 자녀세액공제" class="w-full rounded-xl my-6 object-cover h-64">
+
+<h2>자녀세액공제와 아동수당의 완벽한 중복 적용 메커니즘</h2>
+<p>과거에는 만 7세 미만 아동에 대해 아동수당(월 10만 원)이 지급되면서, 7세 미만 아동은 연말정산 자녀세액공제(연 15만 원) 대상에서 일시 제외되었던 시기가 있었습니다. 이중 수혜를 방지한다는 취지였습니다.</p>
+<p>그러나 이로 인해 연말정산 시 맞벌이 부부들의 세부담이 오히려 늘어나는 '문턱 효과'가 발생하자, 정부는 세법 개정을 통해 <strong>아동수당 수령 여부와 관계없이 자녀세액공제를 모든 연령의 자녀에게 적용하도록 정상화</strong>하였습니다. 따라서 현재는 두 혜택을 모두 온전히 누릴 수 있습니다.</p>
+
+<h2>2026년 기준 자녀 수별 자녀세액공제 혜택 구간</h2>
+<p>연말정산 시 자녀 기본공제대상자(만 8세~20세 이하 자녀)에 대해 소득세에서 직접 차감되는 세액공제 금액은 자녀 수에 따라 누진 적용됩니다.</p>
+
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">자녀 수</th>
+      <th class="p-3 text-left border">자녀세액공제 혜택 (연간)</th>
+      <th class="p-3 text-left border">특이사항</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">1명</td>
+      <td class="p-3 border text-blue-600 font-bold">15만 원</td>
+      <td class="p-3 border">자녀가 1명인 경우 기본 15만 원 공제</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">2명</td>
+      <td class="p-3 border text-blue-600 font-bold">35만 원</td>
+      <td class="p-3 border">둘째 자녀분 20만 원이 추가되어 총 35만 원 공제</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">3명 이상</td>
+      <td class="p-3 border text-blue-600 font-bold">35만 원 + 초과 1명당 30만 원</td>
+      <td class="p-3 border">셋째부터는 명당 30만 원씩 추가 적용 (3명일 때 총 65만 원 공제)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
+  <p class="text-blue-800 font-semibold mb-3">👶 우리 가정의 자녀 조건에 따른 세액공제와 보육수당 수령액을 즉시 시뮬레이션해보세요!</p>
+  <a href="/tools/child-tax-benefit?children=2&income=6000" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
+    자녀세액공제 및 아동수당 계산기 바로가기 &rarr;
+  </a>
+</div>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>연령 조건 유의사항:</strong> 자녀세액공제는 만 8세 이상 자녀부터 적용되지만, 기본 인적공제(1인당 150만 원 소득공제)는 만 20세 이하 자녀까지 연령 요건만 맞으면 부모 소득 요건(연간 소득금액 100만 원 이하)을 충족할 때 모두 적용되므로 혼동하지 마시고 모두 입력하셔야 세금 혜택을 극대화할 수 있습니다.</p>
+</div>`,
+  },
+  {
+    id: "36",
+    title: "적금 이자 2배로 불리는 선납이연 법칙(6-1-5, 1-11) 완벽 정복 가이드",
+    slug: "savings-plan-prepayment-delay",
+    date: "2026-06-05",
+    summary: "목돈을 그냥 정기예금에 넣어두는 대신 고금리 파킹통장과 적금의 선납이연 플랜을 조합해 실질 이자율을 최대로 극대화하는 재테크 공식을 공개합니다.",
+    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
+    category: "saving",
+    readTime: "8분",
+    content: `<h2>예금보다 높은 이율을 만드는 적금의 꼼수, 선납이연</h2>
+<p>재테크 초보자들은 보통 목돈이 있으면 목돈 전액을 정기예금에 묶어두고, 매월 생기는 여유 자금은 정기적금에 넣는 정석적인 방식을 따릅니다. 하지만 정기예금 금리가 하락하는 시기에는 이런 정직한 방식으로는 만족스러운 이자 수익을 기대하기 어렵습니다.</p>
+<p>이때 금융 고수들이 비밀스럽게 사용하는 재테크 기법이 바로 <strong>선납이연(Prepayment & Deferral)</strong>입니다. 목돈을 적금에 전부 미리 넣어두지 않고, 일부만 넣고 나머지는 고금리 파킹통장에서 굴리다가 만기 직전에 몰아 넣는 스마트한 잔머리 공식을 전해드립니다.</p>
+
+<img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80" alt="적금 선납이연" class="w-full rounded-xl my-6 object-cover h-64">
+
+<h2>선납이연의 작동 원리와 핵심 공식</h2>
+<p>정기적금은 매달 정해진 날짜에 돈을 넣는 것이 규칙입니다. 하지만 은행 약관을 자세히 뜯어보면 납입일보다 미리 내는 <strong>선납 일수</strong>와 약속보다 늦게 내는 <strong>이연 일수</strong>의 마일리지가 존재합니다.</p>
+<p class="font-semibold text-lg text-blue-700 my-4 text-center">핵심 기준: (선납한 총 일수) - (이연한 총 일수) &ge; 0</p>
+<p>즉, 총 선납한 일수가 이연한 일수보다 크거나 같기만 하면, 은행에서는 정해진 만기일에 적금 약정 이자를 단 1원도 깎지 않고 전액 지급합니다. 이 원리를 결합한 대표적인 두 가지 전략적 납입 플랜이 있습니다.</p>
+
+<h3>1. 6-1-5 납입 플랜 (12개월 기준)</h3>
+<p>초기 목돈과 파킹통장의 연계를 극대화할 수 있는 가장 대표적인 방식입니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>1회차:</strong> 적금 가입 시 6개월분(6회차) 금액을 한 번에 입금합니다.</li>
+  <li><strong>7회차:</strong> 가입 후 6개월이 지난 시점에 1회차 금액만 입금합니다.</li>
+  <li><strong>12회차(만기 전날):</strong> 나머지 5개월분(5회차) 금액을 만기 하루 전에 몰아서 입금합니다.</li>
+  <li><strong>효과:</strong> 5개월치 대기 자금을 약 11개월 동안 연 3.5% 이상의 고금리 파킹통장에 넣어두고 매달 입출금 이자를 챙긴 뒤 적금 만기 이자까지 이중으로 수령합니다.</li>
+</ul>
+
+<h3>2. 1-11 납입 플랜</h3>
+<p>당장 수중에 목돈이 부족하지만 적금 금리 우대를 꽉 채우고 싶을 때 활용하는 레버리지 플랜입니다.</p>
+<ul class="list-disc pl-5 space-y-2 my-4">
+  <li><strong>1회차:</strong> 적금 가입 시 단 1회차 금액만 넣고 계좌를 개설합니다.</li>
+  <li><strong>12회차(만기 전날):</strong> 남은 11회차 금액을 만기 전날 한꺼번에 입금합니다.</li>
+  <li><strong>효과:</strong> 11회차 분량의 돈을 만기 직전까지 온전히 다른 투자(주식, 파킹통장 등)에 활용할 수 있어 유동성이 비약적으로 증가합니다.</li>
+</ul>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8 text-center">
+  <p class="text-blue-800 font-semibold mb-3">💰 본인의 저축 금액과 적금 이율을 입력해 최적의 선납이연 납입 일정을 자동으로 받아보세요!</p>
+  <a href="/tools/savings-plan?amount=100&rate=5.0&months=12" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-200">
+    적금 선납이연 플랜 계산기 바로가기 &rarr;
+  </a>
+</div>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>정기적금 확인 및 자동이체 해제 필수:</strong> 선납이연을 활용하기 위해서는 가입하려는 상품이 반드시 매달 납입액이 고정된 <strong>정기적금(정액적립식)</strong>인지 확인해야 하며, 매달 정기적으로 나가는 <strong>자동이체 설정을 반드시 해제</strong>하고 직접 계획된 날짜에 수동 이체해야 사고가 나지 않습니다.</p>
+</div>`,
   },
 ];
 
