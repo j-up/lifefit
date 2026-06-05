@@ -15,10 +15,12 @@ import {
   TrendingUp,
   Check,
   History,
+  CheckCircle2,
 } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 type InstitutionType = "bank" | "mutual" | null;
@@ -35,6 +37,7 @@ export default function TaxCalculatorPage() {
   const [institution, setInstitution] = useState<InstitutionType>(null);
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -208,9 +211,24 @@ export default function TaxCalculatorPage() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("❌ 복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results) return;
+    const shareUrl = `https://lifefit.kr/tools/tax-calculator?amt=${amountStr}&rate=${rateStr}&sal=${salaryStr}&inst=${institution || ""}`;
+    const highlightText = `예상 실수령액: 약 ${formatCurrency(results.myNet)}원`;
+    shareToKakao({
+      title: `2026 이자 세금 비교 계산기 💸`,
+      description: `세금 떼고 실제로 받는 예적금 이자 결과. (${highlightText}) 내 실수령액을 1분 만에 확인해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 실수령액 확인하기",
+      url: shareUrl,
+    });
   };
 
   return (
@@ -607,7 +625,41 @@ export default function TaxCalculatorPage() {
             )}
             {step === 5 && (
               <div className="w-full mt-2 pt-6 border-t border-[#f2f4f6] space-y-4 text-center">
-                <div className="flex gap-2">
+                <div>
+                  <p className="text-sm font-bold text-[#191f28]">
+                    🎉 내 예상 결과 주변에 공유하기
+                  </p>
+                  <p className="text-xs text-[#8b95a1] mt-1">
+                    친구들도 이자 세금을 아낄 수 있도록 계산 결과를 공유해 보세요!
+                  </p>
+                </div>
+                
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex gap-2 w-full">
+                    {/* 카카오톡 공유 버튼 */}
+                    <button
+                      onClick={handleKakaoShare}
+                      className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
+                    >
+                      <span className="text-base">💬</span>
+                      카카오톡 공유
+                    </button>
+
+                    {/* 링크 복사 버튼 */}
+                    <button
+                      onClick={handleShare}
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                          : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
+                      }`}
+                    >
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
+                    </button>
+                  </div>
+
+                  {/* 다시 계산하기 버튼 */}
                   <button
                     onClick={() => {
                       setStep(1);
@@ -620,16 +672,10 @@ export default function TaxCalculatorPage() {
                         window.history.replaceState({}, "", window.location.pathname);
                       }
                     }}
-                    className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
+                    className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
                   >
-                    {isSharedResult ? "나도 계산해보기" : "다시 계산"}
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#1e6fdb] shadow-md"
-                  >
-                    <Share2 size={16} />
-                    공유하기
+                    <Calculator size={16} />
+                    {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
                   </button>
                 </div>
               </div>

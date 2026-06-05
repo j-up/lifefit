@@ -10,10 +10,12 @@ import {
   ChevronRight,
   ChevronLeft,
   History,
+  CheckCircle2,
 } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -50,6 +52,7 @@ export default function SavingsPlanPage() {
   );
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -231,9 +234,23 @@ export default function SavingsPlanPage() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("❌ 복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results) return;
+    const shareUrl = `https://lifefit.kr/tools/savings-plan?amt=${amountStr}&period=${period}&rate=${rateStr}&start=${startDateStr}`;
+    shareToKakao({
+      title: `적금 선납이연 이자 최적화 플랜 💰`,
+      description: `월 ${formatCurrency(amount)}원, ${period}개월, 연 ${rate}% 기준 세후 이자: 약 ${formatCurrency(results.netNormalInterest)}원. 선납이연 플랜으로 이자를 극대화해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 플랜 계산해보기",
+      url: shareUrl,
+    });
   };
 
   return (
@@ -272,6 +289,41 @@ export default function SavingsPlanPage() {
                 item: "https://lifefit.kr/tools/savings-plan",
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "적금 선납이연이란 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "정기적금의 납입일을 앞당겨 내는 것(선납)과 늦게 내는 것(이연)을 조절하여, 약정한 만기 이자는 그대로 받으면서 자금 운용의 효율성을 극대화하는 재테크 기법입니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "가장 많이 사용하는 6-1-5 플랜은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "12개월 적금 기준, 첫 달에 6개월치 금액을 미리 선납하고, 7번째 달에 1개월치 금액을 납입하며, 만기일 하루 전에 나머지 5개월치를 납입하는 방식입니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "선납이연을 진행할 때 주의할 점은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "모든 정기적금 상품이 선납이연을 지원하는 것은 아닙니다. 가입 전에 해당 은행 상품 설명서에서 선납이연(또는 이연일수 계산법)이 적용되는지 반드시 확인해야 합니다."
+                }
+              }
+            ]
           }),
         }}
       />
@@ -538,7 +590,32 @@ export default function SavingsPlanPage() {
             )}
             {step === 5 && (
               <div className="w-full mt-4 pt-6 border-t border-[#f2f4f6] space-y-4 text-center">
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex gap-2 w-full">
+                    {/* 카카오톡 공유 버튼 */}
+                    <button
+                      onClick={handleKakaoShare}
+                      className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
+                    >
+                      <span className="text-base">💬</span>
+                      카카오톡 공유
+                    </button>
+
+                    {/* 링크 복사 버튼 */}
+                    <button
+                      onClick={handleShare}
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                          : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
+                      }`}
+                    >
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
+                    </button>
+                  </div>
+
+                  {/* 다시 계산하기 버튼 */}
                   <button
                     onClick={() => {
                       setStep(1);
@@ -549,17 +626,10 @@ export default function SavingsPlanPage() {
                         window.history.replaceState({}, "", window.location.pathname);
                       }
                     }}
-                    className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
+                    className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
                   >
                     <History size={16} />
                     {isSharedResult ? "나도 해보기" : "다시 하기"}
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#1e6fdb] shadow-md shadow-blue-100 transition-all"
-                  >
-                    <Share2 size={16} />
-                    결과 공유
                   </button>
                 </div>
               </div>

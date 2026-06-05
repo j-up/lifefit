@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
-import { Share2, Coins, Info, Calculator, Landmark, History } from "lucide-react";
+import { Share2, Coins, Info, Calculator, Landmark, History, CheckCircle2 } from "lucide-react";
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type AnswerKey = "age" | "residence" | "income" | "asset" | "subscription";
 
@@ -422,6 +423,7 @@ function ResultScreen({
 }) {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
@@ -451,6 +453,7 @@ function ResultScreen({
           text: resultText,
           url: shareUrl,
         });
+        showToastNotification("공유하기가 완료되었습니다!");
         return;
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -463,9 +466,22 @@ function ResultScreen({
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("복사가 성공되었습니다!");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    const shareUrl = `https://lifefit.kr/tools/fit-youth?age=${answers.age ? 1 : 0}&residence=${answers.residence ? 1 : 0}&income=${answers.income ? 1 : 0}&asset=${answers.asset ? 1 : 0}&subscription=${answers.subscription ? 1 : 0}`;
+    shareToKakao({
+      title: `2026 청년 주거지원 판별기 🏠`,
+      description: `청년월세 특별지원 및 주택드림 청약 가입 대상 판별 결과: ${rentSupportLabel}. 내 조건 충족 여부를 1분 만에 확인해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 가입 대상 확인하기",
+      url: shareUrl,
+    });
   };
 
   return (
@@ -650,26 +666,39 @@ function ResultScreen({
           </p>
         </div>
 
-        <div className="flex flex-col gap-2.5">
-          <div className="flex gap-2">
-            {/* 다시 계산하기 버튼 */}
+        <div className="flex flex-col gap-2 w-full">
+          <div className="flex gap-2 w-full">
+            {/* 카카오톡 공유 버튼 */}
             <button
-              onClick={onReset}
-              className="flex-1 h-12 rounded-2xl bg-gray-100 text-gray-700 font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-all active:scale-[0.98]"
+              onClick={handleKakaoShare}
+              className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
             >
-              <Calculator size={16} />
-              {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
+              <span className="text-base">💬</span>
+              카카오톡 공유
             </button>
 
-            {/* 공유하기 버튼 */}
+            {/* 링크 복사 버튼 */}
             <button
               onClick={handleShare}
-              className="flex-1 h-12 rounded-2xl bg-blue-600 text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-blue-700 transition-all active:scale-[0.98] shadow-md shadow-blue-100"
+              className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                isCopied
+                  ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-100"
+              }`}
             >
-              <Share2 size={16} />
-              공유하기
+              {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+              {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
             </button>
           </div>
+
+          {/* 다시 계산하기 버튼 */}
+          <button
+            onClick={onReset}
+            className="w-full h-12 rounded-2xl bg-gray-100 text-gray-700 font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-all active:scale-[0.98]"
+          >
+            <Calculator size={16} />
+            {isSharedResult ? "나도 판별해보기" : "다시 확인하기"}
+          </button>
         </div>
       </div>
 

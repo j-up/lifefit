@@ -22,6 +22,7 @@ import {
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -78,6 +79,7 @@ export default function Home() {
   const [isFirst12Months, setIsFirst12Months] = useState<boolean | null>(null);
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -224,6 +226,7 @@ export default function Home() {
           text: resultText,
           url: shareUrl,
         });
+        showToastNotification("공유하기가 완료되었습니다!");
         return;
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -235,9 +238,24 @@ export default function Home() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("복사가 성공되었습니다!");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results) return;
+    const shareUrl = `https://lifefit.kr/tools/short-work?sal=${salaryStr}&orig=${originalHours}&red=${reducedHours}&first=${isFirst12Months ? 1 : 0}`;
+    const highlightText = `예상 실수령액: 월 ${formatCurrency(results.totalNet)}원`;
+    shareToKakao({
+      title: `2026 육아기 단축근무 급여 계산기 👶`,
+      description: `단축 근무 시 고용보험 지원금 및 회사 월급 합산 결과. (${highlightText}) 내 실수령액을 1분 만에 확인해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 실수령액 확인하기",
+      url: shareUrl,
+    });
   };
 
 
@@ -724,36 +742,49 @@ export default function Home() {
                   </p>
                 </div>
                 
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex gap-2">
-                    {/* 다시 계산하기 버튼 */}
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex gap-2 w-full">
+                    {/* 카카오톡 공유 버튼 */}
                     <button
-                      onClick={() => {
-                        setStep(1);
-                        setSalaryStr("");
-                        setOriginalHours(40);
-                        setReducedHours(30);
-                        setIsFirst12Months(null);
-                        setIsSharedResult(false);
-                        if (typeof window !== "undefined") {
-                          window.history.replaceState({}, "", window.location.pathname);
-                        }
-                      }}
-                      className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
+                      onClick={handleKakaoShare}
+                      className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
                     >
-                      <Calculator size={16} />
-                      {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
+                      <span className="text-base">💬</span>
+                      카카오톡 공유
                     </button>
 
-                    {/* 공유하기 버튼 */}
+                    {/* 링크 복사 버튼 */}
                     <button
                       onClick={handleShare}
-                      className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#1e6fdb] transition-all active:scale-[0.98] shadow-md shadow-blue-100"
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                          : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
+                      }`}
                     >
-                      <Share2 size={16} />
-                      공유하기
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
                     </button>
                   </div>
+
+                  {/* 다시 계산하기 버튼 */}
+                  <button
+                    onClick={() => {
+                      setStep(1);
+                      setSalaryStr("");
+                      setOriginalHours(40);
+                      setReducedHours(30);
+                      setIsFirst12Months(null);
+                      setIsSharedResult(false);
+                      if (typeof window !== "undefined") {
+                        window.history.replaceState({}, "", window.location.pathname);
+                      }
+                    }}
+                    className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
+                  >
+                    <Calculator size={16} />
+                    {isSharedResult ? "나도 계산해보기" : "다시 계산하기"}
+                  </button>
                 </div>
               </div>
             )}

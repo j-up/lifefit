@@ -20,6 +20,7 @@ import {
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -40,6 +41,7 @@ export default function KPassClimatePage() {
   
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -232,9 +234,29 @@ export default function KPassClimatePage() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과 링크가 복사되었습니다! 친구에게 공유해보세요.");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("❌ 복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results || !region) return;
+    const shareUrl = `https://lifefit.kr/tools/kpass-climate?region=${region}&rides=${ridesStr}&fare=${fareStr}&demo=${demographic}&bike=${useBike}`;
+    
+    const cardName = results.isClimateCardBetter ? "기후동행카드" : "K-패스";
+    const highlightText = results.isClimateCardBetter 
+      ? `기후동행카드 이용 시 K-패스 대비 월 ${formatCurrency(results.savingDiff)}원 추가 절약!` 
+      : `K-패스 이용 시 매달 ${formatCurrency(results.kpassCashback)}원 현금 환급!`;
+
+    shareToKakao({
+      title: `내게 맞는 대중교통 카드는? 🚌`,
+      description: `비교 결과 내 최적의 카드는 '${cardName}'입니다. (${highlightText}) 내 대중교통 패턴에 맞는 카드를 확인해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 최적의 카드 찾기",
+      url: shareUrl,
+    });
   };
 
   return (
@@ -273,6 +295,41 @@ export default function KPassClimatePage() {
                 item: "https://lifefit.kr/tools/kpass-climate",
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "K-패스와 기후동행카드의 차이점은 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "K-패스는 대중교통 탑승 횟수(최소 15회)에 따라 이용금액의 일부(20~53.3%)를 캐시백으로 돌려받는 구조입니다. 반면 기후동행카드는 일정 금액(6.2만~6.5만 원, 청년은 5.5~5.8만 원)을 내면 서울 내 대중교통을 무제한 탑승할 수 있는 정기권입니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "기후동행카드의 사용 대상 연령 및 요금은 어떻게 되나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "기본 요금은 만 35세 이상 일반 기준 월 62,000원(따릉이 포함 시 65,000원)이며, 만 19세~34세 이하 청년은 할인 혜택을 적용받아 월 55,000원(따릉이 포함 시 58,000원)에 구매 가능합니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "K-패스의 환급 기준과 비율은 어떻게 되나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "한 달에 최소 15회 이상 대중교통을 이용해야 환급되며, 일반 20%, 청년(만19~34세) 30%, 기초생활수급자 및 차상위계층 등 저소득층은 최대 53.3%까지 현금으로 돌려받습니다."
+                }
+              }
+            ]
           }),
         }}
       />
@@ -729,7 +786,32 @@ export default function KPassClimatePage() {
             )}
             {step === 5 && (
               <div className="w-full mt-4 pt-6 border-t border-[#f2f4f6] space-y-4 text-center">
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex gap-2 w-full">
+                    {/* 카카오톡 공유 버튼 */}
+                    <button
+                      onClick={handleKakaoShare}
+                      className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
+                    >
+                      <span className="text-base">💬</span>
+                      카카오톡 공유
+                    </button>
+
+                    {/* 링크 복사 버튼 */}
+                    <button
+                      onClick={handleShare}
+                      className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                        isCopied
+                          ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                          : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-md shadow-indigo-100"
+                      }`}
+                    >
+                      {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                      {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
+                    </button>
+                  </div>
+
+                  {/* 다시 계산하기 버튼 */}
                   <button
                     onClick={() => {
                       setStep(1);
@@ -742,17 +824,10 @@ export default function KPassClimatePage() {
                         window.history.replaceState({}, "", window.location.pathname);
                       }
                     }}
-                    className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
+                    className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
                   >
                     <History size={16} />
                     {isSharedResult ? "나도 해보기" : "다시 하기"}
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="flex-1 h-12 rounded-2xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-indigo-700 shadow-md shadow-indigo-100 transition-all"
-                  >
-                    <Share2 size={16} />
-                    결과 공유
                   </button>
                 </div>
               </div>

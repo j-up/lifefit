@@ -16,6 +16,7 @@ import {
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -58,6 +59,7 @@ export default function FutureSavingsPage() {
   // 공유 상태 및 토스트 알림
   const [isSharedResult, setIsSharedResult] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -399,9 +401,23 @@ export default function FutureSavingsPage() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("결과 링크가 복사되었습니다! 친구에게 공유해 보세요.");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("❌ 복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results) return;
+    const shareUrl = `https://lifefit.kr/tools/future-savings?by=${birthYear}&bm=${birthMonth}&mil=${servedMilitary ? "y" : "n"}&milm=${militaryMonths}&inc=${hasIncome ? "y" : "n"}&inct=${incomeType}&inca=${incomeAmountStr}&sme=${isSmeNewHire ? "y" : "n"}&hh=${householdSize}&hht=${householdIncomeTier}&ms=${monthlySavingsStr}&br=${bankRateStr}`;
+    shareToKakao({
+      title: `청년미래적금 3년 만기 수령액 확인 💰`,
+      description: `비교 결과: ${eligibility.title}. 납입금 대비 최종 수령액은 약 ${formatCurrency(results.finalAmount)}원(실질 단리 연 ${results.effectiveRate.toFixed(1)}% 효과)입니다!`,
+      imageUrl: "https://lifefit.kr/og-default.png",
+      buttonText: "나도 만기수령액 계산하기",
+      url: shareUrl,
+    });
   };
 
   return (
@@ -990,12 +1006,52 @@ export default function FutureSavingsPage() {
 
             {step === 5 && (
               <div className="w-full mt-4 pt-6 border-t border-[#f2f4f6] space-y-4 text-center">
-                <div className="flex gap-2">
+                <div>
+                  <p className="text-sm font-bold text-[#191f28]">
+                    🎉 내 판별 결과 주변에 공유하기
+                  </p>
+                  <p className="text-xs text-[#8b95a1] mt-1">
+                    친구들도 청년미래적금 가입 대상인지 확인해 볼 수 있게 알려주세요!
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2 w-full">
+                  {!eligibility.status.startsWith("ineligible") && (
+                    <div className="flex gap-2 w-full">
+                      {/* 카카오톡 공유 버튼 */}
+                      <button
+                        onClick={handleKakaoShare}
+                        className="flex-1 h-12 rounded-2xl bg-[#FEE500] text-[#191F28] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#FADA0A] transition-all active:scale-[0.98]"
+                      >
+                        <span className="text-base">💬</span>
+                        카카오톡 공유
+                      </button>
+
+                      {/* 링크 복사 버튼 */}
+                      <button
+                        onClick={handleShare}
+                        className={`flex-1 h-12 rounded-2xl font-bold text-sm flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${
+                          isCopied
+                            ? "bg-[#e8f9f0] text-[#00c471] border border-[#00c471]/20"
+                            : "bg-[#3182f6] text-white hover:bg-[#1e6fdb] shadow-md shadow-blue-100"
+                        }`}
+                      >
+                        {isCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                        {isCopied ? "링크 복사 완료!" : "결과 링크 복사"}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* 다시 계산하기 버튼 */}
                   <button
                     onClick={() => {
                       setStep(1);
+                      setBirthYear("1996");
+                      setBirthMonth("5");
                       setServedMilitary(false);
+                      setMilitaryMonths("18");
                       setHasIncome(true);
+                      setIncomeType("salary");
                       setIncomeAmountStr("3200");
                       setIsSmeNewHire(false);
                       setHouseholdSize(2);
@@ -1005,21 +1061,11 @@ export default function FutureSavingsPage() {
                         window.history.replaceState({}, "", window.location.pathname);
                       }
                     }}
-                    className="flex-1 h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all"
+                    className="w-full h-12 rounded-2xl bg-[#f2f4f6] text-[#4e5968] font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#e5e8eb] transition-all active:scale-[0.98]"
                   >
                     <History size={16} />
                     {isSharedResult ? "나도 해보기" : "다시 하기"}
                   </button>
-                  
-                  {!eligibility.status.startsWith("ineligible") && (
-                    <button
-                      onClick={handleShare}
-                      className="flex-1 h-12 rounded-2xl bg-[#3182f6] text-white font-bold text-sm flex items-center justify-center gap-1.5 hover:bg-[#1e6fdb] shadow-md shadow-blue-100 transition-all"
-                    >
-                      <Share2 size={16} />
-                      결과 공유
-                    </button>
-                  )}
                 </div>
               </div>
             )}

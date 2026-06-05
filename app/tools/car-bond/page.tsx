@@ -25,6 +25,7 @@ import {
 import AdSenseSlot from "@/app/components/AdSenseSlot";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import { shareToKakao } from "@/app/utils/kakaoShare";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -322,9 +323,23 @@ export default function CarBondPage() {
     try {
       await navigator.clipboard.writeText(fullText);
       showToastNotification("복사가 성공되었습니다!");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       showToastNotification("복사에 실패했습니다.");
     }
+  };
+
+  const handleKakaoShare = () => {
+    if (!results || !region || !carType || !year) return;
+    const shareUrl = `https://lifefit.kr/tools/car-bond?region=${region}&type=${carType}&year=${year}&price=${priceStr}`;
+    shareToKakao({
+      title: `자동차 미환급 채권 환급금: 약 ${formatCurrency(results.total)}원 🚗`,
+      description: `원금 ${formatCurrency(results.principal)}원 + 이자 ${formatCurrency(results.interest)}원. 내 차 살 때 낸 채권, 지금 환급받을 수 있는지 확인해 보세요!`,
+      imageUrl: "https://lifefit.kr/og-car-bond.png",
+      buttonText: "나도 환급금 계산해보기",
+      url: shareUrl,
+    });
   };
 
 
@@ -387,6 +402,41 @@ export default function CarBondPage() {
                 item: "https://lifefit.kr/tools/car-bond",
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "자동차 미환급 채권이란 무엇인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "자동차를 구매하고 지자체에 등록할 때 의무적으로 매입해야 하는 지역개발채권 또는 도시철도채권입니다. 일정 기간(보통 5년~7년)이 지나면 원금과 이자를 환급받을 수 있습니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "자동차 채권 미환급금의 청구 시효는 언제까지인가요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "채권의 상환일(만기일)로부터 5년이 경과하면 청구 시효가 소멸되어 국고로 귀속됩니다. 따라서 만기 도래 후 5년 이내에 환급을 신청해야 안전하게 돌려받을 수 있습니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "자동차 채권 환급금은 어디서 조회하고 신청하나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "정부24 미환급금 통합조회 서비스를 이용하거나, 차량을 등록한 지자체의 지정 금고 은행(예: 서울은 신한은행, 경기는 농협은행 등) 홈페이지 및 모바일 앱을 통해 본인인증 후 즉시 조회하고 신청할 수 있습니다."
+                }
+              }
+            ]
           }),
         }}
       />
