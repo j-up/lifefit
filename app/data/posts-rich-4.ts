@@ -95,7 +95,14 @@ export const postsPart4: Post[] = [
 </div>
 
 <h2>파킹통장 자금, 적금 선납이연과 연계해 200% 활용하기</h2>
-<p>파킹통장에 묵혀둔 목돈은 그냥 두는 것보다 고금리 정기적금의 <strong>선납이연 플랜</strong>과 결합할 때 시너지가 극대화됩니다. 적금의 첫 회차에 일부 금액만 납입하고 나머지 잔액은 파킹통장에서 이자를 받으며 대기하다가, 예정된 회차에 맞춰 적금에 밀어 넣는 방식으로 <strong>이자 수익을 양쪽에서 모두 챙기는 스마트한 재테크</strong>가 가능합니다. 본인의 적금 계획에 선납이연을 어떻게 적용할 수 있을지 계산기를 통해 확인해 보세요.</p>`,
+<p>파킹통장에 묵혀둔 목돈은 그냥 두는 것보다 고금리 정기적금의 <strong>선납이연 플랜</strong>과 결합할 때 시너지가 극대화됩니다. 적금의 첫 회차에 일부 금액만 납입하고 나머지 잔액은 파킹통장에서 이자를 받으며 대기하다가, 예정된 회차에 맞춰 적금에 밀어 넣는 방식으로 <strong>이자 수익을 양쪽에서 모두 챙기는 스마트한 재테크</strong>가 가능합니다. 본인의 적금 계획에 선납이연을 어떻게 적용할 수 있을지 계산기를 통해 확인해 보세요.</p>
+<div class="bg-blue-50 border border-blue-100 p-5 my-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div>
+    <h4 class="font-bold text-blue-900 text-sm">💰 파킹통장 이자 + 적금 이자 2배로 불리기</h4>
+    <p class="text-xs text-blue-700 mt-1">선납이연 계산기로 내 파킹통장 자금 연계 시뮬레이션을 돌려보세요.</p>
+  </div>
+  <a href="/tools/savings-plan" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md shadow-blue-100 transition-colors no-underline">1초 만에 계산해보기 →</a>
+</div>`,
     relatedTool: {
       href: "/tools/savings-plan",
       label: "적금 선납이연 플랜 계산기",
@@ -247,7 +254,14 @@ export const postsPart4: Post[] = [
 </div>
 
 <h2>청년미래적금 예상 혜택 미리 계산해보기</h2>
-<p>내 나이와 소득, 그리고 가구 중위소득 기준을 대입하여 청년미래적금 가입 시 <strong>매칭될 정부 기여금 비율(12% 우대형 vs 6% 일반형)을 판별하고, 3년 뒤 받게 될 최종 세후 원리금과 비과세 혜택 액수</strong>를 1분 만에 계산해 주는 청년미래적금 전용 시뮬레이터를 이용해 보세요. 나만의 저축 플랜을 더 완벽하게 세울 수 있습니다.</p>`,
+<p>내 나이와 소득, 그리고 가구 중위소득 기준을 대입하여 청년미래적금 가입 시 <strong>매칭될 정부 기여금 비율(12% 우대형 vs 6% 일반형)을 판별하고, 3년 뒤 받게 될 최종 세후 원리금과 비과세 혜택 액수</strong>를 1분 만에 계산해 주는 청년미래적금 전용 시뮬레이터를 이용해 보세요. 나만의 저축 플랜을 더 완벽하게 세울 수 있습니다.</p>
+<div class="bg-indigo-50 border border-indigo-100 p-5 my-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div>
+    <h4 class="font-bold text-indigo-900 text-sm">✨ 청년미래적금 우대형 자격 진단하기</h4>
+    <p class="text-xs text-indigo-700 mt-1">내가 12% 우대 매칭형인지, 비과세 혜택만 받는지 즉시 시뮬레이션합니다.</p>
+  </div>
+  <a href="/tools/future-savings" class="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md shadow-indigo-100 transition-colors no-underline">자격 판별해보기 →</a>
+</div>`,
     relatedTool: {
       href: "/tools/future-savings",
       label: "청년미래적금 예상 혜택 계산기",
@@ -476,7 +490,14 @@ export const postsPart4: Post[] = [
 </div>
 
 <h2>가입 전 혜택 시뮬레이션 활용하기</h2>
-<p>내가 일반형(6% 매칭)인지 우대형(12% 매칭)인지 헷갈리거나, 월 저축 금액에 따라 3년 뒤 통장에 찍힐 최종 만기 원리금과 비과세로 아끼는 이자액이 얼마인지 직접 눈으로 보고 가입하고 싶으신가요? 본인의 상세 자격을 진단하고 만기 수령 금액을 10초 만에 시뮬레이션해 주는 계산기를 활용해 실속 있게 재테크를 시작해 보세요!</p>`,
+<p>내가 일반형(6% 매칭)인지 우대형(12% 매칭)인지 헷갈리거나, 월 저축 금액에 따라 3년 뒤 통장에 찍힐 최종 만기 원리금과 비과세로 아끼는 이자액이 얼마인지 직접 눈으로 보고 가입하고 싶으신가요? 본인의 상세 자격을 진단하고 만기 수령 금액을 10초 만에 시뮬레이션해 주는 계산기를 활용해 실속 있게 재테크를 시작해 보세요!</p>
+<div class="bg-indigo-50 border border-indigo-100 p-5 my-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div>
+    <h4 class="font-bold text-indigo-900 text-sm">💰 내 소득별 청년미래적금 만기 수령액은?</h4>
+    <p class="text-xs text-indigo-700 mt-1">정부 기여금 매칭과 세후 이자 혜택을 10초 만에 확인해 보세요.</p>
+  </div>
+  <a href="/tools/future-savings" class="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md shadow-indigo-100 transition-colors no-underline">수령액 계산해보기 →</a>
+</div>`,
     relatedTool: {
       href: "/tools/future-savings",
       label: "청년미래적금 혜택 진단 계산기",
@@ -524,7 +545,14 @@ export const postsPart4: Post[] = [
 </div>
 
 <h2>내 건강보험료 인상 리스크 1분 모의계산</h2>
-<p>직장 외 부업 수입이나 프리랜서 소득 금액에 따라 <strong>내가 피부양자 자격을 계속 유지할 수 있는지, 혹은 다가올 11월에 지역건보료 고지서로 추가 지출될 금액이 얼마인지</strong> 불안하신가요? 본인의 직장 연봉과 부업 소득을 대입해 건보료 리스크와 피부양자 상실 확률을 즉시 시뮬레이션해 주는 계산기를 통해 미리 재정 계획을 점검해 보세요!</p>`,
+<p>직장 외 부업 수입이나 프리랜서 소득 금액에 따라 <strong>내가 피부양자 자격을 계속 유지할 수 있는지, 혹은 다가올 11월에 지역건보료 고지서로 추가 지출될 금액이 얼마인지</strong> 불안하신가요? 본인의 직장 연봉과 부업 소득을 대입해 건보료 리스크와 피부양자 상실 확률을 즉시 시뮬레이션해 주는 계산기를 통해 미리 재정 계획을 점검해 보세요!</p>
+<div class="bg-teal-50 border border-teal-100 p-5 my-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div>
+    <h4 class="font-bold text-teal-900 text-sm">💸 N잡러 건보료 폭탄 & 피부양자 자격 자가진단</h4>
+    <p class="text-xs text-teal-700 mt-1">종합소득세 신고 후 추가 부과될 내 건보료와 피부양자 탈락 위험을 진단합니다.</p>
+  </div>
+  <a href="/tools/njob-tax" class="shrink-0 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md shadow-teal-100 transition-colors no-underline">건보료 진단하기 →</a>
+</div>`,
     relatedTool: {
       href: "/tools/njob-tax",
       label: "N잡러 세금 및 건보료 계산기",

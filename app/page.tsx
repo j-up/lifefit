@@ -161,6 +161,104 @@ export default async function Home() {
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         {/* Reorganized Tools Section */}
         <div id="tools" className="space-y-12 scroll-mt-24">
+          {/* 실시간 인기 도구 TOP 3 Section */}
+          <section className="bg-gradient-to-br from-blue-50/50 to-indigo-50/30 rounded-3xl p-6 sm:p-8 border border-blue-100/50 shadow-sm">
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 text-white text-base shadow-sm">
+                  🔥
+                </span>
+                <div>
+                  <h2 className="text-lg font-extrabold text-gray-900 sm:text-xl">실시간 가장 많이 찾는 계산기 TOP 3</h2>
+                  <p className="text-xs text-gray-500 mt-0.5">GA4 사용자 체류 시간 및 클릭률 기준 인기 도구</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid gap-5 sm:grid-cols-3">
+              {/* 1위: 청년미래적금 */}
+              <div className="group relative rounded-2xl bg-white p-5 border border-blue-200/60 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">
+                      실시간 1위 🔥
+                    </span>
+                    <span className="text-xs font-bold text-blue-500">우대금리 진단</span>
+                  </div>
+                  <h3 className="mt-3 text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                    청년미래적금 자격&amp;수령액 계산기
+                  </h3>
+                  <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                    2026년 6월 신설 청년미래적금 가입조건 판별 및 매칭금액 만기 수령액 시뮬레이션
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400">평균 체류 시간 2분 26초</span>
+                  <Link
+                    href="/tools/future-savings"
+                    className="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-700"
+                  >
+                    진단하기 →
+                  </Link>
+                </div>
+              </div>
+
+              {/* 2위: 적금 선납이연 */}
+              <div className="group relative rounded-2xl bg-white p-5 border border-indigo-200/60 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-[10px] font-bold text-indigo-700">
+                      실시간 2위 ⚡
+                    </span>
+                    <span className="text-xs font-bold text-indigo-500">수익 극대화</span>
+                  </div>
+                  <h3 className="mt-3 text-base font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                    적금 선납이연 플랜 계산기
+                  </h3>
+                  <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                    6-1-5, 1-11 플랜과 파킹통장을 연계하여 이자를 2배로 불리는 추가 세후 이자 시뮬레이션
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">파킹 연계 기능 Up ✨</span>
+                  <Link
+                    href="/tools/savings-plan"
+                    className="inline-flex items-center text-xs font-bold text-indigo-600 hover:text-indigo-700"
+                  >
+                    계산하기 →
+                  </Link>
+                </div>
+              </div>
+
+              {/* 3위: K-패스 vs 기후동행카드 */}
+              <div className="group relative rounded-2xl bg-white p-5 border border-gray-200/60 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-[10px] font-bold text-gray-700">
+                      실시간 3위 🚌
+                    </span>
+                    <span className="text-xs font-bold text-gray-500">교통비 절약</span>
+                  </div>
+                  <h3 className="mt-3 text-base font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                    K-패스 vs 기후동행카드 비교기
+                  </h3>
+                  <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                    내 대중교통 이용 패턴과 월 승차 횟수를 입력하여 나에게 딱 맞는 최적의 교통카드를 판별
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400">1분 만에 비교 완료</span>
+                  <Link
+                    href="/tools/kpass-climate"
+                    className="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-700"
+                  >
+                    비교하기 →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Category 1: Financial Asset Management */}
           <section>
             <div className="mb-6 flex items-center gap-2">

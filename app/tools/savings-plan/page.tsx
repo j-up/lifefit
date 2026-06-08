@@ -56,6 +56,8 @@ export default function SavingsPlanPage() {
   
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [parkingRateStr, setParkingRateStr] = useState<string>("3.5");
+  const [depositRateStr, setDepositRateStr] = useState<string>("3.0");
 
   const showToastNotification = (msg: string) => {
     setToastMessage(msg);
@@ -135,6 +137,9 @@ export default function SavingsPlanPage() {
   const rate = rateStr === "" ? 0 : parseFloat(rateStr);
   const startDate = useMemo(() => new Date(startDateStr), [startDateStr]);
 
+  const parkingRate = parkingRateStr === "" ? 0 : parseFloat(parkingRateStr);
+  const depositRate = depositRateStr === "" ? 0 : parseFloat(depositRateStr);
+
   const results = useMemo(() => {
     if (step < 5) return null;
 
@@ -152,39 +157,111 @@ export default function SavingsPlanPage() {
     const taxRate = 0.154;
     const netNormalInterest = totalNormalInterest * (1 - taxRate);
 
+    // 예금 환산 이자 계산 (동일 금액을 정기예금에 예치했을 때)
+    const depositInterestRaw = (amount * n) * (depositRate / 100);
+    const netDepositInterest = depositInterestRaw * (1 - taxRate);
+
+    // 각 플랜별 파킹통장 추가 이자 계산 (세후)
+    const getParkingInterest = (type: "6-1-5" | "1-11" | "6-6") => {
+      let interest = 0;
+      if (n === 12) {
+        if (type === "6-1-5") {
+          // 6개월분 파킹(6개월간) + 5개월분 파킹(5개월간)
+          interest = (amount * 6 * (parkingRate / 100) * (6 / 12)) + 
+                     (amount * 5 * (parkingRate / 100) * (5 / 12));
+        } else if (type === "1-11") {
+          // 11개월분 파킹(6개월간)
+          interest = amount * 11 * (parkingRate / 100) * (6 / 12);
+        } else if (type === "6-6") {
+          // 6개월분 파킹(6개월간)
+          interest = amount * 6 * (parkingRate / 100) * (6 / 12);
+        }
+      } else { // 24개월
+        if (type === "6-1-5") { // 12-1-11 플랜
+          interest = (amount * 12 * (parkingRate / 100) * (12 / 12)) + 
+                     (amount * 11 * (parkingRate / 100) * (11 / 12));
+        } else if (type === "1-11") { // 1-23 플랜
+          interest = amount * 23 * (parkingRate / 100) * (12 / 12);
+        } else if (type === "6-6") { // 12-12 플랜
+          interest = amount * 12 * (parkingRate / 100) * (12 / 12);
+        }
+      }
+      return interest * (1 - taxRate);
+    };
+
     const getPlanSchedule = (type: "6-1-5" | "1-11" | "6-6") => {
       const schedule: { date: Date; count: number; amount: number }[] = [];
       const d1 = new Date(scheduledDates[0]);
-      const d7 = new Date(scheduledDates[6] || scheduledDates[0]); 
       
-      if (type === "6-1-5") {
-        schedule.push({ date: d1, count: 6, amount: amount * 6 });
-        schedule.push({ date: d7, count: 1, amount: amount * 1 });
-        const dLast = new Date(maturityDate);
-        dLast.setDate(dLast.getDate() - 1);
-        schedule.push({ date: dLast, count: 5, amount: amount * 5 });
-      } else if (type === "1-11") {
-        schedule.push({ date: d1, count: 1, amount: amount * 1 });
-        schedule.push({ date: d7, count: 11, amount: amount * 11 });
-      } else if (type === "6-6") {
-        schedule.push({ date: d1, count: 6, amount: amount * 6 });
-        schedule.push({ date: d7, count: 6, amount: amount * 6 });
+      if (n === 12) {
+        const d7 = new Date(scheduledDates[6] || scheduledDates[0]);
+        if (type === "6-1-5") {
+          schedule.push({ date: d1, count: 6, amount: amount * 6 });
+          schedule.push({ date: d7, count: 1, amount: amount * 1 });
+          const dLast = new Date(maturityDate);
+          dLast.setDate(dLast.getDate() - 1);
+          schedule.push({ date: dLast, count: 5, amount: amount * 5 });
+        } else if (type === "1-11") {
+          schedule.push({ date: d1, count: 1, amount: amount * 1 });
+          schedule.push({ date: d7, count: 11, amount: amount * 11 });
+        } else if (type === "6-6") {
+          schedule.push({ date: d1, count: 6, amount: amount * 6 });
+          schedule.push({ date: d7, count: 6, amount: amount * 6 });
+        }
+      } else { // 24개월
+        const d13 = new Date(scheduledDates[12] || scheduledDates[0]);
+        if (type === "6-1-5") { // 12-1-11 플랜
+          schedule.push({ date: d1, count: 12, amount: amount * 12 });
+          schedule.push({ date: d13, count: 1, amount: amount * 1 });
+          const dLast = new Date(maturityDate);
+          dLast.setDate(dLast.getDate() - 1);
+          schedule.push({ date: dLast, count: 11, amount: amount * 11 });
+        } else if (type === "1-11") { // 1-23 플랜
+          schedule.push({ date: d1, count: 1, amount: amount * 1 });
+          schedule.push({ date: d13, count: 23, amount: amount * 23 });
+        } else if (type === "6-6") { // 12-12 플랜
+          schedule.push({ date: d1, count: 12, amount: amount * 12 });
+          schedule.push({ date: d13, count: 12, amount: amount * 12 });
+        }
       }
       return schedule;
     };
+
+    const getPlanName = (type: "6-1-5" | "1-11" | "6-6") => {
+      if (n === 12) {
+        if (type === "6-1-5") return "6-1-5 플랜";
+        if (type === "1-11") return "1-11 플랜";
+        return "6-6 플랜";
+      } else {
+        if (type === "6-1-5") return "12-1-11 플랜";
+        if (type === "1-11") return "1-23 플랜";
+        return "12-12 플랜";
+      }
+    };
+
+    const plans = (["6-1-5", "1-11", "6-6"] as const).map((type) => {
+      const pInterest = getParkingInterest(type);
+      const combinedInterest = netNormalInterest + pInterest;
+      const extraBenefit = combinedInterest - netDepositInterest;
+      return {
+        name: getPlanName(type),
+        type,
+        schedule: getPlanSchedule(type),
+        parkingInterest: pInterest,
+        combinedInterest,
+        extraBenefit,
+      };
+    });
 
     return {
       totalPrincipal: amount * n,
       totalNormalInterest,
       netNormalInterest,
+      netDepositInterest,
       maturityDate,
-      plans: [
-        { name: "6-1-5 플랜", type: "6-1-5", schedule: getPlanSchedule("6-1-5") },
-        { name: "1-11 플랜", type: "1-11", schedule: getPlanSchedule("1-11") },
-        { name: "6-6 플랜", type: "6-6", schedule: getPlanSchedule("6-6") },
-      ],
+      plans,
     };
-  }, [step, amount, period, rate, startDate]);
+  }, [step, amount, period, rate, startDate, parkingRate, depositRate]);
 
   const canProceed = () => {
     if (step === 1) return amount > 0;
@@ -520,19 +597,98 @@ export default function SavingsPlanPage() {
                 </div>
               </div>
 
+              {/* 추가 수익 시뮬레이터 */}
+              <div className="rounded-2xl border border-blue-100 bg-[#f8faff] p-5 space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">📈</span>
+                  <h3 className="font-bold text-sm text-[#191f28]">파킹통장 연계 추가 수익 시뮬레이터</h3>
+                </div>
+                <p className="text-xs text-[#4e5968] leading-relaxed">
+                  미뤄둔 입금 예정액을 파킹통장에 넣어두었을 때의 추가 세후 이자 혜택을 정기예금과 비교합니다.
+                </p>
+
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <div>
+                    <label className="block text-[10px] font-bold text-[#8b95a1] mb-1">비교 정기예금 금리 (%)</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max="10"
+                        value={depositRateStr}
+                        onChange={(e) => setDepositRateStr(e.target.value)}
+                        className="w-full h-9 px-2.5 rounded-lg bg-white border border-[#e5e8eb] text-xs font-bold text-[#191f28] focus:ring-1 focus:ring-[#3182f6] outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold text-[#8b95a1] mb-1">연계 파킹통장 금리 (%)</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max="10"
+                        value={parkingRateStr}
+                        onChange={(e) => setParkingRateStr(e.target.value)}
+                        className="w-full h-9 px-2.5 rounded-lg bg-white border border-[#e5e8eb] text-xs font-bold text-[#191f28] focus:ring-1 focus:ring-[#3182f6] outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2 space-y-2.5">
+                  <div className="flex justify-between text-xs text-[#8b95a1]">
+                    <span>일반 정기예금 이자 (세후)</span>
+                    <span className="font-medium text-[#4e5968]">{formatCurrency(results.netDepositInterest)}원</span>
+                  </div>
+                  <div className="h-px bg-gray-100" />
+                  
+                  {results.plans.map((plan) => (
+                    <div key={plan.type} className="flex flex-col gap-1 p-2 rounded-xl bg-white border border-gray-50">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="font-bold text-[#191f28]">{plan.name}</span>
+                        <span className="font-bold text-[#3182f6]">{formatCurrency(plan.combinedInterest)}원</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[10px] text-[#8b95a1]">
+                        <span>(적금 {formatCurrency(results.netNormalInterest)}원 + 파킹 {formatCurrency(plan.parkingInterest)}원)</span>
+                        {plan.extraBenefit > 0 ? (
+                          <span className="font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">
+                            예금 대비 +{formatCurrency(plan.extraBenefit)}원 더 이득! 🏆
+                          </span>
+                        ) : (
+                          <span className="text-[#8b95a1]">
+                            예금 대비 {formatCurrency(plan.extraBenefit)}원
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* 플랜별 일정 */}
               <div className="space-y-4">
                 <h3 className="font-bold text-[#191f28] flex items-center gap-2">
                   <Calendar size={20} className="text-[#3182f6]" />
-                  선납이연 추천 플랜
+                  선납이연 추천 플랜 및 세부 일정
                 </h3>
                 
                 {results.plans.map((plan) => (
                   <div key={plan.type} className="rounded-2xl border border-[#e5e8eb] overflow-hidden">
-                    <div className="bg-[#f8f9fa] p-4 border-bottom border-[#e5e8eb]">
+                    <div className="bg-[#f8f9fa] p-4 border-b border-[#e5e8eb] flex justify-between items-center">
                       <p className="font-bold text-[#191f28]">{plan.name}</p>
+                      {plan.extraBenefit > 0 && (
+                        <span className="text-[10px] font-bold text-green-600 bg-green-50 border border-green-100 px-2 py-0.5 rounded-full">
+                          예금 대비 +{formatCurrency(plan.extraBenefit)}원
+                        </span>
+                      )}
                     </div>
                     <div className="p-4 space-y-3">
+                      <div className="text-[11px] text-[#8b95a1] pb-2 border-b border-dashed border-[#e5e8eb]">
+                        이 플랜 적용 시, 파킹통장 추가 이자 수익은 <strong>약 {formatCurrency(plan.parkingInterest)}원</strong>입니다.
+                      </div>
                       {plan.schedule.map((item, idx) => (
                         <div key={idx} className="flex items-center justify-between text-sm">
                           <div className="flex items-center gap-3">
@@ -552,10 +708,22 @@ export default function SavingsPlanPage() {
                 ))}
               </div>
 
-              <div className="p-4 bg-[#f2f4f6] rounded-2xl">
+              <div className="p-4 bg-[#f2f4f6] rounded-2xl space-y-3">
                 <p className="text-xs text-[#4e5968] leading-relaxed">
                   ※ <strong>선납이연</strong>은 적금의 일부 회차를 미리 내고(선납), 일부는 늦게 내는(이연) 방식으로 자금 흐름을 조절하는 테크닉입니다. 결과적으로 만기 이자는 일반 적금과 동일하게 수령하면서, 중간에 자금을 다른 곳(예: 파킹통장)에 활용할 수 있는 장점이 있습니다.
                 </p>
+                <div className="pt-2 border-t border-gray-200/50">
+                  <Link
+                    href="/posts/parking-account-rankings-june-2026"
+                    className="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-xl border border-blue-50 hover:border-blue-100 transition-colors group"
+                  >
+                    <div className="flex items-center gap-2 text-xs">
+                      <span>🏦</span>
+                      <span className="font-bold text-[#3182f6]">최신 고금리 파킹통장 TOP 5 비교하기</span>
+                    </div>
+                    <span className="text-[10px] font-semibold text-[#8b95a1] group-hover:text-[#3182f6] transition-colors">이동하기 →</span>
+                  </Link>
+                </div>
               </div>
 
               {/* 구글 애드센스 광고 영역 - 수익성 극대화 */}
