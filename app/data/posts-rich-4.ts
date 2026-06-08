@@ -815,6 +815,85 @@ export const postsPart4: Post[] = [
       theme: "blue"
     }
   },
+  {
+    id: "37",
+    title: "2026년 6월 여름맞이 숙박세일 페스타로 국내 여행 숙박비 최대 7만원 아끼는 법",
+    slug: "summer-accommodation-festa-june-2026",
+    date: "2026-06-08",
+    summary: "2026년 6월 11일부터 신청 가능한 여름맞이 숙박세일 페스타의 할인 혜택 조건, 선착순 발급 일정 및 사용 지역 정보를 알기 쉽게 총정리합니다.",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    category: "welfare",
+    readTime: "6분",
+    content: `<h2>2026 여름맞이 숙박세일 페스타란?</h2>
+<p>문화체육관광부와 한국관광공사가 국내 여행 활성화와 지역 경제 균형 발전을 위해 공동 진행하는 대규모 숙박 할인 지원 행사입니다. 만 19세 이상 국민이라면 누구나 비수도권 지역 숙소를 예약할 때 최대 7만 원까지 숙박비를 절감할 수 있는 절호의 찬스입니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>📌 여름맞이 숙박세일 페스타 3줄 요약</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>서울, 인천, 경기를 제외한 비수도권 인구감소 지역 85곳에서 숙박비 최대 7만 원까지 할인 지원</li>
+    <li>만 19세 이상 국민 누구나 1인 1매 선착순 발급 가능 (총 30만 장 한도)</li>
+    <li>2026년 6월 11일 오전 10시부터 신청 가능, 발급 후 다음 날 오전 7시까지 예약 완료 필수</li>
+  </ul>
+</div>
+
+<h2>🏖️ 여름맞이 숙박세일 페스타가 뭐예요?</h2>
+<p>국내 여행을 떠날 때 정부가 숙박비 일부를 쿠폰(할인권) 형태로 직접 지원해 주는 행사입니다. 올여름 휴가철 교통비, 식비 등으로 늘어난 가계 부담을 덜어주기 위해 비수도권 인구감소지역 85곳 내 등록된 호텔, 콘도, 리조트, 펜션 등에서 자유롭게 사용할 수 있습니다.</p>
+
+<h2>🏨 할인권 사용 가능 지역과 시설</h2>
+<p>지역 불균형 해소와 내수 진작을 위해 <strong>서울, 인천, 경기를 제외한 전국 비수도권의 인구감소 지역 85곳</strong>에 있는 등록 숙박시설로 한정됩니다. 대실 상품이나 미등록 숙박시설은 할인 적용 대상에서 제외되므로 예약 전 반드시 확인이 필요합니다.</p>
+
+<h2>🙌 신청 자격 및 배포 수량</h2>
+<p>만 19세 이상 대한민국 국민이라면 누구나 참여할 수 있습니다. 단, 1인당 1매씩만 선착순 발급 가능하며, 올여름 배포 한도는 <strong>1박 상품용 24만 장, 2박 이상 연박 상품용 6만 장</strong>으로 총 30만 장이 한정 배포되므로 인기가 높아 조기 소멸될 가능성이 큽니다.</p>
+
+<h2>📅 신청 기간 및 예약 일정</h2>
+<p><strong>2026년 6월 11일(목) 오전 10시부터</strong> 참여 온라인 여행사(OTA) 채널을 통해 선착순으로 쿠폰을 발급받을 수 있습니다. 이벤트 적용 기간은 <strong>2026년 7월 31일까지</strong>로 올여름 휴가 일정에 딱 맞춰 운용됩니다. 주요 참여 채널로는 야놀자(NOL), 여기어때, 마이리얼트립 등이 있습니다.</p>
+
+<h2>⏰ 발급 후 사용 유효기간 (중요!)</h2>
+<p>할인권 발급 시 가장 주의해야 할 점은 <strong>발급일 당일 오전 10시부터 다음 날 오전 7시까지 반드시 예약과 결제를 완료</strong>해야 한다는 점입니다. 이 시간이 지나면 할인권은 자동 소멸됩니다. 다행히 쿠폰이 소멸되더라도 다음 날 오전 10시에 다시 접속하여 선착순으로 재발급받는 것은 가능합니다.</p>
+
+<h2>💰 숙박 상품별 구체적 할인 금액표</h2>
+<p>2026년에 새로 추가된 연박 혜택을 비롯하여, 상세 할인 조건은 아래 표에서 한눈에 확인하실 수 있습니다.</p>
+
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">숙박 구분</th>
+      <th class="p-3 text-left border">숙박 상품 금액 조건 (세금 포함)</th>
+      <th class="p-3 text-left border">할인 금액</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold text-center" rowspan="2">1박 단독 상품</td>
+      <td class="p-3 border">7만 원 이상</td>
+      <td class="p-3 border font-bold text-blue-600">3만 원 할인</td>
+    </tr>
+    <tr>
+      <td class="p-3 border">2만 원 이상 ~ 7만 원 미만</td>
+      <td class="p-3 border font-bold text-blue-600">2만 원 할인</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold text-center" rowspan="2">연박 (2박 이상) 상품</td>
+      <td class="p-3 border">14만 원 이상</td>
+      <td class="p-3 border font-bold text-green-600">7만 원 할인</td>
+    </tr>
+    <tr>
+      <td class="p-3 border">5만 원 이상 ~ 14만 원 미만</td>
+      <td class="p-3 border font-bold text-green-600">5만 원 할인</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>결제 전 최종 팁:</strong> 쿠폰은 각 여행사 채널마다 실시간 수량이 관리되므로 결제 속도가 빠른 곳을 미리 선택해 두는 것이 좋습니다. 또한 각 지자체의 추가 예산 편성 여부에 따라 참여 지자체 목록이 미세하게 달라질 수 있으므로 예약 직전 공식 문화체육관광부 공고를 재차 참고해 주세요.</p>
+</div>`,
+    relatedTool: {
+      href: "/tools/kpass-climate",
+      label: "K-패스 vs 기후동행카드 비교기",
+      desc: "전국 국내 여행 시 발생하는 교통비 부담을 줄여주는 최적의 대중교통 카드를 진단하세요.",
+      theme: "indigo"
+    }
+  },
 ];
 
 
