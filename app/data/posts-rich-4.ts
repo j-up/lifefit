@@ -894,6 +894,409 @@ export const postsPart4: Post[] = [
       theme: "indigo"
     }
   },
+  {
+    id: "38",
+    title: "2026년 청년 전세임대주택 입주 자격 조건 및 신청 일정 총정리",
+    slug: "youth-charter-rent-house-2026",
+    date: "2026-06-09",
+    summary: "LH에서 시행하는 2026년 청년 전세임대주택의 지원 한도액, 입주 자격 소득 기준과 신청 절차 및 주의사항을 알기 쉽게 정리해 드립니다.",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+    category: "housing",
+    readTime: "7분",
+    content: `<h2>청년 전세임대주택 제도란 무엇인가요?</h2>
+<p>청년 전세임대주택은 입주 대상자로 선정된 청년이 거주할 주택을 직접 물색하면, <strong>한국토지주택공사(LH)가 해당 주택 소유자와 전세계약을 체결한 뒤 청년에게 저렴하게 재임대</strong>하는 주거복지 제도입니다. 목돈 마련이 어려운 대학생, 취업준비생, 사회초년생 청년들에게 보증금 부담을 획기적으로 낮춰주는 아주 고마운 제도입니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>💡 2026년 청년 전세임대 핵심 요약</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>수도권 기준 최대 1억 2,000만 원까지 전세 보증금 지원 (개인 부담금은 단 100만~200만 원)</li>
+    <li>무주택자이면서 본인+부모 소득이 중위소득 100% 이하인 만 19세~39세 청년 신청 가능</li>
+    <li>이자율 연 1.0%~2.0% 수준의 저렴한 월 임대료로 최대 10년간 안정적 거주 보장</li>
+  </ul>
+</div>
+
+<h2>🏠 2026년 입주 자격 및 소득 기준</h2>
+<p>청년 전세임대주택은 소득과 자산 수준에 따라 순위가 결정됩니다. 2026년 적용되는 세부 소득 기준은 아래와 같습니다.</p>
+<ul>
+  <li><strong>1순위:</strong> 생계·의료·주거급여 수급자 가구, 차상위계층, 보호대상 한부모가족 청년</li>
+  <li><strong>2순위:</strong> 본인과 부모의 월평균 소득 합산액이 <strong>국민임대주택 소득 기준(100% 이하)</strong>을 충족하고, 자산 기준(가구 합산 자산 3억 4,500만 원 이하, 자동차 3,708만 원 이하)을 만족하는 무주택 청년</li>
+  <li><strong>3순위:</strong> 본인의 월평균 소득이 <strong>1인 가구 기준 120% 이하</strong>이고, 청년 본인의 자산 기준(자산 2억 7,300만 원 이하, 자동차 3,708만 원 이하)을 만족하는 청년</li>
+</ul>
+
+<h2>💰 지원 한도액 및 본인 부담금 비교</h2>
+<p>지역별로 지원 가능한 전세 보증금의 최고 한도액이 다릅니다. 한도를 초과하는 금액은 입주자가 직접 부담한다면 계약이 가능합니다.</p>
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">지역 구분</th>
+      <th class="p-3 text-left border">LH 지원 한도액</th>
+      <th class="p-3 text-left border">입주자 본인 보증금 부담액</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">수도권 (서울/경기/인천)</td>
+      <td class="p-3 border">1억 2,000만 원</td>
+      <td class="p-3 border" rowspan="2">1순위: 100만 원<br>2·3순위: 200만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">광역시 및 세종시</td>
+      <td class="p-3 border">9,500만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">기타 도 지역</td>
+      <td class="p-3 border">8,500만 원</td>
+      <td class="p-3 border">동일 적용</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>📝 실제 임대료(월세) 계산 시뮬레이션</h2>
+<p>LH가 지원해 준 보증금에서 본인 부담 보증금을 뺀 나머지 금액에 대해 <strong>연 1.0%~2.0%의 금리</strong>를 적용하여 매달 LH에 임대료로 납부하게 됩니다.</p>
+<p>예를 들어, 1순위 청년이 수도권에서 1억 원짜리 전세 주택을 임차하는 경우:</p>
+<ul class="list-disc pl-5 space-y-1 my-2">
+  <li>본인 부담 보증금: 100만 원</li>
+  <li>LH 지원금(대출 원금): 9,900만 원 (1억 원 - 100만 원)</li>
+  <li>적용 금리: 연 1.5% (4천만 원 초과 ~ 6천만 원 이하 구간 기준 우대금리 미적용시 연 2.0% 수준이나 청년 우대 적용)</li>
+  <li><strong>연간 임대료:</strong> 9,900만 원 × 1.5% = 148만 5,000원</li>
+  <li><strong>월세 환산액:</strong> 148만 5,000원 ÷ 12개월 = <strong>123,750원</strong></li>
+</ul>
+<p>시중 원룸 월세가 50만~60만 원을 상회하는 점을 감안할 때, 한 달에 약 12만 원의 임대료만 내고 전세로 거주할 수 있어 주거비를 엄청나게 절약할 수 있습니다.</p>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>에디터의 실전 꿀팁:</strong> 청년 전세임대주택은 당첨되는 것보다 **LH 승인이 가능한 주택을 물색하는 과정**이 훨씬 어렵습니다. 전세가율(집값 대비 전세가 비율)이 높거나 융자(근저당권)가 많이 잡힌 주택은 LH 심사에서 반려되므로, 부동산 방문 시 처음부터 'LH 전세임대 가능한 매물'을 요구해야 시간 낭비를 막을 수 있습니다.</p>
+</div>
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<h3>대학생인데 휴학 중에도 신청하거나 거주할 수 있나요?</h3>
+<p>네, 가능합니다. 대학생 자격으로 입주한 경우 휴학 중이더라도 계약 유지 및 거주가 가능합니다. 단, 자퇴 등으로 대학생 신분을 영구 상실하는 경우에는 중도 퇴거 조치되거나 일반 청년 자격으로 재계약해야 할 수 있습니다.</p>
+<h3>최대 거주 기간은 어떻게 되나요?</h3>
+<p>기본 임대차 계약 기간은 2년이며, 자격 요건을 유지할 경우 재계약을 통해 <strong>최대 4회까지(최대 10년)</strong> 장기 거주가 보장됩니다. 거주 도중 만 39세를 초과하더라도 입주 당시 연령 요건을 충족했다면 만기 시까지 계약 연장이 가능합니다.</p>`,
+    relatedTool: {
+      href: "/tools/fit-youth",
+      label: "청년 주거지원 대상자 판별기",
+      desc: "본인의 자산과 월 소득을 입력하여 LH 전세임대 및 정부 주거 지원 조건에 맞는지 1분 만에 진단해 보세요.",
+      theme: "purple"
+    }
+  },
+  {
+    id: "39",
+    title: "2026년 개정 근로소득세 과세표준 구간 조정과 유리지갑 직장인을 위한 연말정산 절세 팁",
+    slug: "earned-income-tax-brackets-2026",
+    date: "2026-06-09",
+    summary: "2026년 세법 개정안 통과에 따라 조정된 직장인 근로소득세 과표구간 구조를 분석하고, 실질 세율 인하 효과와 세금을 돌려받는 절세 전략을 소개합니다.",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858c?auto=format&fit=crop&w=800&q=80",
+    category: "tax",
+    readTime: "8분",
+    content: `<h2>2026년 근로소득세 개정 배경과 핵심 변화</h2>
+<p>매년 급여는 인상되는데 소득세 과세표준 구간은 고정되어 있어 실질 소득 대비 과세 부담이 지나치게 커진다는 지적이 꾸준히 제기되어 왔습니다. 정부는 이를 해소하기 위해 <strong>2026년부터 근로소득세 하위 과표구간을 대폭 상향 조정</strong>하여 서민 및 중산층 직장인들의 소득세 부담을 경감하기로 했습니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>📊 2026년 소득세율 핵심 개정 항목</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>최저 세율(6%) 적용 구간: 기존 1,400만 원 이하 ➡️ <strong>1,600만 원 이하</strong>로 확대</li>
+    <li>15% 세율 적용 구간: 기존 1,400만 원 ~ 5,000만 원 이하 ➡️ <strong>1,600만 원 ~ 5,400만 원 이하</strong>로 상향</li>
+    <li>중산층 과표구간 조정을 통해 연봉 4,000만 ~ 8,000만 원 사이 직장인들의 실질 소득세 절감 효과 극대화</li>
+  </ul>
+</div>
+
+<h2>📈 2026년 개정 소득세 과세표준 및 세율표</h2>
+<p>2026년부터 적용되는 근로소득세 세부 과세표준 구간과 해당 세율은 다음과 같습니다. 본인의 세전 연간 총급여에서 근로소득공제 및 기본공제를 차감한 '과세표준' 금액을 기준으로 적용됩니다.</p>
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">과세표준 구간</th>
+      <th class="p-3 text-left border">기존 소득세율</th>
+      <th class="p-3 text-left border">2026년 개정 세율</th>
+      <th class="p-3 text-left border">누진공제액</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border">1,600만 원 이하</td>
+      <td class="p-3 border" rowspan="2">6% / 15% 경계 조정</td>
+      <td class="p-3 border font-semibold text-blue-600">6%</td>
+      <td class="p-3 border">0원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border">1,600만 원 초과 ~ 5,400만 원 이하</td>
+      <td class="p-3 border font-semibold text-blue-600">15%</td>
+      <td class="p-3 border">144만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border">5,400만 원 초과 ~ 8,800만 원 이하</td>
+      <td class="p-3 border">24%</td>
+      <td class="p-3 border font-semibold">24%</td>
+      <td class="p-3 border">630만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border">8,800만 원 초과 ~ 1억 5,000만 원 이하</td>
+      <td class="p-3 border">35%</td>
+      <td class="p-3 border font-semibold">35%</td>
+      <td class="p-3 border">1,598만 원</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>💰 실제 세금 감소액 계산해 보기</h2>
+<p>과세표준 금액이 4,000만 원인 직장인 한현우 씨의 사례를 기준으로 세금 감소 효과를 산출해 보겠습니다.</p>
+<ul>
+  <li><strong>기존 방식 세액:</strong> (1,400만 원 × 6%) + (2,600만 원 × 15%) = 84만 원 + 390만 원 = <strong>474만 원</strong></li>
+  <li><strong>2026년 개정 방식 세액:</strong> (1,600만 원 × 6%) + (2,400만 원 × 15%) = 96만 원 + 360만 원 = <strong>456만 원</strong></li>
+  <li><strong>결과:</strong> 소득세 산출세액 기준 연간 <strong>18만 원의 결정세액이 즉시 절감</strong>되며, 주민세(지방소득세 10%) 1.8만 원을 포함하면 총 <strong>19.8만 원</strong>을 추가로 환급받게 됩니다.</li>
+</ul>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>직장인 연말정산 필수 체크 전략:</strong> 세율 구간 조정으로 세금이 줄어들더라도, 매월 급여에서 공제되는 원천징수 세액 비중을 잘못 설정하면 연말정산 때 '토해내는' 불상사가 생길 수 있습니다. 맞벌이 부부라면 **신용카드 사용액은 소득이 적은 배우자 쪽에 몰아주고, 소득공제율이 높은 체크카드와 현금영수증 비율을 30% 이상 유지**하는 기본 공식에 충족해야 절세 효과가 배가됩니다.</p>
+</div>
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<h3>세율 구간 조정은 언제부터 급여에 반영되나요?</h3>
+<p>2026년 1월 1일 이후 지급받는 근로소득(급여)부터 개정된 간이세액표에 따라 매월 원천징수되는 세금이 자동으로 조율됩니다. 따라서 1월 급여부터 실수령액이 소폭 증가하는 효과를 체감하실 수 있습니다.</p>
+<h3>연봉 8,000만 원 고소득자도 혜택을 받나요?</h3>
+<p>네, 과세표준은 누진 구조이기 때문에 5,400만 원 이하의 하위 구간 조정에 따른 혜택은 연봉 8,800만 원이 넘는 고소득 직장인들에게도 비례해서 고스란히 적용됩니다. 모든 과세 근로자의 소득세가 동일 구간 내에서 최대 약 18만 원 수준으로 인하됩니다.</p>`,
+    relatedTool: {
+      href: "/tools/tax-calculator",
+      label: "2026 이자 세금 비교 계산기",
+      desc: "개정된 과세 표준에 연동하여 예적금 만기 수령 시 15.4% 일반 과세와 저율 과세의 실제 실수령액 차이를 정밀 시뮬레이션해 드립니다.",
+      theme: "amber"
+    }
+  },
+  {
+    id: "40",
+    title: "2026년 청년 버팀목 전세자금대출 한도 확대 및 저금리 우대 조건 완벽 가이드",
+    slug: "youth-beotimmok-rent-loan-2026",
+    date: "2026-06-09",
+    summary: "청년들의 주거 안정을 돕기 위해 2026년에 추가로 확대된 청년 버팀목 전세자금대출의 최고 한도, 연 소득별 우대 금리 요건과 대출 실행 시 서류 심사 팁을 공유합니다.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    category: "saving",
+    readTime: "7분",
+    content: `<h2>청년 버팀목 전세자금대출이란 무엇인가요?</h2>
+<p>만 19세 이상 ~ 만 34세 이하 무주택 청년들의 전세보증금 마련 부담을 덜어주기 위해 **정부가 주택도시기금을 통해 연 1~2%대 초저금리로 지원**해 주는 대표적인 정책 전세대출 상품입니다. 시중 은행의 일반 전세대출 금리(연 4.5%~6.0%)에 비해 절반 이하 수준의 이자만 내면 되기 때문에 전세 집을 구하는 청년들의 필수 코스로 불립니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>💡 2026년 버팀목 대출 변경 핵심 요약</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>수도권 및 광역시 청년 전세대출 최고 한도액을 기존 2억 원에서 <strong>최대 2억 4,000만 원</strong>까지 확대 지원</li>
+    <li>대출 적용 대상 소득 요건 상향 조정: 부부합산 연 소득 기존 5,000만 원 이하 ➡️ <strong>연 6,000만 원 이하</strong>로 완화</li>
+    <li>다자녀 가구 및 청년 맞춤형 우대금리 요건 강화를 통해 실질 적용 이자율을 연 1.5%~2.1% 대 수준으로 인하</li>
+  </ul>
+</div>
+
+<h2>💰 소득별 대출 금리 적용 체계</h2>
+<p>부부합산(외벌이는 본인 기준) 연간 총소득과 보증금 액수에 따라 차등적으로 대출 기본 금리가 매겨집니다. 여기에 추가 우대 혜택을 중복 공제 적용받을 수 있습니다.</p>
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">연 소득 구간</th>
+      <th class="p-3 text-left border">임차 보증금 5천만 원 이하</th>
+      <th class="p-3 text-left border">임차 보증금 1억 원 이하</th>
+      <th class="p-3 text-left border">임차 보증금 1억 원 초과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">2,000만 원 이하</td>
+      <td class="p-3 border">연 1.8%</td>
+      <td class="p-3 border">연 1.9%</td>
+      <td class="p-3 border font-bold text-blue-600">연 2.0%</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">2,000만 원 초과 ~ 4,000만 원 이하</td>
+      <td class="p-3 border">연 2.1%</td>
+      <td class="p-3 border">연 2.2%</td>
+      <td class="p-3 border font-bold text-blue-600">연 2.3%</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">4,000만 원 초과 ~ 6,000만 원 이하</td>
+      <td class="p-3 border">연 2.4%</td>
+      <td class="p-3 border">연 2.5%</td>
+      <td class="p-3 border font-bold text-blue-600">연 2.7%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>🔍 중복 가능한 추가 우대금리 항목 (최저 연 1.0% 적용)</h2>
+<p>아래 조건에 해당하는 경우 대출 기본 금리에서 추가 차감 할인을 적용받을 수 있으며, 중복 적용하여 최종 금리가 최저 연 1.0% 이하로 내려가지는 않습니다.</p>
+<ul class="list-disc pl-5 space-y-1.5 my-3">
+  <li><strong>청년 우대금리:</strong> 만 34세 이하, 연소득 2,000만 원 이하인 무주택 단독 세대주인 청년 ➡️ <strong>연 0.5%p 인하</strong></li>
+  <li><strong>부동산 전자계약 우대:</strong> 국토부 부동산 거래 전자계약시스템을 통해 전세 계약 체결 시 ➡️ <strong>연 0.1%p 인하</strong></li>
+  <li><strong>다자녀/다문화 가구 우대:</strong> 다자녀 가구는 연 0.7%p, 다문화 및 장애인 가구는 ➡️ <strong>연 0.2%p 인하</strong></li>
+</ul>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>대출 신청 전 주의점 (HUG 보증보험 연계 필수):</strong> 대출 신청 시 보증 종류를 'HUG(주택도시보증공사) 전세금안심대출보증'과 'HF(한국주택금융공사) 전세대출보증' 중 선택해야 합니다. **HUG 보증은 해당 주택의 공시지가 및 권리관계(안전성)에 따라 한도가 나오므로 무소득 청년에게 유리**한 반면, **HF 보증은 개인의 신용도와 소득 증빙 액수를 기준으로 한도가 산정**되므로 소득이 높은 직장인에게 적합합니다. 본인의 주택 및 재무 상태를 고려해 전략적으로 선택해야 거절을 피할 수 있습니다.</p>
+</div>
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<h3>현재 소득이 없는 무직자 청년도 신청할 수 있나요?</h3>
+<p>네, 가능합니다. 주택도시기금 청년 버팀목 대출은 소득이 전혀 없는 무직 청년이라도 **HUG(주택도시보증공사)의 전세금안심대출 보증보험**을 통해 목적물(임대하려는 전세집) 심사만 통과하면 기본 최저 한도(보통 최대 1억 원 내외)까지 대출 실행이 가능합니다.</p>
+<h3>대출을 받아서 거주하던 도중 나이가 만 35세를 넘으면 즉시 상환해야 하나요?</h3>
+<p>아닙니다. 최초 가입 및 대출 실행 시점에 청년 요건(만 19~34세)을 갖췄다면 거주 및 만기 연장 시점에 연령 기준을 초과하더라도 기존 대출 조건 그대로 유지 및 재계약(최대 10년 거주)이 보장됩니다.</p>`,
+    relatedTool: {
+      href: "/tools/fit-youth",
+      label: "청년 주거지원 대상자 판별기",
+      desc: "확대된 청년 버팀목 대출의 대출 한도 자격이 주어지는지 소득 및 자산 정보를 기반으로 빠르게 시뮬레이션해 보세요.",
+      theme: "purple"
+    }
+  },
+  {
+    id: "41",
+    title: "2026년 개정 한부모가족 아동양육비 지원 자격 조건 및 지자체 추가 수당 신청 가이드",
+    slug: "single-parent-child-support-2026",
+    date: "2026-06-09",
+    summary: "2026년 여성가족부 고시에 따라 완화된 한부모가족 아동양육비 수혜 대상 기준 소득 요건과 월 지원 금액 및 신청에 필요한 핵심 구비서류 체크리스트를 공유합니다.",
+    image: "https://images.unsplash.com/photo-1484820540004-14229fe36ca4?auto=format&fit=crop&w=800&q=80",
+    category: "welfare",
+    readTime: "6분",
+    content: `<h2>2026년 한부모가족 아동양육비 지원 확대 내용</h2>
+<p>홀로 자녀를 양육하는 한부모가족의 생활 안정을 도모하고 양육 부담을 경감하기 위해 **2026년부터 아동양육비 지원 대상 소득 기준이 추가로 크게 확대**되었습니다. 소득 조건이 맞지 않아 아깝게 사각지대에 있었던 중위소득 60% 경계선 상의 많은 한부모 가구들이 새롭게 구제받을 수 있게 되었습니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>👶 2026년 한부모 아동양육비 핵심 혜택</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>지원 대상 기준 중위소득 조건 완화: 기존 중위소득 60% 이하 ➡️ <strong>중위소득 65% 이하</strong>로 범위 확장</li>
+    <li>아동양육비 지원 금액 인상: 자녀 1인당 월 21만 원 지급 ➡️ <strong>자녀 1인당 월 23만 원</strong>으로 인상 수령</li>
+    <li>만 18세 미만 아동에서 고등학교 재학 중인 자녀의 경우 졸업 월까지 연장 지급 적용</li>
+  </ul>
+</div>
+
+<h2>📋 2026년 기준 중위소득 65% 가구원수별 소득 판별 기준표</h2>
+<p>한부모가족 혜택 대상에 해당하는지 확인하기 위해서는 본인이 속한 가구의 소득 인정액(월급 + 재산 소득 환산액)이 아래 기준선 이하여야 합니다.</p>
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">가구원수 (부/모 + 자녀 수)</th>
+      <th class="p-3 text-left border">2026년 기준 중위소득 100%</th>
+      <th class="p-3 text-left border">한부모 기준선: 중위소득 65% 이하</th>
+      <th class="p-3 text-left border">청소년한부모 기준선: 중위소득 72% 이하</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold text-center">2인 가구</td>
+      <td class="p-3 border">385만 6,000원</td>
+      <td class="p-3 border font-bold text-blue-600">250만 6,400원</td>
+      <td class="p-3 border text-gray-600">277만 6,320원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold text-center">3인 가구</td>
+      <td class="p-3 border">497만 3,000원</td>
+      <td class="p-3 border font-bold text-blue-600">323만 2,450원</td>
+      <td class="p-3 border text-gray-600">358만 0,560원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold text-center">4인 가구</td>
+      <td class="p-3 border">609만 1,000원</td>
+      <td class="p-3 border font-bold text-blue-600">395만 9,150원</td>
+      <td class="p-3 border text-gray-600">438만 5,520원</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>🏡 지자체별 추가 수당 및 양육 보조비</h2>
+<p>여성가족부에서 지원하는 국비 아동양육비 외에도 **거주 중인 광역시/도 지자체 조례에 따라 추가 보조 수당을 중복하여 수령**할 수 있습니다. 예를 들어 서울시의 경우 '한부모가족 생활자립금'을 매달 가구당 10만 원씩 추가 배포하며, 경기도는 교통비 명목의 보조금을 분기별로 분할 지급하고 있습니다. 본인 주민등록 주소지 행정복지센터 복지팀을 통해 반드시 개별 지자체 수당 지급 내역을 전수 확인하시는 것이 중요합니다.</p>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>전문가 신청 가이드 (소득 산정 시 예외 사항):</strong> 소득 인정액을 계산할 때 한부모가족 자녀가 아르바이트를 하거나 단기 근로를 통해 얻은 소득은 **자녀 1인당 월 40만 원까지 전액 공제**되므로, 아이의 소득 때문에 혜택에서 누락될까 봐 미리 겁먹을 필요는 없습니다. 다만 본인의 차량 가액 산정 시 배기량 2,000cc를 초과하거나 차 값이 3,000만 원을 넘어가는 일반 승용차를 보유한 경우 재산 환산율 100%가 적용되어 자격조건에서 단번에 탈락하므로 신청 전 차량 매각이나 정리가 필요합니다.</p>
+</div>
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<h3>이혼 소송 중인데 사실상 한부모가족으로 인정받아 신청이 가능한가요?</h3>
+<p>원칙적으로는 이혼 도장이 찍힌 가족관계증명서가 필요합니다. 하지만 **소송 기간이 장기화되고 있으며 법원으로부터 임시 양육자로 지정되었음을 증명하는 서류**나 이혼 소송 소장 사본을 주민센터에 함께 첨부 제출하면 담당 공무원 확인 후 예외적으로 임시 대상자로 지정받아 아동양육비를 지급받으실 수 있습니다.</p>
+<h3>정부24에서 온라인 신청이 가능한가요?</h3>
+<p>네, 가능합니다. 정부24(gov.kr) 또는 복지로(bokjiro.go.kr)에 로그인하여 '한부모가족 지원' 항목을 통해 본인인증서로 신청서를 접수할 수 있습니다. 온라인 접수 후 보정 사항이 있을 시 주소지 동사무소에서 전화로 개별 안내해 드립니다.</p>`,
+    relatedTool: {
+      href: "/tools/child-tax-benefit",
+      label: "보육수당 자녀별 비과세 계산기",
+      desc: "지급받는 보육비, 양육수당 등에 대해 비과세 적용 기준을 분석해 가구별 실수령액을 1분 만에 시뮬레이션해 줍니다.",
+      theme: "teal"
+    }
+  },
+  {
+    id: "42",
+    title: "2026년 2학기 국가장학금 1유형 신청 방법 및 소득분위별 반값등록금 지급액 개정 총정리",
+    slug: "national-scholarship-type1-2026",
+    date: "2026-06-09",
+    summary: "한국장학재단에서 주관하는 2026년도 2학기 국가장학금 1유형의 소득구간(학자금 지원구간)별 최대 지급액과 학점 유지 요건 및 개정된 연간 한도 혜택을 상세히 풀어드립니다.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+    category: "welfare",
+    readTime: "7분",
+    content: `<h2>2026년 국가장학금 1유형 개편안 안내</h2>
+<p>대학생 자녀를 둔 가계의 교육비 부담을 획기적으로 낮추기 위해 **2026년도부터 국가장학금 지원 규모와 지원 소득 구간 한도가 크게 인상**되었습니다. 특히 8구간과 9구간에 속해 등록금 지원 혜택이 미비했던 중산층 학생들에 대한 단가가 크게 인상되어 사실상의 '반값 등록금' 혜택 대상 범위가 한 단계 도약했습니다.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 rounded-r-lg">
+  <p><strong>🎓 2026년 국가장학금 주요 개정 내역</strong></p>
+  <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-gray-700">
+    <li>학자금 지원구간 1~3구간: 기존 등록금 한도 570만 원 ➡️ <strong>연간 최대 620만 원</strong>까지 전액 수준 지원</li>
+    <li>학자금 지원구간 4~8구간: 기존 구간별 차등 금액을 상향하여 중산층 가구의 학비 감면율 평균 15%p 확대</li>
+    <li>셋째 자녀 이상 다자녀 대학생의 경우 소득분위 8구간 이하에 해당하면 ➡️ <strong>등록금 100% 전액 무상 지원</strong> 적용</li>
+  </ul>
+</div>
+
+<h2>💰 2026년도 2학기 소득구간별 국가장학금 1유형 지급 단가표</h2>
+<p>한국장학재단 학자금 지원구간(소득인정액 기준 1~10구간 중 8구간까지 지원)에 맞춰 지급되는 2학기 단독 최대 지급액 상세 내역입니다.</p>
+<table class="w-full text-sm my-6 border-collapse">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="p-3 text-left border">학자금 지원 구간</th>
+      <th class="p-3 text-left border">기준 중위소득 대비 비율</th>
+      <th class="p-3 text-left border">2학기 최대 지원 금액</th>
+      <th class="p-3 text-left border">연간 누적 최대 지원액</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3 border font-semibold">기초/차상위 가구</td>
+      <td class="p-3 border">차상위 이하</td>
+      <td class="p-3 border font-bold text-blue-600">350만 원 (의대/공대 등 전액 수준)</td>
+      <td class="p-3 border">연 700만 원 (전액)</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">1구간 ~ 3구간 이하</td>
+      <td class="p-3 border">중위소득 30% ~ 70% 이하</td>
+      <td class="p-3 border font-bold text-blue-600">310만 원</td>
+      <td class="p-3 border">연 620만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">4구간 ~ 6구간 이하</td>
+      <td class="p-3 border">중위소득 90% ~ 130% 이하</td>
+      <td class="p-3 border font-bold text-blue-600">245만 원</td>
+      <td class="p-3 border">연 490만 원</td>
+    </tr>
+    <tr>
+      <td class="p-3 border font-semibold">7구간 ~ 8구간 이하</td>
+      <td class="p-3 border">중위소득 150% ~ 200% 이하</td>
+      <td class="p-3 border font-bold text-blue-600">195만 원</td>
+      <td class="p-3 border">연 390만 원</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>✏️ 가입 및 심사 통과를 위한 성적 기준 (C학점 경고제)</h2>
+<p>국가장학금을 수령하기 위해서는 단순히 소득 요건뿐만 아니라 직전 학기의 성적 조건도 통과하셔야 합니다.</p>
+<ul class="list-disc pl-5 space-y-1.5 my-3">
+  <li><strong>일반 대학생 성적 요건:</strong> 직전 학기 이수학점 <strong>12학점 이상</strong> 취득 및 백분율 환산 <strong>80점 이상(B학점 이상)</strong> 취득이 필수 요건입니다.</li>
+  <li><strong>기초/차상위 가구 대학생:</strong> 학업 격차 해소를 위해 성적 기준을 대폭 낮춰 백분율 <strong>70점 이상(C학점 이상)</strong>만 취득하면 탈락하지 않습니다.</li>
+  <li><strong>C학점 경고제:</strong> 소득 1~3구간 가구 대학생의 경우, B학점에 미달하여 C학점(70~80점 사이)을 받더라도 재학 중 <strong>최대 2회까지는 경고 처리에 그치고 장학금이 정상 지급</strong>됩니다. 단, 3회 누적 시에는 예외 없이 지급 대상에서 탈락합니다.</li>
+</ul>
+
+<div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg">
+  <p>⚠️ <strong>재학생 신청 시 필수 유의점 (1차 신청 기한 엄수):</strong> 대학교 재학생은 반드시 **1차 신청 기간에 신청**하는 것이 원칙입니다. 2차 신청 기간에는 원래 재수생, 신입생, 복학생, 편입생 등만 신청이 허용되며, 재학생이 2차에 신청하는 경우 재학 중 **단 2회에 한해 구제신청서 제출을 거쳐 예외적으로 심사**가 인정될 뿐입니다. 기한을 놓치면 장학금을 받을 수 없으니 무조건 1차 일정(통상 2학기 기준 5월 말~6월 중순 사이 개시)을 놓치지 마세요.</p>
+</div>
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<h3>한국장학재단 학자금 지원 구간은 어떻게 산정되나요?</h3>
+<p>신청 학생 본인 및 부모(기혼자는 배우자)의 소득과 부동산, 예적금 등 자산 가액을 조사한 뒤 이를 소득으로 환산하여 중위소득 기준에 따라 1구간부터 10구간까지 매달려 공표됩니다. 조사에는 보통 4~6주의 긴 시간이 소요되므로 서둘러 신청하셔야 합니다.</p>
+<h3>휴학을 계획 중인 경우에는 어떻게 신청하나요?</h3>
+<p>휴학 예정이더라도 국가장학금은 신청하는 것이 유리합니다. 장학금이 우선 감면된 고지서로 등록금을 납부한 뒤 휴학하면 **해당 장학 금액이 복학하는 학기로 전액 이월 처리**되기 때문에 학비 손실이 발생하지 않습니다.</p>`,
+    relatedTool: {
+      href: "/tools/child-tax-benefit",
+      label: "보육수당 자녀별 비과세 계산기",
+      desc: "대학생 학비뿐만 아니라 영유아 보육 수당 개정에 따른 매월 비과세 추가 환급 세액을 1분 만에 자가 진단하세요.",
+      theme: "teal"
+    }
+  }
 ];
 
 
