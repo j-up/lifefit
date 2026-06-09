@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/app/components/Header";
-import AdSenseLazyLoader from "@/app/components/AdSenseLazyLoader";
 import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 import "./globals.css";
 
@@ -97,12 +96,17 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Google AdSense Verification Script (Statically loaded for crawler visibility) */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7832182931355116"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>
-        <AdSenseLazyLoader />
         <Script
           id="kakao-sdk"
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
