@@ -278,20 +278,6 @@ export default async function PostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
       />
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="text-xl font-bold text-blue-600">
-            LifeFit
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-gray-500 hover:text-blue-600"
-          >
-            홈으로
-          </Link>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
