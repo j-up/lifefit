@@ -15,12 +15,12 @@ export const metadata: Metadata = {
     "비상금통장 추천",
   ],
   alternates: {
-    canonical: "https://lifefit.kr/tools/short-work/parking",
+    canonical: "https://lifefit.kr/tools/parking",
   },
   openGraph: {
     title: "2026년 전국 파킹통장 금리 비교 & 내 맞춤 이자 계산기",
     description: "하루만 맡겨도 이자가 쏠쏠! 나에게 가장 높은 수익을 줄 파킹통장을 1초 만에 비교하고 확인해 보세요.",
-    url: "https://lifefit.kr/tools/short-work/parking",
+    url: "https://lifefit.kr/tools/parking",
     images: [
       {
         url: "/og-parking-bank.png", // 파킹통장 비교 서비스 고유 OG 이미지

@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // 파킹통장 경로 최적화 (SEO 301 리다이렉트)
+      {
+        source: "/tools/short-work/parking",
+        destination: "/tools/parking",
+        permanent: true,
+      },
       // www → non-www 리디렉션 (중복 도메인 방지)
       {
         source: "/:path*",

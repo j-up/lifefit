@@ -27,12 +27,51 @@ interface ParkingProduct {
 
 const PRODUCTS: ParkingProduct[] = [
   {
+    id: "ok-jjantech",
+    bank: "OK저축은행",
+    productName: "OK짠테크통장",
+    baseRate: 3.5,
+    maxRate: 7.0,
+    features: ["50만원 이하 연 7.0%", "50만원 초과분 연 3.5%", "예금자보호 5천만원"],
+    tag: "최고금리",
+    color: "#ff5e00",
+  },
+  {
+    id: "daol-ficonnect",
+    bank: "다올저축은행",
+    productName: "Fi커넥트통장",
+    baseRate: 2.8,
+    maxRate: 3.8,
+    features: ["오픈뱅킹 등록시 +1.0%p", "조건 없는 고금리", "예금자보호 5천만원"],
+    tag: "추천",
+    color: "#00b050",
+  },
+  {
+    id: "acuon-plus",
+    bank: "애큐온저축은행",
+    productName: "플러스자유예금",
+    baseRate: 3.2,
+    maxRate: 3.7,
+    features: ["마케팅동의 우대", "최대 2천만원 한도", "예금자보호 5천만원"],
+    color: "#e62e2d",
+  },
+  {
+    id: "kbank-life",
+    bank: "케이뱅크",
+    productName: "생활통장",
+    baseRate: 2.0,
+    maxRate: 3.0,
+    features: ["300만원 이하 연 3.0%", "1금융권 안정성", "이체 수수료 무료"],
+    tag: "1금융권",
+    color: "#00205b",
+  },
+  {
     id: "toss",
     bank: "토스뱅크",
-    productName: "파킹통장",
+    productName: "토스뱅크 통장",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["전액 자유입출금", "수시입출금 가능", "ATM 수수료 무료", "이체 수수료 무료"],
+    features: ["조건 없이 연 2.0% 무제한", "매일 이자 받기(일복리)", "ATM/이체 수수료 무료"],
     tag: "인기",
     color: "#0064ff",
   },
@@ -42,17 +81,17 @@ const PRODUCTS: ParkingProduct[] = [
     productName: "세이프박스",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["별도 계좌 관리", "즉시 이체 가능", "ATM 수수료 무료", "카카오톡 연동"],
+    features: ["하루만 맡겨도 연 2.0%", "계좌 속 금고 보관", "카카오톡 간편 연동"],
     tag: "인기",
     color: "#fee500",
   },
   {
-    id: "kbank",
+    id: "kbank-emergency",
     bank: "케이뱅크",
-    productName: "비상금통장",
+    productName: "비상금통장(플러스박스)",
     baseRate: 2.0,
     maxRate: 2.0,
-    features: ["1만원부터 가입", "자유로운 입출금", "ATM 수수료 무료", "이체 수수료 무료"],
+    features: ["최대 3억원 한도", "조건 없는 연 2.0%", "예금자보호 5천만원"],
     color: "#ff8700",
   },
   {
@@ -63,33 +102,6 @@ const PRODUCTS: ParkingProduct[] = [
     maxRate: 2.1,
     features: ["농협 ATM 수수료 무료", "농협카드 연계 우대", "비대면 가입 가능"],
     color: "#006241",
-  },
-  {
-    id: "ibk",
-    bank: "IBK기업은행",
-    productName: "i-ONE뱅크통장",
-    baseRate: 1.5,
-    maxRate: 2.0,
-    features: ["비대면 전용", "ATM 수수료 무료", "기업은행 카드 연계"],
-    color: "#0055a2",
-  },
-  {
-    id: "hana",
-    bank: "하나은행",
-    productName: "하나원큐통장",
-    baseRate: 1.0,
-    maxRate: 1.8,
-    features: ["주거래 우대 금리", "하나카드 연계", "비대면 가입"],
-    color: "#008375",
-  },
-  {
-    id: "woori",
-    bank: "우리은행",
-    productName: "우리-first입출금통장",
-    baseRate: 1.0,
-    maxRate: 1.7,
-    features: ["주거래 우대", "우리카드 연계", "비대면 가입"],
-    color: "#0067b3",
   },
   {
     id: "shinhan",
@@ -108,11 +120,32 @@ function formatCurrency(num: number): string {
   return new Intl.NumberFormat("ko-KR").format(Math.round(num));
 }
 
-function calcMonthlyInterest(principal: number, rate: number): number {
+function calcMonthlyInterest(principal: number, rate: number, id: string): number {
+  if (id === "ok-jjantech") {
+    // 50만 원 이하 연 7.0%, 초과 연 3.5%
+    const limit = 500_000;
+    if (principal <= limit) {
+      return (principal * 7.0) / 100 / 12;
+    } else {
+      const lowPart = (limit * 7.0) / 100 / 12;
+      const highPart = ((principal - limit) * 3.5) / 100 / 12;
+      return lowPart + highPart;
+    }
+  }
   return (principal * rate) / 100 / 12;
 }
 
-function calcYearlyInterest(principal: number, rate: number): number {
+function calcYearlyInterest(principal: number, rate: number, id: string): number {
+  if (id === "ok-jjantech") {
+    const limit = 500_000;
+    if (principal <= limit) {
+      return (principal * 7.0) / 100;
+    } else {
+      const lowPart = (limit * 7.0) / 100;
+      const highPart = ((principal - limit) * 3.5) / 100;
+      return lowPart + highPart;
+    }
+  }
   return (principal * rate) / 100;
 }
 
@@ -138,7 +171,7 @@ export default function ParkingPage() {
         list.sort((a, b) => b.maxRate - a.maxRate);
         break;
       case "baseDesc":
-        list.sort((a, b) => a.baseRate - b.baseRate);
+        list.sort((a, b) => b.baseRate - a.baseRate);
         break;
       case "nameAsc":
         list.sort((a, b) => a.bank.localeCompare(b.bank, "ko"));
@@ -149,7 +182,7 @@ export default function ParkingPage() {
 
   const maxMonthly = useMemo(() => {
     if (amount <= 0) return 0;
-    return Math.max(...sortedProducts.map((p) => calcMonthlyInterest(amount, p.maxRate)));
+    return Math.max(...sortedProducts.map((p) => calcMonthlyInterest(amount, p.maxRate, p.id)));
   }, [amount, sortedProducts]);
 
   return (
@@ -161,10 +194,10 @@ export default function ParkingPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "2026 고금리 파킹통장 금리 비교",
-            url: "https://lifefit.kr/tools/short-work/parking",
+            url: "https://lifefit.kr/tools/parking",
             applicationCategory: "FinancialApplication",
             operatingSystem: "All",
-            description: "주요 시중은행 및 인터넷은행(토스, 카카오, 케이뱅크)의 파킹통장 금리와 예상 이자를 한눈에 비교하는 도구",
+            description: "주요 시중은행 및 저축은행, 인터넷은행(토스, 카카오, 케이뱅크)의 고금리 파킹통장 금리와 예상 이자를 한눈에 비교하는 도구",
           }),
         }}
       />
@@ -184,14 +217,8 @@ export default function ParkingPage() {
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "육아기 단축근무 계산기",
-                item: "https://lifefit.kr/tools/short-work",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
                 name: "파킹통장 비교",
-                item: "https://lifefit.kr/tools/short-work/parking",
+                item: "https://lifefit.kr/tools/parking",
               },
             ],
           }),
@@ -205,14 +232,7 @@ export default function ParkingPage() {
               href="/"
               className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors"
             >
-              ← 메인으로
-            </Link>
-            <Link
-              href="/tools/short-work"
-              className="inline-flex items-center gap-1 text-sm text-[#8b95a1] hover:text-[#3182f6] transition-colors"
-            >
-              <ArrowLeft size={16} />
-              계산기로
+              ← 메인으로 돌아가기
             </Link>
           </div>
           <div className="text-center">
@@ -308,8 +328,8 @@ export default function ParkingPage() {
         {/* Product List */}
         <div className="space-y-3 mb-6">
           {sortedProducts.map((product) => {
-            const monthly = calcMonthlyInterest(amount, product.maxRate);
-            const yearly = calcYearlyInterest(amount, product.maxRate);
+            const monthly = calcMonthlyInterest(amount, product.maxRate, product.id);
+            const yearly = calcYearlyInterest(amount, product.maxRate, product.id);
             const isBest = amount > 0 && monthly === maxMonthly && maxMonthly > 0;
 
             return (
@@ -368,7 +388,7 @@ export default function ParkingPage() {
                     <div
                       className="h-full rounded-full"
                       style={{
-                        width: `${Math.min((product.maxRate / 2.5) * 100, 100)}%`,
+                        width: `${Math.min((product.maxRate / 7.0) * 100, 100)}%`,
                         backgroundColor: product.color,
                       }}
                     />
@@ -432,8 +452,8 @@ export default function ParkingPage() {
             </h3>
             <div className="space-y-3">
               {sortedProducts.slice(0, 5).map((p) => {
-                const y = calcYearlyInterest(amount, p.maxRate);
-                const m = calcMonthlyInterest(amount, p.maxRate);
+                const y = calcYearlyInterest(amount, p.maxRate, p.id);
+                const m = calcMonthlyInterest(amount, p.maxRate, p.id);
                 return (
                   <div key={p.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -442,7 +462,7 @@ export default function ParkingPage() {
                         style={{ backgroundColor: p.color }}
                       />
                       <span className="text-xs text-[#4e5968] font-medium">
-                        {p.bank}
+                        {p.bank} {p.productName}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
@@ -460,8 +480,6 @@ export default function ParkingPage() {
           </div>
         )}
 
-
-
         {/* Disclaimer */}
         <div className="rounded-2xl bg-[#fff8db] p-4 text-xs text-[#8b6a00] leading-relaxed">
           <p className="font-bold mb-1 flex items-center gap-1">
@@ -469,18 +487,19 @@ export default function ParkingPage() {
             참고 사항
           </p>
           <ul className="list-disc pl-4 space-y-0.5">
-            <li>표시된 금리는 2026년 5월 기준 대표 금리이며, 은행 정책에 따라 변동될 수 있습니다.</li>
-            <li>최고금리는 주거래·카드 연계 등 우대조건을 충족했을 때 적용되는 금리입니다.</li>
+            <li>표시된 금리는 2026년 6월 기준 대표 금리이며, 은행 정책에 따라 변동될 수 있습니다.</li>
+            <li>최고금리는 우대조건(예: 마케팅 동의, 오픈뱅킹 연동 등)을 만족하는 경우의 최대 금리입니다.</li>
+            <li>OK저축은행 OK짠테크통장은 50만 원 이하 소액 분에 대해서만 우대 이율(7.0%)이 적용되는 한도 분할 상품입니다.</li>
             <li>예상 이자는 세금(이자소득세 15.4%) 공제 전 금액입니다.</li>
-            <li>실제 가입 전 해당 은행 홈페이지나 앱에서 최신 금리와 조건을 반드시 확인하세요.</li>
+            <li>실제 가입 전 해당 금융기관 공식 채널에서 최신 금리와 약관을 반드시 확인하시기 바랍니다.</li>
           </ul>
         </div>
 
-        {/* Footer */}
+        {/* Footer Text */}
         <p className="text-center text-xs text-[#b0b8c1] mt-6 leading-relaxed">
-          본 페이지는 정보 제공을 목적으로 하며, 투자 권유가 아닙니다.
+          본 페이지는 정보 제공을 목적으로 하며, 특정 금융상품의 가입을 권유하지 않습니다.
           <br />
-          상품 가입 전 반드시 해당 금융기관의 공식 채널을 통해 확인하시기 바랍니다.
+          정확한 내용은 금융기관 공식 홈페이지를 통해 확인해 주시기 바랍니다.
         </p>
       </div>
       <Footer />

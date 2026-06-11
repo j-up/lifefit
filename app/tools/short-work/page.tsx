@@ -720,7 +720,7 @@ export default function Home() {
 
               {/* CTA */}
               <Link
-                href="/tools/short-work/parking"
+                href="/tools/parking"
                 className="block w-full py-4 rounded-2xl bg-[#00c471] text-white text-center font-bold text-sm shadow-lg shadow-green-200 hover:bg-[#00b065] transition-colors"
               >
                 정부 지원 육아수당 모으기 좋은
@@ -829,10 +829,10 @@ export default function Home() {
         {/* 하단 SEO 텍스트 (시맨틱 태그 및 가독성 최적화) */}
         <article className="mt-8 p-5 bg-white rounded-2xl border border-[#e5e8eb] text-sm text-[#4e5968] leading-relaxed">
           <h2 className="text-base font-bold text-[#191f28] mb-3">
-            2026년 고용노동부 고시 기준 육아기 근로시간 단축 급여 지급 기준 안내
+            2026년 고용노동부 고시 기준 육아기 근로시간 단축 급여 계산 안내
           </h2>
           <p className="mb-2">
-            본 계산기는 고용보험법에 명시된 <strong>2026년 최신 육아기 근로시간 단축 급여 산정 방식</strong>을 기반으로 제작되었습니다.
+            본 계산기는 고용보험법에 명시된 <strong>2026년 최신 육아기 근로시간 단축 급여 산정 방식</strong>을 기반으로 제작된 <strong>육아기 단축근무 급여 계산기</strong>입니다. 모바일과 PC에서 누구나 쉽고 정확하게 자신의 단축근무 실수령액 및 정부 지원금을 확인해 볼 수 있습니다.
           </p>
           <p className="mb-2">
             자녀가 만 12세 이하(초등학교 6학년 이하)인 근로자는 주 15시간~35시간 사이로 단축 근무를 신청할 수 있습니다. 단축 후 최초 12개월 동안은 <strong>통상임금의 100% (상한액 250만 원)</strong>를 기준으로 고용보험에서 단축된 시간만큼 비례하여 급여를 지원합니다.

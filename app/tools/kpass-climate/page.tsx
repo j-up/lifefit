@@ -267,11 +267,11 @@ export default function KPassClimatePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            name: "K-패스 vs 기후동행카드 비교 계산기",
+            name: "K패스(k패스) vs 기후동행카드 비교 계산기",
             url: "https://lifefit.kr/tools/kpass-climate",
             applicationCategory: "FinancialApplication",
             operatingSystem: "All",
-            description: "2026년 대중교통 이용 패턴에 따른 K-패스 환급액과 기후동행카드 정기권 혜택 비교 계산기",
+            description: "2026년 대중교통 이용 패턴에 따른 K패스(k패스) 환급액과 기후동행카드 정기권 혜택 비교 계산기",
           }),
         }}
       />
@@ -291,7 +291,7 @@ export default function KPassClimatePage() {
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "K-패스 vs 기후동행카드 비교 계산기",
+                name: "K패스(k패스) vs 기후동행카드 비교 계산기",
                 item: "https://lifefit.kr/tools/kpass-climate",
               },
             ],
@@ -351,7 +351,7 @@ export default function KPassClimatePage() {
             <CreditCard size={24} />
           </div>
           <h1 className="text-xl font-bold text-[#191f28] tracking-tight">
-            K-패스 vs 기후동행카드
+            K패스 vs 기후동행카드
           </h1>
           <p className="text-sm text-[#8b95a1] mt-1">
             내 이용 패턴에 맞는 최적의 대중교통 카드는?
@@ -838,16 +838,16 @@ export default function KPassClimatePage() {
         {/* 하단 세부 SEO 콘텐츠 아티클 */}
         <article className="mt-8 p-5 bg-white rounded-2xl border border-[#e5e8eb] text-sm text-[#4e5968] leading-relaxed">
           <h2 className="text-base font-bold text-[#191f28] mb-3">
-            나에게 맞는 교통카드 혜택 총정리
+            K패스(k패스) 및 기후동행카드 혜택 비교 총정리
           </h2>
           <p className="mb-2">
-            2026년 대중교통 혜택은 크게 <strong>K-패스 (K-PASS)</strong>와 <strong>기후동행카드</strong> 두 가지 축으로 양분됩니다. 대중교통비 인상으로 매월 출퇴근 고정 비용이 커지는 직장인과 학생들에게 교통카드 선택은 가계 절약의 첫걸음입니다.
+            2026년 대중교통 요금 절약의 핵심인 <strong>K패스(k패스)</strong>와 <strong>기후동행카드</strong> 혜택을 한눈에 비교해 보세요. 대중교통비 인상으로 매월 고정 교통비 부담이 커진 대학생, 청년, 직장인들에게 나에게 딱 맞는 카드를 선택하는 것이 절약의 첫걸음입니다.
           </p>
           <p className="mb-2">
-            <strong>K-패스</strong>는 지자체 관계없이 전국 모든 대중교통(GTX, 신분당선 포함)에서 매월 15회 이상 탑승 시 실지출 금액의 일정 요율(일반 20%, 청년 30%, 저소득층 53.3%)을 환급해 주는 캐시백 모델입니다. 경기도민이나 인천시민의 통근 요금에 대단히 강력합니다.
+            <strong>K패스(K-패스)</strong>는 거주 지자체에 상관없이 전국 모든 버스, 지하철, 광역철도(GTX, 신분당선 포함)에서 매월 15회 이상 대중교통을 이용할 때 실지출 금액의 일정 비율(일반 20%, 청년 30%, 저소득층 53.3%)을 현금 또는 결제 대금에서 차감 환급(페이백)해 주는 만능 카드입니다.
           </p>
           <p>
-            반면, <strong>서울 기후동행카드</strong>는 월정액을 내면 횟수 제한 없이 서울 내 대중교통을 무제한 탈 수 있는 정기권 모델입니다. 탑승 횟수가 아주 많거나, 서울 내 단거리 이동을 수시로 하는 직장인에게 최적입니다. 본 1분 비교기 도구를 활용해 매년 20만 원 이상의 차액을 아끼는 맞춤 혜택 카드를 판별해보세요.
+            반면, <strong>서울 기후동행카드</strong>는 월 정액요금(따릉이 포함 시 5.8만~6.5만 원)으로 서울 시내 대중교통을 횟수 제한 없이 무제한 이용할 수 있는 월 정기권 교통카드입니다. 대중교통 승차가 아주 잦거나 서울 안에서 자주 이동하는 생활 패턴이라면 정액권이 더 유리합니다. 본 비교기 도구를 통해 1초 만에 최적의 추천 교통카드를 찾아보세요.
           </p>
         </article>
       </div>

@@ -33,6 +33,22 @@ const MEDIAN_INCOME_2026 = {
   5: { "100%": 7030000, "150%": 10545000, "200%": 14060000 },
 };
 
+interface BankRateInfo {
+  name: string;
+  maxRate: number;
+  baseRate: number;
+  conditions: string;
+  color: string;
+}
+
+const FUTURE_SAVINGS_BANKS: BankRateInfo[] = [
+  { name: "KB국민은행", maxRate: 5.5, baseRate: 3.5, conditions: "국민카드 20만원 & 급여이체 12개월", color: "#ffbc00" },
+  { name: "우리은행", maxRate: 5.5, baseRate: 3.5, conditions: "우리원뱅킹 첫거래 & 급여이체 실적", color: "#0067b3" },
+  { name: "하나은행", maxRate: 5.4, baseRate: 3.4, conditions: "하나 합산적금 우대 & 급여이체", color: "#008375" },
+  { name: "신한은행", maxRate: 5.3, baseRate: 3.5, conditions: "신한쏠 앱 로그인 & 첫가입 우대", color: "#0046ff" },
+  { name: "토스뱅크", maxRate: 5.2, baseRate: 4.0, conditions: "자동이체 및 친구 추천 우대", color: "#0064ff" },
+];
+
 export default function FutureSavingsPage() {
   const [step, setStep] = useState<Step>(1);
 
@@ -905,6 +921,46 @@ export default function FutureSavingsPage() {
                       className="flex-1 py-2 rounded-xl bg-[#f2f4f6] text-xs font-bold text-[#4e5968] hover:bg-[#e8f3ff] hover:text-[#3182f6] transition-colors"
                     >
                       {val}%
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 은행별 금리 비교 및 연동 */}
+              <div className="pt-4 border-t border-[#f2f4f6]">
+                <label className="block text-xs font-bold text-[#4e5968] mb-2">
+                  청년미래적금 주요 은행별 금리 비교
+                </label>
+                <p className="text-[10px] text-[#8b95a1] mb-3">
+                  은행 카드를 누르면 최고 금리가 계산기에 적용됩니다.
+                </p>
+                <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
+                  {FUTURE_SAVINGS_BANKS.map((bank) => (
+                    <button
+                      key={bank.name}
+                      onClick={() => setBankRateStr(String(bank.maxRate))}
+                      className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition-all hover:bg-[#f8f9fa] ${
+                        parseFloat(bankRateStr) === bank.maxRate
+                          ? "border-[#3182f6] bg-[#e8f3ff]/40"
+                          : "border-[#e5e8eb] bg-white"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shrink-0"
+                          style={{ backgroundColor: bank.color }}
+                        >
+                          {bank.name.slice(0, 2)}
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-[#191f28]">{bank.name}</p>
+                          <p className="text-[9px] text-[#8b95a1] mt-0.5 line-clamp-1">{bank.conditions}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs font-black text-[#191f28]">최고 연 {bank.maxRate.toFixed(1)}%</span>
+                        <p className="text-[9px] text-[#8b95a1]">기본 {bank.baseRate.toFixed(1)}%</p>
+                      </div>
                     </button>
                   ))}
                 </div>
