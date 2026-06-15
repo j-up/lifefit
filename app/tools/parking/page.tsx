@@ -452,13 +452,14 @@ export default function ParkingPage() {
             const monthly = calcMonthlyInterest(amount, product.maxRate, product.id);
             const yearly = calcYearlyInterest(amount, product.maxRate, product.id);
             const isBest = amount > 0 && monthly === maxMonthly && maxMonthly > 0;
+            const isSelected = amount > 0 && product.id === simProductId;
 
             return (
               <div
                 key={product.id}
                 className={`bg-white rounded-3xl p-5 shadow-sm border transition-all ${
-                  isBest
-                    ? "border-[#00c471] ring-1 ring-[#00c471]"
+                  isSelected
+                    ? "border-[#3182f6] ring-1 ring-[#3182f6]"
                     : "border-[rgba(0,27,55,0.05)]"
                 }`}
               >
