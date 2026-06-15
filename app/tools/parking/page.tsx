@@ -305,21 +305,23 @@ export default function ParkingPage() {
               매일 이자를 즉시 받아(일복리) 재투자할 때의 이자 상승 효과를 시뮬레이션합니다.
             </p>
 
-            {/* Product Quick Select buttons */}
-            <div className="grid grid-cols-4 gap-1.5 mb-4">
-              {PRODUCTS.slice(0, 4).map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => setSimProductId(p.id)}
-                  className={`py-2 rounded-xl text-[10px] font-bold border transition-all ${
-                    simProductId === p.id
-                      ? "bg-[#3182f6] text-white border-[#3182f6] shadow-sm"
-                      : "bg-[#f2f4f6] text-[#4e5968] border-transparent"
-                  }`}
-                >
-                  {p.bank.slice(0, 4)}
-                </button>
-              ))}
+            {/* Product Select Dropdown */}
+            <div className="relative mb-4">
+              <select
+                value={simProductId}
+                onChange={(e) => setSimProductId(e.target.value)}
+                className="w-full h-12 pl-4 pr-10 rounded-2xl bg-[#f2f4f6] text-xs font-bold text-[#191f28] outline-none focus:ring-2 focus:ring-[#3182f6] appearance-none cursor-pointer"
+              >
+                {PRODUCTS.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    [{p.bank}] {p.productName} (최고 연 {p.maxRate.toFixed(1)}%)
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={16}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8b95a1] pointer-events-none"
+              />
             </div>
 
             {/* Selected Product Rate Info */}
