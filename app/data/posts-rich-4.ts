@@ -985,7 +985,7 @@ export const postsPart4: Post[] = [
     slug: "earned-income-tax-brackets-2026",
     date: "2026-06-09",
     summary: "2026년 세법 개정안 통과에 따라 조정된 직장인 근로소득세 과표구간 구조를 분석하고, 실질 세율 인하 효과와 세금을 돌려받는 절세 전략을 소개합니다.",
-    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858c?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
     category: "tax",
     readTime: "8분",
     content: `<h2>2026년 근로소득세 개정 배경과 핵심 변화</h2>
