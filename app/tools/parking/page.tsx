@@ -153,6 +153,7 @@ export default function ParkingPage() {
   const [amountStr, setAmountStr] = useState<string>("");
   const [sortKey, setSortKey] = useState<SortKey>("maxDesc");
   const [search, setSearch] = useState<string>("");
+  const [simProductId, setSimProductId] = useState<string>("toss");
 
   const amount = amountStr === "" ? 0 : parseInt(amountStr, 10) * 10_000;
 
@@ -292,6 +293,124 @@ export default function ParkingPage() {
             </div>
           )}
         </div>
+
+        {/* Daily Compound Interest Simulator */}
+        {amount > 0 && (
+          <div className="bg-white rounded-3xl p-6 shadow-sm border border-[rgba(0,27,55,0.05)] mb-4">
+            <h2 className="text-sm font-bold text-[#191f28] mb-3 flex items-center gap-1.5">
+              <span className="text-base">⚡</span>
+              매일 이자 &amp; 일복리 시뮬레이터
+            </h2>
+            <p className="text-xs text-[#8b95a1] mb-4">
+              매일 이자를 즉시 받아(일복리) 재투자할 때의 이자 상승 효과를 시뮬레이션합니다.
+            </p>
+
+            {/* Product Quick Select buttons */}
+            <div className="grid grid-cols-4 gap-1.5 mb-4">
+              {PRODUCTS.slice(0, 4).map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => setSimProductId(p.id)}
+                  className={`py-2 rounded-xl text-[10px] font-bold border transition-all ${
+                    simProductId === p.id
+                      ? "bg-[#3182f6] text-white border-[#3182f6] shadow-sm"
+                      : "bg-[#f2f4f6] text-[#4e5968] border-transparent"
+                  }`}
+                >
+                  {p.bank.slice(0, 4)}
+                </button>
+              ))}
+            </div>
+
+            {/* Selected Product Rate Info */}
+            {(() => {
+              const p = PRODUCTS.find((prod) => prod.id === simProductId) || PRODUCTS[4]; // default to Toss
+              const baseYearly = calcYearlyInterest(amount, p.maxRate, p.id);
+              const dailyBeforeTax = baseYearly / 365;
+              const dailyAfterTax = dailyBeforeTax * (1 - 0.154);
+
+              // Calculate compound vs simple for 30, 90, 180, 365 days
+              const getSimStats = (days: number) => {
+                const netDailyRate = (p.maxRate / 100 / 365) * (1 - 0.154);
+                let netDailyInterestTossComp = 0;
+                let netDailyInterestSimple = 0;
+                
+                if (p.id === "ok-jjantech") {
+                  const limit = 500000;
+                  if (amount <= limit) {
+                    const r = (7.0 / 100 / 365) * (1 - 0.154);
+                    netDailyInterestTossComp = amount * (Math.pow(1 + r, days) - 1);
+                    netDailyInterestSimple = amount * r * days;
+                  } else {
+                    const r1 = (7.0 / 100 / 365) * (1 - 0.154);
+                    const r2 = (3.5 / 100 / 365) * (1 - 0.154);
+                    const lowPartComp = limit * (Math.pow(1 + r1, days) - 1);
+                    const highPartComp = (amount - limit) * (Math.pow(1 + r2, days) - 1);
+                    netDailyInterestTossComp = lowPartComp + highPartComp;
+                    netDailyInterestSimple = (limit * r1 + (amount - limit) * r2) * days;
+                  }
+                } else {
+                  netDailyInterestTossComp = amount * (Math.pow(1 + netDailyRate, days) - 1);
+                  netDailyInterestSimple = amount * netDailyRate * days;
+                }
+
+                return {
+                  comp: Math.round(netDailyInterestTossComp),
+                  simp: Math.round(netDailyInterestSimple),
+                  diff: Math.round(netDailyInterestTossComp - netDailyInterestSimple),
+                };
+              };
+
+              const stats30 = getSimStats(30);
+              const stats90 = getSimStats(90);
+              const stats180 = getSimStats(180);
+              const stats365 = getSimStats(365);
+
+              return (
+                <div className="space-y-4">
+                  {/* Daily Earning Card */}
+                  <div className="p-4 bg-[#f8f9fa] rounded-2xl border border-gray-100 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-bold text-[#4e5968]">{p.bank} {p.productName}</p>
+                      <p className="text-[10px] text-[#8b95a1] mt-0.5">최고 금리 연 {p.maxRate.toFixed(1)}% 기준</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-bold text-[#191f28]">하루 이자 +{formatCurrency(dailyAfterTax)}원</p>
+                      <p className="text-[10px] text-[#8b95a1]">세후 (세전 {formatCurrency(dailyBeforeTax)}원)</p>
+                    </div>
+                  </div>
+
+                  {/* Compounding Comparison Table */}
+                  <div className="space-y-2.5">
+                    <h3 className="text-xs font-bold text-[#4e5968]">일복리 효과 비교</h3>
+                    <div className="rounded-2xl border border-gray-100 p-3.5 space-y-3 bg-gray-50/50">
+                      {[
+                        { label: "30일 후 (1달)", stats: stats30 },
+                        { label: "90일 후 (3달)", stats: stats90 },
+                        { label: "180일 후 (6달)", stats: stats180 },
+                        { label: "365일 후 (1년)", stats: stats365 },
+                      ].map((row, idx) => (
+                        <div key={idx} className="flex justify-between items-center text-xs">
+                          <span className="font-medium text-[#4e5968]">{row.label}</span>
+                          <div className="text-right">
+                            <span className="font-bold text-[#191f28]">세후 {formatCurrency(row.stats.comp)}원</span>
+                            <span className="text-[10px] text-green-600 ml-1.5 font-bold">
+                              {row.stats.diff > 0 ? `(+${formatCurrency(row.stats.diff)}원)` : "(복리 효과)"}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] text-blue-600 leading-relaxed font-semibold">
+                    💡 **팁**: 토스뱅크 등에서 "매일 이자 받기"를 실행하여 예치 원금에 이자가 더해지면(일복리), 일반 예금 단리 상품보다 이자가 추가로 더 많이 붙게 됩니다. 예치 원금이 클수록, 기간이 길수록 복리 효과는 극대화됩니다.
+                  </p>
+                </div>
+              );
+            })()}
+          </div>
+        )}
 
         {/* Filters */}
         <div className="bg-white rounded-3xl p-4 shadow-sm border border-[rgba(0,27,55,0.05)] mb-4 flex items-center gap-3">

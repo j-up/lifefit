@@ -126,6 +126,20 @@ export default async function Home() {
               월세지원
             </Link>
             <Link
+              href="/tools/beotimmok-loan"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-600 transition-colors hover:bg-blue-100 sm:text-sm"
+            >
+              <span className="text-base">💸</span>
+              버팀목대출
+            </Link>
+            <Link
+              href="/tools/lh-rent"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-100 sm:text-sm"
+            >
+              <span className="text-base">🏡</span>
+              LH청년전세
+            </Link>
+            <Link
               href="/tools/njob-tax"
               className="flex shrink-0 items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-600 transition-colors hover:bg-teal-100 sm:text-sm"
             >
@@ -374,6 +388,40 @@ export default async function Home() {
                   className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600"
                 >
                   비교해보기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-blue-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-blue-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
+                  청년 버팀목 전세대출 계산기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  2026 청년 버팀목 전세자금대출의 예상 한도와 소득별 이자율, 실제 월 이자를 계산해 드립니다.
+                </p>
+                <Link
+                  href="/tools/beotimmok-loan"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600"
+                >
+                  계산해보기 →
+                </Link>
+              </div>
+              <div className="group rounded-2xl border border-indigo-200 bg-white p-6 transition-all hover:shadow-md">
+                <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-bold uppercase text-indigo-600">
+                  New
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-indigo-600">
+                  LH 청년 전세임대 순위 판별기
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  복잡한 소득/자산 기준을 바탕으로 귀하의 LH 전세임대 순위와 보증금별 월 이자를 산출합니다.
+                </p>
+                <Link
+                  href="/tools/lh-rent"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600"
+                >
+                  판별해보기 →
                 </Link>
               </div>
             </div>
