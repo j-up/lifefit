@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FileText, Landmark, AlertTriangle, Copyright } from "lucide-react";
+import Footer from "@/app/components/Footer";
 
 export const metadata = {
   title: "이용약관 및 면책조항 | LifeFit",
@@ -120,9 +121,7 @@ export default function TermsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-16 border-t border-gray-100 bg-white py-8 text-center text-xs text-gray-400">
-        <p>© 2026 LifeFit. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Post } from "./posts";
 
 export const postsPart4: Post[] = [
   {
-    id: "15",
+    id: "18",
     title: "2026년 6월 고금리 파킹통장 금리 비교 및 추천 순위 TOP 5",
     slug: "parking-account-rankings-june-2026",
     date: "2026-06-02",

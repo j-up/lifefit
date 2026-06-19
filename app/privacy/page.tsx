@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShieldCheck, Mail, Cookie, UserCheck } from "lucide-react";
+import Footer from "@/app/components/Footer";
 
 export const metadata = {
   title: "개인정보처리방침 | LifeFit",
@@ -137,7 +138,7 @@ export default function PrivacyPage() {
                   <br />
                   구글을 포함한 제3자 제공업체는 사용자가 당사 웹사이트 또는 기타 웹사이트를 이전에 방문한 기록을 바탕으로 맞춤형 광고를 게재하기 위해 쿠키를 사용합니다. 구글 및 파트너사는 광고 쿠키를 사용하여 본 사이트 및 인터넷 상의 다른 사이트 방문을 토대로 사용자에게 가장 유용한 광고를 맞춤 표시합니다.
                 </p>
-                <p>
+                <div className="space-y-3">
                   <strong>다. 쿠키 설정 및 거부(개인화 광고 차단) 방법</strong>
                   <br />
                   사용자는 구글의 맞춤형 광고 게재를 비활성화하거나 차단할 권리를 가지고 있습니다.
@@ -170,7 +171,7 @@ export default function PrivacyPage() {
                       <strong>웹 브라우저 제어</strong>: 사용하는 브라우저 설정(Chrome의 경우 설정 &gt; 개인정보 및 보안 &gt; 인터넷 사용 기록 삭제 또는 쿠키 차단)을 통해 모든 쿠키 저장을 직접 제어 및 차단할 수 있습니다.
                     </li>
                   </ul>
-                </p>
+                </div>
               </div>
             </div>
           </section>
@@ -209,9 +210,7 @@ export default function PrivacyPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-16 border-t border-gray-100 bg-white py-8 text-center text-xs text-gray-400">
-        <p>© 2026 LifeFit. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

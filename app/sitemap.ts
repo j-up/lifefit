@@ -132,6 +132,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: "https://lifefit.kr/privacy",
+      lastModified: new Date("2026-05-29"),
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+    {
+      url: "https://lifefit.kr/terms",
+      lastModified: new Date("2026-05-29"),
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
     ...postRoutes,
   ];
 }

@@ -10,7 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/api/",       // API 라우트 차단
           "/admin/",     // 관리자 페이지 차단
-          "/_next/",     // Next.js 내부 파일 차단
         ],
       },
     ],
