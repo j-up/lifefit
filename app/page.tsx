@@ -3,6 +3,7 @@ import Image from "next/image";
 import { posts as staticPosts } from "@/app/data/posts";
 import SubscribeCard from "@/app/components/SubscribeCard";
 import Footer from "@/app/components/Footer";
+import MiniFinder from "@/app/components/MiniFinder";
 
 async function getDbPosts() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -173,6 +174,8 @@ export default async function Home() {
 
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        {/* 맞춤형 미니 진단기 */}
+        <MiniFinder />
         {/* Reorganized Tools Section */}
         <div id="tools" className="space-y-12 scroll-mt-24">
           {/* 실시간 인기 도구 TOP 3 Section */}

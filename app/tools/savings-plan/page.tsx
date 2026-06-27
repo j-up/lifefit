@@ -64,6 +64,54 @@ export default function SavingsPlanPage() {
     setShowToast(true);
   };
 
+  const handleIcsDownload = (schedule: { date: Date; count: number; amount: number }[], planName: string) => {
+    try {
+      let icsContent = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//LifeFit//Savings Plan//KO\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n";
+      
+      schedule.forEach((item, idx) => {
+        const d = new Date(item.date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const dateStr = `${year}${month}${day}`;
+        
+        const uid = `savings_plan_${Date.now()}_${idx}_${planName}@lifefit.kr`;
+        const now = new Date();
+        const nowYear = now.getFullYear();
+        const nowMonth = String(now.getMonth() + 1).padStart(2, '0');
+        const nowDay = String(now.getDate()).padStart(2, '0');
+        const nowHour = String(now.getHours()).padStart(2, '0');
+        const nowMin = String(now.getMinutes()).padStart(2, '0');
+        const nowSec = String(now.getSeconds()).padStart(2, '0');
+        const dtStamp = `${nowYear}${nowMonth}${nowDay}T${nowHour}${nowMin}${nowSec}Z`;
+        
+        icsContent += "BEGIN:VEVENT\r\n";
+        icsContent += `UID:${uid}\r\n`;
+        icsContent += `DTSTAMP:${dtStamp}\r\n`;
+        icsContent += `DTSTART;VALUE=DATE:${dateStr}\r\n`;
+        icsContent += `SUMMARY:[선납이연] ${idx + 1}회차 납입 (${item.count}회차분)\r\n`;
+        icsContent += `DESCRIPTION:LifeFit 선납이연 플랜 (${planName})\\n납입 금액: ${new Intl.NumberFormat('ko-KR').format(item.amount)}원\\n적금 회차: ${item.count}회차분 납입\\n서비스 바로가기: https://lifefit.kr/tools/savings-plan\r\n`;
+        icsContent += "END:VEVENT\r\n";
+      });
+      
+      icsContent += "END:VCALENDAR";
+      
+      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `lifefit_savings_plan_${planName}.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showToastNotification("📅 캘린더 파일(.ics)이 다운로드되었습니다. 실행 시 달력에 일정이 등록됩니다.");
+    } catch (err) {
+      console.error(err);
+      showToastNotification("❌ 파일 생성 중 오류가 발생했습니다.");
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("lifefit_savings_history");
@@ -703,6 +751,16 @@ export default function SavingsPlanPage() {
                           <p className="font-bold text-[#3182f6]">{formatCurrency(item.amount)}원</p>
                         </div>
                       ))}
+                      <div className="mt-4 pt-3 border-t border-gray-100">
+                        <button
+                          type="button"
+                          onClick={() => handleIcsDownload(plan.schedule, plan.name)}
+                          className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#e8f3ff] hover:bg-blue-100 text-[#3182f6] text-xs font-bold rounded-xl transition-colors border border-blue-100/50"
+                        >
+                          <Calendar size={13} />
+                          이 플랜 일정 캘린더에 추가 (ICS 다운로드)
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

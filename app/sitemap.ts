@@ -61,6 +61,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: "https://lifefit.kr/tools/savings-comparison",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://lifefit.kr/tools/child-benefits",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: "https://lifefit.kr/tools/short-work",
       lastModified: new Date(),
       changeFrequency: "monthly",

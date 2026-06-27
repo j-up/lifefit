@@ -323,6 +323,35 @@ export default async function PostPage({ params }: Props) {
               {post.summary}
             </p>
 
+            {/* Top Quick Link to Calculator */}
+            {relatedTool && themeClasses && (
+              <div className="mt-6 rounded-xl border border-gray-100 bg-gray-50/60 p-4 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${themeClasses.icon}`}>
+                    <Calculator size={18} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900">{relatedTool.label}</h4>
+                    <p className="text-xs text-gray-500">{relatedTool.desc}</p>
+                  </div>
+                </div>
+                <Link
+                  href={relatedTool.href}
+                  className={`shrink-0 rounded-lg px-3.5 py-2 text-xs font-bold text-white transition-all shadow-sm ${
+                    relatedTool.theme === "blue" ? "bg-blue-600 hover:bg-blue-700" :
+                    relatedTool.theme === "teal" ? "bg-teal-600 hover:bg-teal-700" :
+                    relatedTool.theme === "amber" ? "bg-amber-600 hover:bg-amber-700" :
+                    relatedTool.theme === "indigo" ? "bg-indigo-600 hover:bg-indigo-700" :
+                    relatedTool.theme === "rose" ? "bg-rose-600 hover:bg-rose-700" :
+                    relatedTool.theme === "emerald" ? "bg-emerald-600 hover:bg-emerald-700" :
+                    "bg-purple-600 hover:bg-purple-700"
+                  }`}
+                >
+                  계산기 가기 →
+                </Link>
+              </div>
+            )}
+
             {/* Body */}
             <div
               className="prose prose-blue mt-8 max-w-none text-gray-600"
